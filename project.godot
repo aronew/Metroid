@@ -1,0 +1,54 @@
+; Engine configuration file.
+; Cowl — vertical slice. Godot 4.6.
+
+config_version=5
+
+[application]
+
+config/name="Cowl"
+config/description="Cowl — a 2D Metroidvania. Vertical slice: movement, feel and the mansion."
+run/main_scene="res://game/main.tscn"
+config/features=PackedStringArray("4.6", "GL Compatibility")
+boot_splash/bg_color=Color(0.02, 0.015, 0.04, 1)
+boot_splash/show_image=false
+
+[autoload]
+
+InputSetup="*res://game/core/input_setup.gd"
+Game="*res://game/core/game.gd"
+Sfx="*res://game/audio/sfx.gd"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
+window/size/window_width_override=1600
+window/size/window_height_override=900
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
+[layer_names]
+
+2d_physics/layer_1="world"
+2d_physics/layer_2="oneway"
+2d_physics/layer_3="player"
+2d_physics/layer_4="enemy"
+2d_physics/layer_5="player_hurtbox"
+2d_physics/layer_6="enemy_hurtbox"
+2d_physics/layer_7="hazard"
+2d_physics/layer_8="trigger"
+
+[physics]
+
+common/physics_ticks_per_second=60
+common/physics_interpolation=true
+2d/default_gravity=0.0
+
+[rendering]
+
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
+textures/canvas_textures/default_texture_filter=1
+environment/defaults/default_clear_color=Color(0.012, 0.01, 0.022, 1)
+2d/snap/snap_2d_transforms_to_pixel=false
+anti_aliasing/quality/msaa_2d=1
