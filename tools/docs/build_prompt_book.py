@@ -33,7 +33,7 @@ DATE = "11 November 2026"
 # The shared rules, by kind of card.
 # ---------------------------------------------------------------------------
 PROJECT = ("Project: a 2D side-view Metroidvania made in Godot, set in a gothic mansion buried deep underground, swallowed by black roots, "
-           "lit by candles and filled with indigo haze. The hero is Cowl, a small charcoal shadow creature in an off-white beanie and red shorts. "
+           "lit by candles and filled with indigo haze. The hero is Cowl, a small near-black shadow creature in a worn wool beanie, a tattered indigo cape and baggy wine-red trousers. "
            "The bar is top-tier hand-painted 2D game art. These images become game assets, so the technical rules matter as much as the look.")
 
 NO_TEXT = "- No grid lines, frames, borders, labels, numbers, captions, swatches, logos, signatures or watermarks. No text of any kind."
@@ -52,11 +52,11 @@ def rules_hero(card):
         "",
         "Look",
         PAINTED,
-        "- Cowl's design and colours come from image A; his rendering matches the world's: matte charcoal with a fine grain and soft form shading, heavy knitted wool in the beanie, corduroy in the shorts. He must look like he belongs in the mansion paintings (images B and C when attached).",
+        "- Cowl's design and colours come from image A; his rendering matches the world's: matte near-black with a fine grain and soft form shading, worn fuzzy wool in the beanie, faded torn cloth in the cape, heavy gathered cotton in the trousers, a little brass. He must look like he belongs in the mansion paintings (images B and C when attached).",
         "- Ink outline, one main weight: " + card["outline"] + ".",
         "- Strict orthographic side view, like a 2D platformer: no perspective, no camera tilt, no floor plane (unless a frame says he turns toward the viewer).",
         "- Even, neutral light. No cast shadows, no ground shadows, no rim light, no glow, no bloom, no light rays: the game adds all light.",
-        "- Colour rules: Cowl's off-white, red and pale cyan are his alone. Props are muted and never brighter than his beanie.",
+        "- Colour rules: Cowl's oatmeal wool, wine red and pale cyan are his alone. Props are muted and never brighter than his beanie.",
         "",
         "Canvas",
         "- Exact canvas: " + card["canvas"] + ".",
@@ -69,13 +69,13 @@ def rules_hero(card):
 MOTION = "\n".join([
     "THE MOTION STANDARD: TOP-TIER, GROUNDED AND WEIGHTY (this matters most: stiff or cartoony sheets are rejected)",
     "- These frames play in order at 60 frames per second. The number in brackets before each frame is how many ticks (sixtieths of a second) it shows for.",
-    "- Every frame is a new drawing: no two frames on the sheet are copies, even in a held pose. In a hold something still moves: the breath, the beanie's slouch, the shorts' hems.",
+    "- Every frame is a new drawing: no two frames on the sheet are copies, even in a held pose. In a hold something still moves: the breath, the beanie's slouch, the cape's points.",
     "- In-betweens: each frame sits between its neighbours. Apart from a smear frame, no part of him moves more than about a quarter of his height from one frame to the next.",
     "- Ease in and out: frames bunch up where a motion starts and stops and spread out in its fast middle.",
     "- Weight and momentum: he has real mass. Every action starts in the hips and the planted foot and travels up through the body; he leans into speed and braces to stop; landings are absorbed through the knees.",
     "- Grounded proportions: his limbs keep their length, his hands and feet keep their size and his body keeps its volume in every frame. No rubber stretching, no ballooning, no comic squash; at most a slight compression on a hard landing.",
     "- Smears: the fastest frame of a punch, kick or flip may show the moving limb as a short motion-blurred streak along its path. Nowhere else.",
-    "- Overlap and follow-through: the beanie's slouch and the shorts' hems lag one or two frames behind his body and settle after he stops. Heavy wool, not a flag.",
+    "- Overlap and follow-through: the beanie's slouch, the cape's torn points and the baggy trousers lag one or two frames behind his body and settle after he stops. The wool is heavy and settles slowly; the cape is light and flutters.",
     "- Arcs: the head, hands, feet and the tip of the slouch travel on curves, never in straight lines (except a punch, which travels straight).",
     "- Lines of action and silhouette: every key pose has one clear curve through the body and reads if filled solid black. He never stands straight in a move.",
     "- Acting: understated. His eyes are his whole face: they narrow, widen, dim and close as each frame says, and he leads each action with a glance. No cartoon symbols for eyes.",
@@ -140,7 +140,7 @@ FX_LOCK = "\n".join([
 
 WORLD_PALETTE = [
     "- Palette: deep indigo and violet. Darks #0B0E20 and #151834, shadows #25254B, mid stone #373869 and #454076, lit stone #524D88, haze and highlights #6B609E to #8A80BE. Roots and earth near-black violet #07081A. Velvet and curtains plum #5E4182. Candle wax pale lilac.",
-    "- Reserved colours: never paint red (Cowl's shorts), pale cyan (#B8EAF8, the shadow folk's eyes) or pure white anywhere in the world, unless the request names it. Candle flames are flat pale rose (#E6A8B2) shapes. Arcane green (#BFCD5B) only where a request names it. Water is a muted blue (#566FA5).",
+    "- Reserved colours: never paint red (Cowl's trousers), pale cyan (#B8EAF8, the shadow folk's eyes) or pure white anywhere in the world, unless the request names it. Candle flames are flat pale rose (#E6A8B2) shapes. Arcane green (#BFCD5B) only where a request names it. Water is a muted blue (#566FA5).",
     "- Values: anything behind the playfield stays in the mid violets so Cowl's charcoal body reads in front of it; only the solid earth and the foreground go near-black.",
 ]
 
@@ -508,8 +508,8 @@ def swatches(items):
                      for name, hexv in items)
 
 
-HERO_SWATCHES = [("Charcoal", "#2A2A2C"), ("Charcoal shadow", "#1C1C1F"), ("Beanie", "#EBE5E1"), ("Beanie shadow", "#C4BCB6"),
-                 ("Shorts", "#933731"), ("Shorts shadow", "#6E2622"), ("Eyes", "#B8EAF8")]
+HERO_SWATCHES = [("Body", "#15151C"), ("Beanie", "#CFBBB3"), ("Beanie shadow", "#74626B"), ("Cape", "#3B3854"),
+                 ("Cape light", "#5A537A"), ("Clasp", "#815F49"), ("Trousers", "#602F37"), ("Patch", "#5E384A"), ("Eyes", "#BEEEF5")]
 WORLD_SWATCHES = [("Earth", "#07081A"), ("Darks", "#151834"), ("Shadow", "#25254B"), ("Mid stone", "#373869"),
                   ("Lit stone", "#524D88"), ("Haze", "#6B609E"), ("Plum velvet", "#5E4182"), ("Candle", "#E6A8B2"),
                   ("Sealed door", "#BFCD5B"), ("Water", "#566FA5")]
@@ -593,7 +593,8 @@ main > section, main > header { min-width: 0; display: grid; gap: 16px; align-co
 .hero { gap: 18px; }
 .banner { position: relative; border-radius: 14px; overflow: hidden; border: 1px solid var(--line); background: var(--panel); aspect-ratio: 1885 / 834; max-width: 100%; }
 .banner img { display: block; width: 100%; height: 100%; object-fit: cover; }
-.banner .cowl { position: absolute; right: 2%; bottom: 0; width: 22%; height: auto; filter: drop-shadow(0 6px 18px rgba(0,0,0,0.6)); border-radius: 10px; }
+.banner .cowl { position: absolute; right: 3%; bottom: 2%; width: auto; height: 78%; max-width: 40%; filter: drop-shadow(0 8px 22px rgba(0,0,0,0.55)); }
+.figure-cowl img { background: radial-gradient(circle at 50% 60%, #3A3768, #15183A 70%); padding: 16px; }
 .hero h1 { font-size: var(--step-4); }
 .hero .lede { font-size: var(--step-1); max-width: 62ch; color: var(--fg); }
 .meta { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -720,7 +721,7 @@ __NAV__
     <header class="hero">
       <div class="banner">
         <img src="attach/previews/banner.jpg" alt="The buried gothic mansion: four floors of candlelit rooms cut into black, root-threaded earth, in indigo haze.">
-        <img class="cowl" src="attach/previews/A-hero-mockup.jpg" alt="Cowl: a charcoal shadow creature with glowing cyan slit eyes, an oversized off-white beanie and red shorts.">
+        <img class="cowl" src="attach/previews/A-hero-mockup.png" alt="Cowl: a near-black shadow creature with glowing cyan slit eyes, a worn wool beanie, a tattered indigo cape and baggy wine-red trousers.">
       </div>
       <span class="eyebrow">Book 1 · art production · GPT-6 SOL</span>
       <h1>Cowl and the Buried Mansion</h1>
@@ -754,22 +755,23 @@ __NAV__
         <div class="lookgrid">
           <h3>Kept from your mockup</h3>
           <ul class="checks">
-            <li>The soft charcoal body with no mouth, nose or ears.</li>
+            <li>The near-black body with no mouth, nose or ears.</li>
             <li>Two glowing pale cyan slit eyes, set wide.</li>
-            <li>The oversized off-white slouchy beanie, cuff pulled low, at its drawn length.</li>
-            <li>Baggy red corduroy shorts, bare hands and feet.</li>
+            <li>The oversized worn wool beanie, cuff pulled low, with its stitched repair, at its drawn length.</li>
+            <li>The tattered indigo cape with its brass clasp.</li>
+            <li>Baggy wine-red trousers with a sash and a plum patch; bare hands and feet.</li>
             <li>Big-head proportions: the head and beanie are half his height.</li>
           </ul>
           <h3>Added for the game, without changing his design</h3>
           <ul class="checks">
-            <li><strong>Painted like the world.</strong> Matte charcoal with a fine grain and soft form shading, heavy knitted wool, corduroy: the same rendering as the mansion paintings, so he belongs in them.</li>
+            <li><strong>Painted like the world.</strong> Your new mockup already is: worn wool, torn cloth and soft form shading, the same rendering as the mansion paintings. Every card keeps it.</li>
             <li><strong>A three-quarter head in side view</strong>, so both eyes always show. They are his whole face.</li>
             <li><strong>Eight eye states</strong> (H2): the same two slits narrowing, widening, dimming and closing. No cartoon symbols.</li>
             <li><strong>Strike flares in his eye colour</strong> (F5), so his bare fists read against any wall.</li>
             <li><strong>Soot as his signature.</strong> His dust, landings, knuckle hits, death and return are all made of him.</li>
           </ul>
         </div>
-        <figure class="figure"><img src="attach/previews/A-hero-mockup.jpg" alt="Cowl's mockup, front view."><figcaption>Image A, your mockup: canon for his design and colours.</figcaption></figure>
+        <figure class="figure figure-cowl"><img src="attach/previews/A-hero-mockup.png" alt="Cowl's mockup, front view."><figcaption>Image A, your mockup: canon for his design and colours.</figcaption></figure>
       </div>
       <ul class="swatches" aria-label="Cowl's colours">
 __HERO_SWATCHES__
@@ -830,12 +832,12 @@ __TABLE__
       <h2>The motion standard</h2>
       <p>Every animation card copies these rules into its prompt. The bar is the best hand-drawn 2D games: weight you can feel, motion that starts in the hips, and nothing exaggerated for a laugh.</p>
       <ol class="steps">
-        <li><strong>Twelve to sixteen drawings a move, every one new.</strong> Even a held pose changes a little each frame: the breath, the slouch, the shorts.</li>
+        <li><strong>Twelve to sixteen drawings a move, every one new.</strong> Even a held pose changes a little each frame: the breath, the slouch, the cape.</li>
         <li><strong>In-betweens and easing.</strong> Nothing moves more than a quarter of his height between frames except on a smear; frames bunch up where motion starts and stops.</li>
         <li><strong>Weight and momentum.</strong> Actions start in the hips and the planted foot; he leans into speed, braces to stop and absorbs landings through his knees.</li>
         <li><strong>Grounded proportions.</strong> Limbs keep their length, hands and feet their size, the body its volume. No rubber stretching, no ballooning.</li>
         <li><strong>Real technique.</strong> The jab and cross are thrown like a boxer's, the kicks like a martial artist's: the power reads through the turn of the hips and shoulders.</li>
-        <li><strong>Overlap.</strong> The beanie's slouch and the shorts trail a beat behind and settle: heavy wool, not a flag.</li>
+        <li><strong>Overlap.</strong> The beanie's slouch, the cape's torn points and the baggy trousers trail a beat behind and settle: the wool heavy, the cape light.</li>
         <li><strong>Understated acting.</strong> His eyes narrow, widen, dim and close; he leads each action with a glance.</li>
         <li><strong>Responsive timing.</strong> The jump leaves on the press, the jab lands 4 ticks after it, the cross 5 and the kick 12, and any input ends an idle break.</li>
       </ol>
@@ -983,7 +985,7 @@ __GROUPS__
           <li>The eyes are the same two slits throughout, never symbols.</li>
         </ul></div>
         <div class="kv"><h3>Same Cowl</h3><ul class="checks">
-          <li>The same size, colours and details in every cell as H1: bare hands, the beanie its drawn length.</li>
+          <li>The same size, colours and details in every cell as H1: the beanie its drawn length with its repair, the cape and clasp, the trousers with sash and patch, bare hands.</li>
           <li>Soles on the ground line, body on the centre line, the beanie's top near the pink line.</li>
           <li>No glow, flame, smoke, soot, sparks or speed lines in his frames.</li>
         </ul></div>
@@ -1181,30 +1183,40 @@ SCRIPT = r"""
       g.save();
       g.translate(ox + 256, oy + 400);
       g.lineWidth = 3; g.strokeStyle = "#111114"; g.lineJoin = "round";
-      // legs
-      g.fillStyle = "#2A2A2C";
-      g.fillRect(-26, -46 + bob * 0.3, 16, 46 - bob * 0.3); g.strokeRect(-26, -46 + bob * 0.3, 16, 46 - bob * 0.3);
-      g.fillRect(8, -46 + bob * 0.3, 16, 46 - bob * 0.3); g.strokeRect(8, -46 + bob * 0.3, 16, 46 - bob * 0.3);
+      // shins and feet
+      g.fillStyle = "#15151C";
+      g.fillRect(-24, -40 + bob * 0.3, 14, 40 - bob * 0.3); g.strokeRect(-24, -40 + bob * 0.3, 14, 40 - bob * 0.3);
+      g.fillRect(8, -40 + bob * 0.3, 14, 40 - bob * 0.3); g.strokeRect(8, -40 + bob * 0.3, 14, 40 - bob * 0.3);
       g.rotate(lean * Math.PI / 180);
-      // shorts
-      g.fillStyle = "#933731";
-      g.beginPath(); g.moveTo(-40, -92 + bob); g.lineTo(40, -92 + bob); g.lineTo(48, -48 + bob); g.lineTo(-48, -48 + bob); g.closePath(); g.fill(); g.stroke();
-      // torso
-      g.fillStyle = "#2A2A2C";
-      g.beginPath(); g.ellipse(0, -112 + bob, 36, 28, 0, 0, Math.PI * 2); g.fill(); g.stroke();
+      // baggy trousers, gathered below the knee
+      g.fillStyle = "#602F37";
+      g.beginPath(); g.moveTo(-38, -96 + bob); g.lineTo(38, -96 + bob); g.quadraticCurveTo(62, -66 + bob, 30, -34 + bob);
+      g.lineTo(-30, -34 + bob); g.quadraticCurveTo(-62, -66 + bob, -38, -96 + bob); g.closePath(); g.fill(); g.stroke();
+      g.fillStyle = "#5E384A"; g.fillRect(14, -76 + bob, 16, 16);
+      // torso and sash
+      g.fillStyle = "#15151C";
+      g.beginPath(); g.ellipse(0, -114 + bob, 34, 26, 0, 0, Math.PI * 2); g.fill(); g.stroke();
+      g.fillStyle = "#3D2027"; g.fillRect(-38, -100 + bob, 76, 8);
+      // tattered cape, its points lagging
+      g.fillStyle = "#3B3854";
+      g.beginPath(); g.moveTo(-34, -138 + bob); g.lineTo(34, -138 + bob); g.lineTo(42, -104 + bob);
+      for (var k = 0; k < 6; k++) { g.lineTo(30 - k * 14 - lag * 0.4, -96 + bob + (k % 2) * 12); }
+      g.lineTo(-50 - lag * 0.6, -100 + bob); g.closePath(); g.fill(); g.stroke();
+      g.fillStyle = "#DFBB8B"; g.beginPath(); g.arc(6, -134 + bob, 4, 0, Math.PI * 2); g.fill();
       // head
-      g.beginPath(); g.ellipse(4, -168 + bob, 58, 50, 0, 0, Math.PI * 2); g.fill(); g.stroke();
+      g.fillStyle = "#15151C";
+      g.beginPath(); g.ellipse(4, -176 + bob, 60, 52, 0, 0, Math.PI * 2); g.fill(); g.stroke();
       // slouch, lagging
-      g.fillStyle = "#EBE5E1";
-      g.beginPath(); g.moveTo(-40, -214 + bob); g.quadraticCurveTo(-96 + lag, -190 + bob, -80 + lag, -138 + bob); g.quadraticCurveTo(-52, -160 + bob, -30, -180 + bob); g.closePath(); g.fill(); g.stroke();
+      g.fillStyle = "#CFBBB3";
+      g.beginPath(); g.moveTo(-40, -222 + bob); g.quadraticCurveTo(-100 + lag, -200 + bob, -84 + lag, -150 + bob); g.quadraticCurveTo(-54, -170 + bob, -30, -190 + bob); g.closePath(); g.fill(); g.stroke();
       // crown and cuff
-      g.beginPath(); g.ellipse(4, -206 + bob, 66, 40, 0, Math.PI, Math.PI * 2); g.fill(); g.stroke();
-      g.fillStyle = "#C4BCB6";
-      g.fillRect(-62, -208 + bob, 132, 24); g.strokeRect(-62, -208 + bob, 132, 24);
+      g.beginPath(); g.ellipse(4, -214 + bob, 70, 44, 0, Math.PI, Math.PI * 2); g.fill(); g.stroke();
+      g.fillStyle = "#AE968C";
+      g.fillRect(-66, -216 + bob, 140, 26); g.strokeRect(-66, -216 + bob, 140, 26);
       // eyes
-      g.fillStyle = "#B8EAF8";
+      g.fillStyle = "#BEEEF5";
       var blink = i === 7 ? 2 : 7;
-      g.fillRect(14, -172 + bob, 26, blink); g.fillRect(48, -172 + bob, 16, blink);
+      g.fillRect(14, -180 + bob, 26, blink); g.fillRect(48, -180 + bob, 16, blink);
       g.restore();
     }
     return c;
