@@ -1,0 +1,110 @@
+{
+ "bedroom": {
+  "file": "bedroom.png",
+  "size": [
+   766,
+   460
+  ],
+  "wall": [
+   0.354,
+   0.315,
+   0.54
+  ]
+ },
+ "living": {
+  "file": "living.png",
+  "size": [
+   1016,
+   531
+  ],
+  "wall": [
+   0.341,
+   0.292,
+   0.51
+  ]
+ },
+ "kitchen": {
+  "file": "kitchen.png",
+  "size": [
+   970,
+   410
+  ],
+  "wall": [
+   0.357,
+   0.314,
+   0.54
+  ]
+ },
+ "study": {
+  "file": "study.png",
+  "size": [
+   1079,
+   430
+  ],
+  "wall": [
+   0.324,
+   0.285,
+   0.51
+  ]
+ },
+ "dining": {
+  "file": "dining.png",
+  "size": [
+   888,
+   502
+  ],
+  "wall": [
+   0.428,
+   0.38,
+   0.688
+  ]
+ },
+ "storage": {
+  "file": "storage.png",
+  "size": [
+   800,
+   480
+  ],
+  "wall": [
+   0.241,
+   0.219,
+   0.45
+  ]
+ },
+ "flooded": {
+  "file": "flooded.png",
+  "size": [
+   1025,
+   530
+  ],
+  "wall": [
+   0.243,
+   0.34,
+   0.564
+  ]
+ },
+ "bedroom2": {
+  "file": "bedroom2.png",
+  "size": [
+   500,
+   255
+  ],
+  "wall": [
+   0.487,
+   0.372,
+   0.617
+  ]
+ },
+ "green_door": {
+  "file": "green_door.png",
+  "size": [
+   235,
+   405
+  ],
+  "wall": [
+   0.181,
+   0.187,
+   0.253
+  ]
+ }
+}

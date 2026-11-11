@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MovementConfig" load_steps=2 format=3]
+
+[ext_resource type="Script" path="res://game/player/movement_config.gd" id="1"]
+
+[resource]
+script = ExtResource("1")
+run_speed = 9.4
+accel_time = 0.04
+decel_time = 0.03
+turn_time = 0.02
+jump_height = 3.5
+time_to_apex = 0.31
+fall_gravity_mult = 1.8
+apex_gravity_mult = 0.75
+air_accel_time = 0.06
+air_decel_time = 0.09
+air_turn_time = 0.05
