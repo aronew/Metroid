@@ -52,7 +52,7 @@ def rules_hero(card):
         "",
         "Look",
         PAINTED,
-        "- Cowl's design and colours come from image A; his rendering matches the world's: matte near-black with a fine grain and soft form shading, worn fuzzy wool in the beanie, faded torn cloth in the cape, heavy gathered cotton in the trousers, a little brass. He must look like he belongs in the mansion paintings (images B and C when attached).",
+        "- Cowl's design and colours come from image A, painted with its textures: worn fuzzy wool, faded torn cloth, heavy cotton, a little brass, matte near-black skin.",
         "- Ink outline, one main weight: " + card["outline"] + ".",
         "- Strict orthographic side view, like a 2D platformer: no perspective, no camera tilt, no floor plane (unless a frame says he turns toward the viewer).",
         "- Even, neutral light. No cast shadows, no ground shadows, no rim light, no glow, no bloom, no light rays: the game adds all light.",
@@ -72,15 +72,16 @@ MOTION = "\n".join([
     "- Every frame is a new drawing: no two frames on the sheet are copies, even in a held pose. In a hold something still moves: the breath, the beanie's slouch, the cape's points.",
     "- In-betweens: each frame sits between its neighbours. Apart from a smear frame, no part of him moves more than about a quarter of his height from one frame to the next.",
     "- Ease in and out: frames bunch up where a motion starts and stops and spread out in its fast middle.",
-    "- Weight and momentum: he has real mass. Every action starts in the hips and the planted foot and travels up through the body; he leans into speed and braces to stop; landings are absorbed through the knees.",
-    "- Grounded proportions: his limbs keep their length, his hands and feet keep their size and his body keeps its volume in every frame. No rubber stretching, no ballooning, no comic squash; at most a slight compression on a hard landing.",
+    "- Weight: every action starts in the hips and the planted foot; he leans into speed, braces to stop and absorbs landings through the knees.",
+    "- Grounded: limbs keep their length, hands and feet their size, the body its volume. No rubber stretching, no ballooning, no comic squash.",
     "- Smears: the fastest frame of a punch, kick or flip may show the moving limb as a short motion-blurred streak along its path. Nowhere else.",
-    "- Overlap and follow-through: the beanie's slouch, the cape's torn points and the baggy trousers lag one or two frames behind his body and settle after he stops. The wool is heavy and settles slowly; the cape is light and flutters.",
-    "- Arcs: the head, hands, feet and the tip of the slouch travel on curves, never in straight lines (except a punch, which travels straight).",
-    "- Lines of action and silhouette: every key pose has one clear curve through the body and reads if filled solid black. He never stands straight in a move.",
-    "- Acting: understated. His eyes are his whole face: they narrow, widen, dim and close as each frame says, and he leads each action with a glance. No cartoon symbols for eyes.",
-    "- Attacks have five phases: a short wind-up (the clearest silhouette), a smear on release, contact at full natural extension, a follow-through, and a recovery.",
-    "- Loops: the last frame leads back into the first without a hitch, as if the sheet went round forever.",
+    "- Overlap: the beanie's slouch, the cape's torn points and the trousers lag one or two frames and settle after he stops (the wool heavy, the cape light).",
+    "- Arcs and silhouette: everything but a punch travels on curves; every key pose has one clear line of action and reads if filled solid black.",
+    "- Acting: understated. His eyes narrow, widen, dim and close as each frame says, never cartoon symbols; he leads each action with a glance.",
+    "- Contrast in timing: fast actions are a few very quick drawings into a contact or key pose that is held for a beat. The hold is what sells the impact; the speed is sold by the smear and the game's effects, not by extra in-betweens.",
+    "- His arms are very short: strikes are sold by the whole body travelling into them (a short step in, the lean, the hips and shoulders turning), never by lengthening the arm. His legs are longer, so his kicks reach further.",
+    "- Attacks have five phases: almost no wind-up on a quick strike (a short, clear one on a finisher), a smear on release, contact at full natural extension held for a beat, a follow-through, and a recovery.",
+    "- Loops: the last frame leads back into the first without a hitch.",
 ])
 
 
@@ -90,6 +91,7 @@ def sheet_anim(card):
         "SHEET RULES",
         "- Cells are %d×%d px: %d columns × %d rows. One frame per cell, left to right, top to bottom, in the order listed." % (cw, ch, cols, rows),
         "- One fixed camera, the same scale in every cell. He faces RIGHT in every cell unless a frame says otherwise.",
+        "- Near and far: facing right, his near arm and near leg are his right ones, closer to the viewer and drawn in front of his body; his far arm and leg are behind it, partly hidden. Never swap them between drawings.",
         "- " + data.PLACE + ". Moves across the room show as poses, not as travel across the cell: the game moves him.",
         "- Nothing crosses a cell edge; keep 16 px clear.",
     ])
@@ -100,6 +102,13 @@ SHEET_VIEWS = "\n".join([
     "- One view or pose per cell, left to right, top to bottom, in the order listed, all at the same scale.",
     "- In every full-body view his soles rest on the same line, y = 400 in the cell, and his body is centred on x = 256. Close-ups fill their cell.",
     "- Nothing crosses a cell edge; keep 16 px clear.",
+])
+
+GUIDE_RULES = "\n".join([
+    "POSE GUIDE (attached image G)",
+    "- Image G is a pose guide on the exact grid of this sheet: in each cell a plain grey mannequin with Cowl's proportions shows that drawing's pose, lean, placement in the cell and contact with the ground line. Its darkest limbs are the NEAR arm and leg (in front of the body); its lighter grey limbs are the FAR arm and leg (behind). The light cap is the beanie; the cyan marks show which way his eyes face.",
+    "- Follow each mannequin's pose, lean, placement and near and far limbs exactly, drawing by drawing. Never mirror it or swap the limbs.",
+    "- Draw Cowl, never the mannequin: the guide shows only the pose. Do not copy its grey colours, its flat shapes, its guide lines or its background.",
 ])
 
 HERO_LOCK = "\n".join([
@@ -241,7 +250,8 @@ def shared(card):
     if k == "model":
         parts = [rules_hero(card), cowl, SHEET_VIEWS, HERO_LOCK]
     elif k == "anim":
-        parts = [rules_hero(card), cowl, MOTION, sheet_anim(card), HERO_LOCK]
+        guided = any(a.startswith("G:") for a in card["attach"])
+        parts = [rules_hero(card), cowl, MOTION, sheet_anim(card), GUIDE_RULES if guided else "", HERO_LOCK]
     elif k == "fx":
         parts = [rules_fx(card), sheet_fx(card), FX_LOCK]
     elif k == "target":
@@ -485,7 +495,7 @@ def nav_html():
 
 
 START_NAV = [("direction", "Your direction"), ("cowl", "Cowl's look"), ("world", "The world in the game"),
-             ("cards-table", "The cards"), ("motion", "The motion standard"), ("game", "What the game adds"),
+             ("cards-table", "The cards"), ("frames", "How many frames, and why"), ("motion", "The motion standard"), ("game", "What the game adds"),
              ("contract", "The asset contract"), ("workflow", "How to use this book"), ("pack", "Images to attach"),
              ("shared", "The shared rules"), ("tester", "Sheet tester")]
 FINISH_NAV = [("checks", "Check every result"), ("fixes", "If SOL falls short"), ("after", "What happens next")]
@@ -827,6 +837,30 @@ __TABLE__
       </table></div>
     </section>
 
+
+    <section id="frames">
+      <span class="eyebrow">Start</span>
+      <h2>How many frames, and why</h2>
+      <p>Frame count is not what makes animation feel great. Past a point, more drawings only give an image model more chances to drift, and a clean eight-drawing punch beats a wobbly sixteen. What makes it feel great is responding on the press, contrast in timing, strong poses, effects that carry the speed, and the game's hit-stop and cancels. Hand-drawn games animate at about 12 to 24 drawings a second: fast motion held 1 to 3 ticks a drawing, slow motion 5 to 10. A small pixel hero gets by on 4 to 8 drawings a run; an HD hand-drawn hero like Cowl needs more.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Animation</th><th>Drawings</th><th>Held</th><th>Length</th><th>Why this many</th></tr></thead>
+        <tbody>
+          <tr><td>Idle (sway and bob)</td><td class="num">16</td><td class="num">10 ticks</td><td class="num">2.6 s loop</td><td>Small motion reads at six drawings a second; a long loop with two different sways and a blink stops it feeling mechanical. The smoke breaks are the variation every few loops.</td></tr>
+          <tr><td>Run</td><td class="num">12</td><td class="num">3 ticks</td><td class="num">0.6 s, two strides</td><td>Twenty drawings a second keeps an HD figure smooth at speed; the lean, the dip on every footfall and the trailing cape do the rest.</td></tr>
+          <tr><td>Run start, skid, turn</td><td class="num">4 · 6 · 6</td><td class="num">1–5</td><td class="num">0.1–0.3 s</td><td>Short enough never to delay control; long enough to show momentum.</td></tr>
+          <tr><td>Jump</td><td class="num">16</td><td class="num">2–4</td><td class="num">0.67 s</td><td>A two-tick take-off on the press, a fast flip on twos, a held apex, then the fall. A short hop skips the flip.</td></tr>
+          <tr><td>Fall and landings</td><td class="num">4 · 4 · 8</td><td class="num">2–6</td><td class="num">—</td><td>A small loop in the air; the heavy landing holds its crouch, and any input cancels it.</td></tr>
+          <tr><td>Jab</td><td class="num">8</td><td class="num">1 → 3 → 2–4</td><td class="num">0.28 s; hits after 3 ticks</td><td>Three one-tick drawings into a held contact. No wind-up you could see.</td></tr>
+          <tr><td>Cross</td><td class="num">8</td><td class="num">1–2 → 3 → 2–4</td><td class="num">0.3 s; hits after 4</td><td>A slight load, then the body's travel and turn sell the weight.</td></tr>
+          <tr><td>Spinning kick</td><td class="num">12</td><td class="num">1–4</td><td class="num">0.48 s; hits after 10</td><td>The turn needs drawings, and the held beat spotting the target is the finisher's tell.</td></tr>
+          <tr><td>Flying kick</td><td class="num">8</td><td class="num">1–3</td><td class="num">0.3 s; hits on 3–5</td><td>A snap into a held kick he can steer.</td></tr>
+          <tr><td>Hurt, knockdown</td><td class="num">6 · 10</td><td class="num">2–8</td><td class="num">—</td><td>The head moves first, then the body; recovery takes effort.</td></tr>
+          <tr><td>Smoke breaks</td><td class="num">12–16 each</td><td class="num">4–20</td><td class="num">1.5–2.2 s</td><td>Acting needs drawings; slow gestures are held long.</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">Sources: animation timing and the anticipation-versus-responsiveness trade-off (<a href="https://www.gamedeveloper.com/production/the-12-principles-of-animation-in-video-games">Game Developer, the 12 principles in games</a>); punches and kicks thrown with the body, the hit drawing held longer (<a href="https://www.slynyrd.com/blog/2024/11/25/pixelblog-53-punches-and-kicks">Pixelblog 53</a>); effects carrying an attack instead of in-betweens (<a href="https://tinywarriorgames.com/2019/11/22/you-dont-need-a-lot-of-animation-frames-unist-sprite-animation-study/">a sprite study of UNIST</a>); hit-stop and particles from fighting games (<a href="https://pcgamer.com/dead-cells-combat-evolved-from-tower-defense-games-and-team-fortress-2">Dead Cells' developers</a>); idle loops and variations (<a href="https://blog.animschool.edu/2024/06/14/breathing-life-into-idle-animations">AnimSchool</a>); drawing rates (<a href="https://www.gamedeveloper.com/art/animating-i-cuphead-i-the-verve-of-the-1930s-with-the-tech-of-now">Cuphead's 24 drawings a second</a>); what goes wrong when an image model draws sheets, and what helps (<a href="https://community.openai.com/t/developing-sprite-sheets-with-gpt-image-2/1379831">OpenAI developer community</a>).</p>
+    </section>
+
     <section id="motion">
       <span class="eyebrow">Start</span>
       <h2>The motion standard</h2>
@@ -839,7 +873,9 @@ __TABLE__
         <li><strong>Real technique.</strong> The jab and cross are thrown like a boxer's, the kicks like a martial artist's: the power reads through the turn of the hips and shoulders.</li>
         <li><strong>Overlap.</strong> The beanie's slouch, the cape's torn points and the baggy trousers trail a beat behind and settle: the wool heavy, the cape light.</li>
         <li><strong>Understated acting.</strong> His eyes narrow, widen, dim and close; he leads each action with a glance.</li>
-        <li><strong>Responsive timing.</strong> The jump leaves on the press, the jab lands 4 ticks after it, the cross 5 and the kick 12, and any input ends an idle break.</li>
+        <li><strong>Contrast in timing.</strong> A few very fast drawings into a contact pose held for a beat. The hold sells the impact; the smear and the effects sell the speed.</li>
+        <li><strong>Short arms, real reach.</strong> His arms are about 14% of his height, so every punch is sold by the whole body stepping in; his legs are longer, so the kicks are his strongest-reading moves.</li>
+        <li><strong>Responsive timing.</strong> The jump leaves on the press, the jab lands 3 ticks after it, the cross 4 and the kick 10, and any input ends an idle break.</li>
       </ol>
     </section>
 
@@ -857,7 +893,9 @@ __TABLE__
           <li>Smoke from F4 on the frames each card names; soot from F3 when he starts, skids and lands.</li>
         </ul></div>
         <div class="kv"><h3>Game feel</h3><ul class="checks">
-          <li>Hit-stop on contact (3 to 6 ticks), a camera kick on the cross, the kick and the heavy landing.</li>
+          <li>A small forward lunge on every strike (about a third of a tile on the jab, half on the cross), so his short arms land.</li>
+          <li>Hit-stop on contact: about 4 ticks on the jab, 6 on the cross, 9 on the kick; a camera kick on the cross, the kick and the heavy landing.</li>
+          <li>Cancel windows: the next strike can start from a strike's settle drawing; a jump or dodge can cut its recovery.</li>
           <li>When the smoke breaks play (after about 8 seconds still) and which. Any input plays the snap-out's first three drawings, then hands over.</li>
         </ul></div>
         <div class="kv"><h3>Movement and placement</h3><ul class="checks">
@@ -898,6 +936,7 @@ __TABLE__
       <ol class="steps">
         <li><strong>Attach the images the card lists.</strong> A to E and the plates are in <code>docs/art-production/attach/</code>; "approved" sheets are the ones you already made and passed.</li>
         <li><strong>Press Copy and paste the prompt into SOL.</strong> The copy includes the shared rules for its kind (shown below) unless you untick the box at the top.</li>
+        <li><strong>Make two or three takes and keep the best.</strong> Image models vary a lot from take to take; choosing beats fixing.</li>
         <li><strong>Check the result</strong> in the <a href="#tester">sheet tester</a> and against <a href="#checks">the checklist</a>. If something is off, send SOL the fix from <a href="#fixes">If SOL falls short</a>.</li>
         <li><strong>Save it under the card's file name and bring it to me.</strong> I review it, cut it, line it up and get it into the game.</li>
         <li><strong>Tick it done.</strong> Ticks are saved in this browser only.</li>
@@ -908,7 +947,7 @@ __TABLE__
     <section id="pack">
       <span class="eyebrow">Start</span>
       <h2>Images to attach</h2>
-      <p>Your three mockups, two screenshots of the game for SOL to repaint, and the nine plates the game uses now. Attach the full-size files from <code>docs/art-production/attach/</code>, not the previews on this page.</p>
+      <p>Your three mockups, two screenshots of the game for SOL to repaint, the nine plates the game uses now, and the pose guides for the run, the jump and the strikes. Attach the full-size files from <code>docs/art-production/attach/</code>, not the previews on this page.</p>
       <div class="pack" id="pack-list"></div>
     </section>
 
@@ -1082,7 +1121,7 @@ SCRIPT = r"""
     if (item) {
       return el("a", { class: "thumb", href: "#pack", title: NAMES[key] }, [
         el("img", { src: item[2], alt: "", loading: "lazy" }),
-        el("span", {}, [el("b", { text: (item[0].indexOf("P:") === 0 ? "P" : item[0]) + " " }), item[3].replace(/^Plate: /, "")])
+        el("span", {}, [el("b", { text: item[0].replace(/:.*$/, "") + " " }), item[3].replace(/^(Plate|Pose guide): /, "")])
       ]);
     }
     var target = /^[HWF]\d+$/.test(key) ? "#" + key : "#H0";
@@ -1129,7 +1168,7 @@ SCRIPT = r"""
   PACK.forEach(function (p) {
     document.getElementById("pack-list").appendChild(el("div", { class: "ref" }, [
       el("a", { href: p[1] }, [el("img", { src: p[2], alt: p[3], loading: "lazy" })]),
-      el("div", {}, [el("strong", { text: (p[0].indexOf("P:") === 0 ? "" : p[0] + ". ") + p[3] }), el("span", { text: p[4] }), el("span", {}, [el("code", { text: "docs/art-production/" + p[1] })])])
+      el("div", {}, [el("strong", { text: (p[0].indexOf(":") > 0 ? "" : p[0] + ". ") + p[3] }), el("span", { text: p[4] }), el("span", {}, [el("code", { text: "docs/art-production/" + p[1] })])])
     ]));
   });
 

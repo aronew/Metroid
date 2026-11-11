@@ -31,7 +31,7 @@ the MetroidVania repo.
   - the look: H0 turns the mockup, which is canon, to the game's side view, and H1 to H3 lock the model, eye states and key poses;
   - the sway-and-bob idle, the blunt and bong smoke breaks with a chilled idle and a snap-out;
   - the ninja run, the jump with its flip, and two landings;
-  - the jab, cross and spinning back kick, and the flying kick;
+  - the jab and cross (punches at chest height, sold by a step-in lunge) and the spinning back kick, and the flying kick;
   - hurt, death and reforming from soot, the wall grip and the stomp;
   - side-view parts for the game's cut-out rig.
 - **Effects (F1 to F5):** strike trails, hit sparks, soot, smoke, and the
@@ -40,6 +40,30 @@ the MetroidVania repo.
 The standard is grounded and top-tier: real body mechanics, limbs that keep
 their length, no comic gags, everything painted to match the mansion
 mockups. The builder refuses cards that ask for rubber stretching or gags.
+
+**Pose guides** (`attach/guides/`, made by `python3 tools/art/pose_guides.py`)
+go with the run, the jump, the jab, the cross, the spinning kick and the
+flying kick. Each is a sheet on the card's exact grid with one plain
+mannequin per cell. The mannequin has Cowl's measured proportions: the head
+and beanie about half his height, the legs a third, the arms only 14%. It
+shows the pose, the lean, the placement and the near and far limbs. Image
+models draw animation sheets with repeated poses, drift and swapped limbs;
+the guide fixes the poses before the painting. Change a pose there, rerun
+it, and rebuild the book.
+
+**Frame counts** follow the research in the book's "How many frames, and
+why" section: a few very fast drawings into a held contact, effects carrying
+the speed, and no more drawings than the motion needs.
+
+| Animation | Drawings |
+| --- | --- |
+| Idle | 16 |
+| Run | 12 |
+| Jump | 16 |
+| Jab | 8 |
+| Cross | 8 |
+| Spinning kick | 12 |
+| Flying kick | 8 |
 
 Start with W0, then W1 and W2, then the parallax and the terrain. For Cowl,
 H0 to H3, then the pilots H4 (idle), H12 (run), H14 (jump) and H16 (jab).
