@@ -33,17 +33,18 @@ func _process(delta: float) -> void:
 
 
 func _draw() -> void:
-	# The butcher's block.
+	# The knife stands in the block it fell with, blade sunk a third deep.
+	if not _taken:
+		draw_set_transform(Vector2(4, -40), 0.2, Vector2(0.4, 0.4))
+		draw_texture(KNIFE, -Vector2(50, 290))
+		draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 	draw_rect(Rect2(-46, -58, 92, 58), Pal.INK)
 	draw_rect(Rect2(-52, -66, 104, 12), Pal.INK_SOFT)
 	draw_line(Vector2(-52, -66), Vector2(52, -66), Pal.EDGE, 3.0)
 	if _taken:
 		return
-	draw_set_transform(Vector2(6, -62), PI + 0.22, Vector2(0.36, 0.36))
-	draw_texture(KNIFE, -Vector2(50, 250))
-	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
 	# A slow glint so the eye finds it.
 	var g := pow(maxf(sin(_t * 1.6), 0.0), 12.0)
-	var c := Vector2(14, -118)
+	var c := Vector2(-8, -132)
 	draw_line(c + Vector2(-26, 0) * g, c + Vector2(26, 0) * g, Color(1, 1, 1, g), 3.0, true)
 	draw_line(c + Vector2(0, -26) * g, c + Vector2(0, 26) * g, Color(1, 1, 1, g), 3.0, true)

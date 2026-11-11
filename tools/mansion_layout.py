@@ -52,8 +52,9 @@ L.fill(33, 26, 5, 2)                                # toppled wardrobe (rise 2)
 L.fill(41, 25, 7, 3)                                # the heap against the east wall
 L.carve(48, 21, 2, 4, "breach")                     # the way out is over the heap
 L.room("Cowl's bedroom", 20, 19, 28, 9, mood="bedroom")
-L.spawn = (25, F2)
-L.entity("checkpoint", 25, F2, kind="bed", w=5, h=2)
+L.spawn = (24.3, F2)
+L.entity("checkpoint", 24.3, F2, kind="bed", w=5, h=2)
+L.prop("plate:bedroom", 20.3, F2, candles=[[680, 269]])
 L.entity("hint", 21, F2, w=9, h=5, text="", when="asleep", prompt="Press any key")
 L.entity("hint", 28, F2, w=5, h=5, text="", prompt="Jump  [Space]   hold to jump higher")
 
@@ -87,7 +88,7 @@ L.entity("lift", 117, 34, w=5, top=ATT, bottom=34, start="top", kind="chandelier
 L.entity("lever", 124.5, 34, lift="chandelier", bound=True, name="V8 chandelier winch")
 L.entity("checkpoint", 119, F1, kind="rest", w=2, h=2)
 L.entity("hint", 90, F2, w=10, h=5, text="", prompt="Dodge  [Shift]")
-L.entity("front_door", 118, F1, w=8, h=9)
+L.entity("front_door", 141.2, F1, w=6, h=8.5)
 
 # --- East upper floor --------------------------------------------------------
 L.carve(150, 19, 26, 9)                             # sister's room
@@ -95,6 +96,7 @@ L.fill(159, 25, 6, 3)                               # her bed, on its side
 L.fill(170, 22, 6, 6)                               # wardrobe against the east wall
 L.carve(171, ATT, 4, 3, "hatch")                    # attic hatch: a way down, not up
 L.room("sister's room", 150, 19, 26, 9, mood="bedroom")
+L.prop("plate:bedroom2", 150.6, F2, scale=1.5, candles=[[113, 78], [432, 78]])
 door(176, F2)
 vine(176.5, F2, name="V4 sister's room to library gallery")
 
@@ -116,6 +118,7 @@ door(206, F2)
 L.carve(208, 19, 26, 9)                             # parents' bedroom
 L.fill(214, 26, 8, 2)                               # the big bed
 L.room("parents' bedroom", 208, 19, 26, 9, mood="bedroom")
+L.prop("plate:bedroom2", 221.5, F2, scale=1.55, flip=True, candles=[[113, 78], [432, 78]])
 door(234, F2)
 
 L.carve(236, 5, 10, F1 - 5)                         # east tower
@@ -143,30 +146,30 @@ L.fill(14, 39, 3, 2)                                # planter
 L.fill(18, 37, 6, 4)                                # the root that came through the glass
 L.fill(26, 39, 4, 2)                                # planter
 L.room("conservatory", 8, 31, 26, 10, tint=(60, 160, 90), mood="conservatory")
-L.entity("biome_door", 9, F1, w=3, h=5, name="overgrown door")
+L.entity("biome_door", 8.4, F1, w=3.6, h=6.3, name="overgrown door")
 door(34, F1)
 vine(34.5, F1, name="V6 kitchen to conservatory")
 
 L.carve(36, 31, 24, 10)                             # kitchen
-L.fill(38, 39, 4, 2)                                # the island counter
 L.carve(44, F1, 5, 3, "hole")                       # the floor gave way under the butcher's block
 L.carve(52, F1, 4, 3, "lift shaft")
 L.room("kitchen", 36, 31, 24, 10, mood="kitchen")
-L.entity("family", 41, F1, who="mother")
+L.prop("plate:kitchen", 36.3, F1, candles=[[785, 230]])
+L.entity("family", 42.7, F1, who="mother", painted=True)
 L.entity("lift", 52, F1, w=4, top=F1, bottom=B1, start="top", kind="dumbwaiter", name="dumbwaiter")
 L.entity("lever", 57, F1, lift="dumbwaiter", bound=True, name="V2 dumbwaiter (kitchen)")
 door(60, F1)
 
 L.carve(62, 31, 24, 10)                             # dining room
 L.fill(65, 39, 6, 2)                                # fallen ceiling, under the hole
-L.fill(74, 38, 4, 3)                                # the china cabinet
-L.fill(79, 35, 7, 2)                                # serving gallery over the east door
 L.room("dining room", 62, 31, 24, 10, mood="dining")
-L.entity("family", 71.5, F1, who="sibling")
-L.entity("hint", 81, 35, w=4, h=3, text="A place card: COWL. The seat is pushed in. Dust on the plate, thick as felt.", interact=True)
+L.prop("plate:dining", 71.2, F1, candles=[[484, 129]])
+L.entity("family", 77.3, F1, who="sibling", painted=True)
+L.entity("hint", 81, F1, w=3, h=3, text="A place card: COWL. The chair is pushed in. Dust on the plate, thick as felt.", interact=True)
 
 L.carve(150, 31, 26, 10)                            # living room
-L.fill(163, 38, 5, 3)                               # toppled bookshelf
+L.fill(165, 38, 4, 3)                               # toppled bookshelf
+L.prop("plate:living", 150.4, F1, candles=[[83, 411], [966, 365]])
 L.fill(170, 35, 6, 2)                               # mantel shelf over the east door
 L.room("living room", 150, 31, 26, 10, mood="living")
 L.entity("hint", 172, 35, w=3, h=3, text="The family portrait. Four figures. Someone has drawn a small circle above the house.", interact=True)
@@ -174,7 +177,8 @@ L.entity("hint", 172, 35, w=3, h=3, text="The family portrait. Four figures. Som
 L.carve(208, 31, 26, 10)                            # father's study
 L.carve(229, F1, 4, B2 - F1, "lift shaft")
 L.room("father's study", 208, 31, 26, 10, mood="study")
-L.entity("family", 217, F1, who="father")
+L.prop("plate:study", 209, F1, candles=[[343, 215]])
+L.entity("family", 217, F1, who="father", painted=True)
 L.entity("bookcase_door", 228, F1, w=1, h=10, name="study bookcase")
 L.entity("lift", 229, B2, w=4, top=F1, bottom=B2, start="bottom", kind="cage", name="study lift")
 L.entity("hint", 219, F1, w=6, h=4, text="His notes stop mid-word. The ink has had years to fade.", interact=True)
@@ -194,6 +198,7 @@ L.fill(68, 51, 5, 3)                                # crates
 L.fill(77, 48, 6, 6)                                # barrel rack
 L.fill(83, 51, 3, 3)                                # a keg on its far side: the way back over
 L.room("storage rooms", 62, 44, 24, 10, mood="storage")
+L.prop("plate:storage", 62.2, B1)
 L.entity("crawler", 65, B1)
 L.entity("crawler", 80, 48)
 L.carve(86, 48, 2, 6, "arch")
@@ -203,12 +208,13 @@ L.fill(98, 51, 5, 3)                                # fallen vault stone
 L.carve(116, B1, 4, 2, "trench")                    # stalagmites
 L.fill(140, 48, 8, 2)                               # high ledge and its door: a later ability
 L.room("undercroft", 88, 44, 60, 10, mood="undercroft")
+L.prop("plate:flooded", 121.5, B1)
 L.zone(88, 44, 60, 11, zoom=0.85)
 L.entity("spikes", 116, B1 + 2, w=4, h=1)
 L.entity("crawler", 108, B1)
 L.entity("crawler", 130, B1)
 L.entity("drifter", 124, 48)
-L.entity("biome_door", 144, 48, w=3, h=4, name="door on the high ledge")
+L.entity("biome_door", 144.4, 48, w=2.3, h=3.9, name="door on the high ledge")
 door(148, B1)
 vine(148.5, B1, name="V7 undercroft to workshop")
 
@@ -238,11 +244,26 @@ L.entity("lab_door", 190, B2, w=3, h=7)
 L.entity("lever", 227, B2, lift="study lift", name="study lift call (lab)")
 L.entity("checkpoint", 214, B2, kind="rest", w=2, h=2)
 
+# -------------------------------------------------------------- candlelight
+# Pools of warm light, as in the mockups: never even, always something dark between.
+for (cx, cy) in [(58, F2), (80, F2), (92, F2), (144, F2), (116, 34), (90.5, F1), (122, F1), (145, F1),
+                 (181, F2), (203, F2), (184, F1), (203, F1), (239, F2), (240, F1), (212, F2),
+                 (160, ATT), (196, ATT), (228, ATT), (15, F2), (30, F1), (12, F1),
+                 (58, F1), (64, F1), (173, F1),
+                 (38, B1), (50, B1), (84, B1), (92, B1), (106, B1), (138, B1), (152, B1), (174, B1),
+                 (180, B1), (192, B1)]:
+    L.prop("candle", cx, cy)
+for cx in (198, 210, 222):
+    L.prop("lamp", cx, B2)
+
 # ------------------------------------------------------------------ outputs
 if __name__ == "__main__":
     os.makedirs(OUT, exist_ok=True)
     os.makedirs(DOCS, exist_ok=True)
     L.export(os.path.join(OUT, "mansion.json"))
     L.draw(os.path.join(DOCS, "mansion-1-collision.png"), scale=12, title="The mansion: collision blockout")
+    # Play-scale windows: what one screen shows at four moments, Cowl to scale.
+    for name, cx, cy in [("bedroom", 34, 24), ("hallway-hole", 68, 25), ("hall-mezzanine", 118, 31), ("boiler", 194, 49)]:
+        L.draw_window(os.path.join(DOCS, "mansion-3-screen-%s.png" % name), cx, cy, scale=40)
     for k, v in L.measure().items():
         print("%-32s %s" % (k, v))

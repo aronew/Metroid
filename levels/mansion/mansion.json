@@ -4,7 +4,7 @@
  "w": 256,
  "h": 76,
  "spawn": [
-  25,
+  24.3,
   28
  ],
  "solids": [
@@ -243,12 +243,6 @@
    1
   ],
   [
-   86,
-   31,
-   2,
-   4
-  ],
-  [
    176,
    31,
    2,
@@ -262,6 +256,12 @@
   ],
   [
    34,
+   31,
+   2,
+   6
+  ],
+  [
+   86,
    31,
    2,
    6
@@ -289,12 +289,6 @@
    31,
    2,
    6
-  ],
-  [
-   79,
-   35,
-   9,
-   2
   ],
   [
    170,
@@ -327,12 +321,6 @@
    4
   ],
   [
-   74,
-   38,
-   4,
-   3
-  ],
-  [
    189,
    38,
    10,
@@ -345,16 +333,10 @@
    3
   ],
   [
-   163,
+   165,
    38,
-   5,
-   3
-  ],
-  [
-   38,
-   39,
    4,
-   2
+   3
   ],
   [
    26,
@@ -935,7 +917,7 @@
   },
   {
    "type": "checkpoint",
-   "x": 25,
+   "x": 24.3,
    "y": 28,
    "kind": "bed",
    "w": 5,
@@ -998,10 +980,10 @@
   },
   {
    "type": "front_door",
-   "x": 118,
+   "x": 141.2,
    "y": 41,
-   "w": 8,
-   "h": 9
+   "w": 6,
+   "h": 8.5
   },
   {
    "type": "vine",
@@ -1055,10 +1037,10 @@
   },
   {
    "type": "biome_door",
-   "x": 9,
+   "x": 8.4,
    "y": 41,
-   "w": 3,
-   "h": 5,
+   "w": 3.6,
+   "h": 6.3,
    "name": "overgrown door"
   },
   {
@@ -1071,9 +1053,10 @@
   },
   {
    "type": "family",
-   "x": 41,
+   "x": 42.7,
    "y": 41,
-   "who": "mother"
+   "who": "mother",
+   "painted": true
   },
   {
    "type": "lift",
@@ -1096,17 +1079,18 @@
   },
   {
    "type": "family",
-   "x": 71.5,
+   "x": 77.3,
    "y": 41,
-   "who": "sibling"
+   "who": "sibling",
+   "painted": true
   },
   {
    "type": "hint",
    "x": 81,
-   "y": 35,
-   "w": 4,
+   "y": 41,
+   "w": 3,
    "h": 3,
-   "text": "A place card: COWL. The seat is pushed in. Dust on the plate, thick as felt.",
+   "text": "A place card: COWL. The chair is pushed in. Dust on the plate, thick as felt.",
    "interact": true
   },
   {
@@ -1122,7 +1106,8 @@
    "type": "family",
    "x": 217,
    "y": 41,
-   "who": "father"
+   "who": "father",
+   "painted": true
   },
   {
    "type": "bookcase_door",
@@ -1217,10 +1202,10 @@
   },
   {
    "type": "biome_door",
-   "x": 144,
+   "x": 144.4,
    "y": 48,
-   "w": 3,
-   "h": 4,
+   "w": 2.3,
+   "h": 3.9,
    "name": "door on the high ledge"
   },
   {
@@ -1295,6 +1280,294 @@
    "h": 2
   }
  ],
- "props": [],
+ "props": [
+  {
+   "sprite": "plate:bedroom",
+   "x": 20.3,
+   "y": 28,
+   "candles": [
+    [
+     680,
+     269
+    ]
+   ]
+  },
+  {
+   "sprite": "plate:bedroom2",
+   "x": 150.6,
+   "y": 28,
+   "scale": 1.5,
+   "candles": [
+    [
+     113,
+     78
+    ],
+    [
+     432,
+     78
+    ]
+   ]
+  },
+  {
+   "sprite": "plate:bedroom2",
+   "x": 221.5,
+   "y": 28,
+   "scale": 1.55,
+   "flip": true,
+   "candles": [
+    [
+     113,
+     78
+    ],
+    [
+     432,
+     78
+    ]
+   ]
+  },
+  {
+   "sprite": "plate:kitchen",
+   "x": 36.3,
+   "y": 41,
+   "candles": [
+    [
+     785,
+     230
+    ]
+   ]
+  },
+  {
+   "sprite": "plate:dining",
+   "x": 71.2,
+   "y": 41,
+   "candles": [
+    [
+     484,
+     129
+    ]
+   ]
+  },
+  {
+   "sprite": "plate:living",
+   "x": 150.4,
+   "y": 41,
+   "candles": [
+    [
+     83,
+     411
+    ],
+    [
+     966,
+     365
+    ]
+   ]
+  },
+  {
+   "sprite": "plate:study",
+   "x": 209,
+   "y": 41,
+   "candles": [
+    [
+     343,
+     215
+    ]
+   ]
+  },
+  {
+   "sprite": "plate:storage",
+   "x": 62.2,
+   "y": 54
+  },
+  {
+   "sprite": "plate:flooded",
+   "x": 121.5,
+   "y": 54
+  },
+  {
+   "sprite": "candle",
+   "x": 58,
+   "y": 28
+  },
+  {
+   "sprite": "candle",
+   "x": 80,
+   "y": 28
+  },
+  {
+   "sprite": "candle",
+   "x": 92,
+   "y": 28
+  },
+  {
+   "sprite": "candle",
+   "x": 144,
+   "y": 28
+  },
+  {
+   "sprite": "candle",
+   "x": 116,
+   "y": 34
+  },
+  {
+   "sprite": "candle",
+   "x": 90.5,
+   "y": 41
+  },
+  {
+   "sprite": "candle",
+   "x": 122,
+   "y": 41
+  },
+  {
+   "sprite": "candle",
+   "x": 145,
+   "y": 41
+  },
+  {
+   "sprite": "candle",
+   "x": 181,
+   "y": 28
+  },
+  {
+   "sprite": "candle",
+   "x": 203,
+   "y": 28
+  },
+  {
+   "sprite": "candle",
+   "x": 184,
+   "y": 41
+  },
+  {
+   "sprite": "candle",
+   "x": 203,
+   "y": 41
+  },
+  {
+   "sprite": "candle",
+   "x": 239,
+   "y": 28
+  },
+  {
+   "sprite": "candle",
+   "x": 240,
+   "y": 41
+  },
+  {
+   "sprite": "candle",
+   "x": 212,
+   "y": 28
+  },
+  {
+   "sprite": "candle",
+   "x": 160,
+   "y": 16
+  },
+  {
+   "sprite": "candle",
+   "x": 196,
+   "y": 16
+  },
+  {
+   "sprite": "candle",
+   "x": 228,
+   "y": 16
+  },
+  {
+   "sprite": "candle",
+   "x": 15,
+   "y": 28
+  },
+  {
+   "sprite": "candle",
+   "x": 30,
+   "y": 41
+  },
+  {
+   "sprite": "candle",
+   "x": 12,
+   "y": 41
+  },
+  {
+   "sprite": "candle",
+   "x": 58,
+   "y": 41
+  },
+  {
+   "sprite": "candle",
+   "x": 64,
+   "y": 41
+  },
+  {
+   "sprite": "candle",
+   "x": 173,
+   "y": 41
+  },
+  {
+   "sprite": "candle",
+   "x": 38,
+   "y": 54
+  },
+  {
+   "sprite": "candle",
+   "x": 50,
+   "y": 54
+  },
+  {
+   "sprite": "candle",
+   "x": 84,
+   "y": 54
+  },
+  {
+   "sprite": "candle",
+   "x": 92,
+   "y": 54
+  },
+  {
+   "sprite": "candle",
+   "x": 106,
+   "y": 54
+  },
+  {
+   "sprite": "candle",
+   "x": 138,
+   "y": 54
+  },
+  {
+   "sprite": "candle",
+   "x": 152,
+   "y": 54
+  },
+  {
+   "sprite": "candle",
+   "x": 174,
+   "y": 54
+  },
+  {
+   "sprite": "candle",
+   "x": 180,
+   "y": 54
+  },
+  {
+   "sprite": "candle",
+   "x": 192,
+   "y": 54
+  },
+  {
+   "sprite": "lamp",
+   "x": 198,
+   "y": 66
+  },
+  {
+   "sprite": "lamp",
+   "x": 210,
+   "y": 66
+  },
+  {
+   "sprite": "lamp",
+   "x": 222,
+   "y": 66
+  }
+ ],
  "labels": []
 }

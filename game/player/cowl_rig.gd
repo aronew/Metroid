@@ -222,6 +222,8 @@ func _on_dodge(_dir: int) -> void:
 
 # ====================================================================== frame
 func _process(delta: float) -> void:
+	# A long frame must not blow the springs up.
+	delta = minf(delta, 1.0 / 30.0)
 	_t += delta
 	_land_time += delta
 	_turn_time += delta
@@ -450,11 +452,11 @@ func _pose_dodge(p: Pose) -> Pose:
 func _pose_wake(p: Pose) -> Pose:
 	# 0: asleep on the bed. Then: eyes open, sit up, swing off, land.
 	var w := _cowl.wake_progress
-	var bed := -150.0                   # mattress height, rig units
+	var bed := -285.0                   # the mattress in the bedroom plate, rig units
 	if w <= 0.0:
 		p.lean = -PI * 0.5
 		p.hip_y = bed
-		p.hip_x = 40.0
+		p.hip_x = 60.0
 		p.arm_f = 0.25
 		p.arm_b = -0.2
 		p.head_rot = 0.12
@@ -464,7 +466,7 @@ func _pose_wake(p: Pose) -> Pose:
 	var off := smoothstep(0.62, 0.95, w)
 	p.lean = lerpf(-PI * 0.5, -0.18, sit) * (1.0 - off)
 	p.hip_y = bed * (1.0 - off) - sin(off * PI) * 46.0
-	p.hip_x = lerpf(40.0, 0.0, off)
+	p.hip_x = lerpf(60.0, 0.0, off)
 	p.head_rot = lerpf(0.12, 0.3, sit) * (1.0 - off)
 	p.arm_f = lerpf(0.25, -0.9, sit) * (1.0 - off) - 1.2 * sin(off * PI)
 	p.arm_b = lerpf(-0.2, 0.7, sit) * (1.0 - off) + 1.0 * sin(off * PI)

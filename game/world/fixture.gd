@@ -23,28 +23,33 @@ var who := ""
 var w := 64.0
 var h := 128.0
 var _t := 0.0
+var painted := false       # already in the room's painted plate: do not draw
 var _sprite: Sprite2D
 
 
 func configure(spec: Dictionary) -> void:
 	kind = spec["type"]
 	who = spec.get("who", "")
+	painted = spec.get("painted", false)
 	w = float(spec.get("w", 1)) * Game.TILE
 	h = float(spec.get("h", 2)) * Game.TILE
 
 
 func _ready() -> void:
-	z_index = 4
+	# Doors belong to the back wall; they sit behind the house's ink.
+	z_index = -20 if kind in ["front_door", "garage_door", "biome_door", "lab_door"] else 4
 	if kind != "glint":
 		add_to_group(&"interactable")
-	var key := who if kind == "family" else kind
-	var path := "res://assets/props/%s.png" % key
-	if ResourceLoader.exists(path):
+	if kind == "biome_door":
+		# The glowing door from the mockup, scaled to this doorway.
 		_sprite = Sprite2D.new()
-		_sprite.texture = load(path)
+		_sprite.texture = load("res://assets/plates/green_door.png")
 		_sprite.centered = false
+		_sprite.show_behind_parent = true
 		var size := _sprite.texture.get_size()
-		_sprite.position = Vector2((w - size.x) * 0.5 if kind != "family" else -size.x * 0.5, -size.y)
+		var s := h / size.y
+		_sprite.scale = Vector2(s, s)
+		_sprite.position = Vector2((w - size.x * s) * 0.5, -h)
 		add_child(_sprite)
 
 
@@ -80,15 +85,16 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	match kind:
 		"family":
-			if _sprite == null:
+			if not painted:
 				_draw_figure()
 			# Time has stopped on them: a thin, slow shimmer.
 			for i in 3:
 				var y := -30.0 - 50.0 * i + sin(_t * 0.5 + i) * 6.0
 				draw_arc(Vector2(0, y), 46.0 + 6.0 * i, 0.3 + _t * 0.1, 1.5 + _t * 0.1, 12, Color(Pal.EYES.r, Pal.EYES.g, Pal.EYES.b, 0.07), 2.0)
 		"biome_door":
-			if _sprite == null:
-				_draw_arch_door(Pal.GREEN)
+			var pulse := 0.6 + sin(_t * 1.4) * 0.2
+			for i in 4:
+				draw_circle(Vector2(w * 0.55, -h * 0.3), 50.0 + i * 44.0, Color(Pal.GREEN.r, Pal.GREEN.g, Pal.GREEN.b, 0.03 * pulse))
 		"lab_door":
 			_draw_vault()
 		"crack":
@@ -100,14 +106,44 @@ func _draw() -> void:
 			draw_line(Vector2(0, -30 - 18 * g), Vector2(0, -30 + 18 * g), Color(1, 1, 1, g), 2.0)
 			draw_circle(Vector2(0, -30), 3.0, Color(0.9, 0.95, 1.0, 0.8))
 		"front_door":
-			if _sprite == null:
-				_draw_arch_door(Color(0, 0, 0, 0))
+			_draw_front_door()
 		"garage_door":
 			draw_rect(Rect2(0, -h, w, h), Pal.INK_SOFT)
 			for i in 9:
 				var y := -h + i * h / 9.0
 				draw_line(Vector2(0, y), Vector2(w, y + sin(i * 0.9) * 10.0), Pal.INK, 4.0)
 			draw_rect(Rect2(-8, -h - 10, w + 16, 14), Pal.INK)
+
+
+func _draw_front_door() -> void:
+	# Double doors under a pointed arch, with the earth that has come in round them.
+	var frame := Color(0.07, 0.065, 0.15)
+	var leaf := Color(0.12, 0.11, 0.24)
+	var pts := PackedVector2Array([Vector2(0, 0), Vector2(0, -h * 0.55)])
+	for i in 11:
+		var f := i / 10.0
+		pts.append(Vector2(w * 0.5 - cos(f * PI) * w * 0.5, -h * 0.55 - sin(f * PI) * h * 0.45))
+	pts.append(Vector2(w, 0))
+	draw_colored_polygon(pts, frame)
+	var inner := PackedVector2Array()
+	for p in pts:
+		inner.append(Vector2(w * 0.5, 0) + (p - Vector2(w * 0.5, 0)) * 0.84)
+	draw_colored_polygon(inner, leaf)
+	draw_line(Vector2(w * 0.5, 0), Vector2(w * 0.5, -h * 0.82), frame, 6.0)
+	for i in 4:
+		var y := -h * (0.12 + 0.17 * i)
+		draw_line(Vector2(w * 0.1, y), Vector2(w * 0.9, y), Color(frame.r, frame.g, frame.b, 0.8), 4.0)
+	# packed earth and roots
+	var rng := RandomNumberGenerator.new()
+	rng.seed = 11
+	draw_colored_polygon(PackedVector2Array([Vector2(-40, 0), Vector2(w * 0.2, -h * 0.3), Vector2(w * 0.55, -h * 0.12), Vector2(w * 0.8, -h * 0.26), Vector2(w + 40, 0)]), Pal.INK)
+	for i in 7:
+		var p := Vector2(rng.randf() * w, -h * rng.randf_range(0.5, 1.0))
+		var line := PackedVector2Array([p])
+		for k in 7:
+			p += Vector2(rng.randf_range(-36, 36), rng.randf_range(40, 90))
+			line.append(p)
+		draw_polyline(line, Pal.INK, rng.randf_range(5.0, 14.0), true)
 
 
 func _draw_figure() -> void:
