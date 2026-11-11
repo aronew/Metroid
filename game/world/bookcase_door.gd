@@ -44,15 +44,10 @@ func _physics_process(delta: float) -> void:
 		queue_redraw()
 
 
+## Kit art (W33): the narrow bookcase. Opening, it slides up into the wall.
 func _draw() -> void:
-	# Seen edge-on it is a tall slab of shelves; opening, it slides up into the wall.
 	var lift := ease(_open, 0.4) * (h - 20.0)
-	var r := Rect2(0, -h - lift, w, h)
-	draw_rect(r, Pal.INK)
-	var shelves := 8
-	for i in shelves:
-		var y := r.position.y + 18.0 + i * (h - 30.0) / shelves
-		draw_line(Vector2(4, y), Vector2(w - 4, y), Pal.EDGE, 2.0)
-		for k in 4:
-			var bx := 7.0 + k * (w - 14.0) / 4.0
-			draw_rect(Rect2(bx, y + 6.0, (w - 14.0) / 4.0 - 3.0, (h - 30.0) / shelves - 12.0), Color(Pal.HAZE.r, Pal.HAZE.g, Pal.HAZE.b, 0.35 + 0.12 * ((i + k) % 3)))
+	var t := Kit.tex("doors/bookcase_door")
+	if t == null:
+		return
+	draw_texture_rect(t, Rect2(-6.0, -h - lift, w + 12.0, h), false)

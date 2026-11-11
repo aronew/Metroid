@@ -24,7 +24,6 @@ var w := 64.0
 var h := 128.0
 var _t := 0.0
 var painted := false       # already in the room's painted plate: do not draw
-var _sprite: Sprite2D
 
 
 func configure(spec: Dictionary) -> void:
@@ -35,22 +34,28 @@ func configure(spec: Dictionary) -> void:
 	h = float(spec.get("h", 2)) * Game.TILE
 
 
+## Kit art for each fixture (W32 sealed doors, W33 secret pieces), fitted to
+## the rectangle the level gives it.
+const ART := {
+	"front_door": "doors/front_door", "garage_door": "doors/garage_shutter",
+	"lab_door": "doors/lab_vault", "crack": "doors/cracked_floor",
+}
+
+
 func _ready() -> void:
-	# Doors belong to the back wall; they sit behind the house's ink.
+	# Doors belong to the back wall: behind the house's ink edges. The cracked
+	# floor is part of the floor, so it sits over the ink.
 	z_index = -20 if kind in ["front_door", "garage_door", "biome_door", "lab_door"] else 4
+	if kind == "crack":
+		z_index = 3
 	if kind != "glint":
 		add_to_group(&"interactable")
+
+
+func _art_key() -> String:
 	if kind == "biome_door":
-		# The glowing door from the mockup, scaled to this doorway.
-		_sprite = Sprite2D.new()
-		_sprite.texture = load("res://assets/plates/green_door.png")
-		_sprite.centered = false
-		_sprite.show_behind_parent = true
-		var size := _sprite.texture.get_size()
-		var s := h / size.y
-		_sprite.scale = Vector2(s, s)
-		_sprite.position = Vector2((w - size.x * s) * 0.5, -h)
-		add_child(_sprite)
+		return "doors/green_door" if h >= 5.0 * Game.TILE else "doors/green_door_small"
+	return ART.get(kind, "")
 
 
 func _centre() -> Vector2:
@@ -83,6 +88,14 @@ func _process(delta: float) -> void:
 
 
 func _draw() -> void:
+	var key := _art_key()
+	if key != "":
+		var t := Kit.tex(key)
+		if kind == "crack":
+			# its walking top on the floor line, the cracks running down into the slab
+			draw_texture_rect(t, Rect2(0, -6, w, t.get_height() * w / t.get_width()), false, Color(0.7, 0.68, 0.8))
+		else:
+			draw_texture_rect(t, Rect2(0, -h, w, h), false)
 	match kind:
 		"family":
 			if not painted:
@@ -92,58 +105,22 @@ func _draw() -> void:
 				var y := -30.0 - 50.0 * i + sin(_t * 0.5 + i) * 6.0
 				draw_arc(Vector2(0, y), 46.0 + 6.0 * i, 0.3 + _t * 0.1, 1.5 + _t * 0.1, 12, Color(Pal.EYES.r, Pal.EYES.g, Pal.EYES.b, 0.07), 2.0)
 		"biome_door":
+			# light from the other side, under and around the door
 			var pulse := 0.6 + sin(_t * 1.4) * 0.2
 			for i in 4:
-				draw_circle(Vector2(w * 0.55, -h * 0.3), 50.0 + i * 44.0, Color(Pal.GREEN.r, Pal.GREEN.g, Pal.GREEN.b, 0.03 * pulse))
+				draw_circle(Vector2(w * 0.5, -h * 0.3), 50.0 + i * 44.0, Color(Pal.GREEN.r, Pal.GREEN.g, Pal.GREEN.b, 0.03 * pulse))
 		"lab_door":
-			_draw_vault()
-		"crack":
-			_draw_crack()
+			# the empty socket, faintly alive
+			var pulse := 0.5 + sin(_t * 1.1) * 0.25
+			var c := Vector2(w * 0.5, -h * 0.5)
+			for i in 3:
+				draw_circle(c, 30.0 + 22.0 * i, Color(Pal.EYES.r, Pal.EYES.g, Pal.EYES.b, 0.035 * pulse))
 		"glint":
 			var g := pow(maxf(sin(_t * 1.3), 0.0), 8.0)
 			draw_circle(Vector2(0, -30), 20.0, Color(1, 1, 1, 0.06 + 0.1 * g))
 			draw_line(Vector2(-18 * g, -30), Vector2(18 * g, -30), Color(1, 1, 1, g), 2.0)
 			draw_line(Vector2(0, -30 - 18 * g), Vector2(0, -30 + 18 * g), Color(1, 1, 1, g), 2.0)
 			draw_circle(Vector2(0, -30), 3.0, Color(0.9, 0.95, 1.0, 0.8))
-		"front_door":
-			_draw_front_door()
-		"garage_door":
-			draw_rect(Rect2(0, -h, w, h), Pal.INK_SOFT)
-			for i in 9:
-				var y := -h + i * h / 9.0
-				draw_line(Vector2(0, y), Vector2(w, y + sin(i * 0.9) * 10.0), Pal.INK, 4.0)
-			draw_rect(Rect2(-8, -h - 10, w + 16, 14), Pal.INK)
-
-
-func _draw_front_door() -> void:
-	# Double doors under a pointed arch, with the earth that has come in round them.
-	var frame := Color(0.07, 0.065, 0.15)
-	var leaf := Color(0.12, 0.11, 0.24)
-	var pts := PackedVector2Array([Vector2(0, 0), Vector2(0, -h * 0.55)])
-	for i in 11:
-		var f := i / 10.0
-		pts.append(Vector2(w * 0.5 - cos(f * PI) * w * 0.5, -h * 0.55 - sin(f * PI) * h * 0.45))
-	pts.append(Vector2(w, 0))
-	draw_colored_polygon(pts, frame)
-	var inner := PackedVector2Array()
-	for p in pts:
-		inner.append(Vector2(w * 0.5, 0) + (p - Vector2(w * 0.5, 0)) * 0.84)
-	draw_colored_polygon(inner, leaf)
-	draw_line(Vector2(w * 0.5, 0), Vector2(w * 0.5, -h * 0.82), frame, 6.0)
-	for i in 4:
-		var y := -h * (0.12 + 0.17 * i)
-		draw_line(Vector2(w * 0.1, y), Vector2(w * 0.9, y), Color(frame.r, frame.g, frame.b, 0.8), 4.0)
-	# packed earth and roots
-	var rng := RandomNumberGenerator.new()
-	rng.seed = 11
-	draw_colored_polygon(PackedVector2Array([Vector2(-40, 0), Vector2(w * 0.2, -h * 0.3), Vector2(w * 0.55, -h * 0.12), Vector2(w * 0.8, -h * 0.26), Vector2(w + 40, 0)]), Pal.INK)
-	for i in 7:
-		var p := Vector2(rng.randf() * w, -h * rng.randf_range(0.5, 1.0))
-		var line := PackedVector2Array([p])
-		for k in 7:
-			p += Vector2(rng.randf_range(-36, 36), rng.randf_range(40, 90))
-			line.append(p)
-		draw_polyline(line, Pal.INK, rng.randf_range(5.0, 14.0), true)
 
 
 func _draw_figure() -> void:
@@ -153,55 +130,3 @@ func _draw_figure() -> void:
 	draw_rect(Rect2(4, -106, 10, 4), Pal.EYES)
 
 
-func _draw_arch_door(glow: Color) -> void:
-	var pts := PackedVector2Array()
-	pts.append(Vector2(0, 0))
-	pts.append(Vector2(0, -h * 0.6))
-	for i in 9:
-		var f := i / 8.0
-		pts.append(Vector2(w * 0.5 - cos(f * PI) * w * 0.5, -h * 0.6 - sin(f * PI) * h * 0.4))
-	pts.append(Vector2(w, 0))
-	draw_colored_polygon(pts, Pal.INK)
-	if glow.a > 0.0:
-		var pulse := 0.75 + sin(_t * 1.4) * 0.15
-		var inner := PackedVector2Array()
-		for p in pts:
-			inner.append(Vector2(w * 0.5, -h * 0.45) + (p - Vector2(w * 0.5, -h * 0.45)) * 0.72)
-		draw_colored_polygon(inner, Color(glow.r * 0.25, glow.g * 0.4, glow.b * 0.2, pulse))
-		for i in 4:
-			draw_circle(Vector2(w * 0.5, -h * 0.4), 60.0 + i * 46.0, Color(glow.r, glow.g, glow.b, 0.035 * pulse))
-		draw_line(Vector2(w * 0.5, -h * 0.85), Vector2(w * 0.5, 0), Color(glow.r, glow.g, glow.b, 0.5 * pulse), 3.0)
-
-
-func _draw_vault() -> void:
-	# The round door of the laboratory, set into the end wall.
-	var c := Vector2(w * 0.5 + 20.0, -h * 0.5)
-	var r := h * 0.47
-	draw_rect(Rect2(-30, -h, w + 110, h), Pal.INK)
-	draw_circle(c, r, Pal.INK_SOFT)
-	draw_arc(c, r, 0, TAU, 64, Pal.EDGE, 6.0, true)
-	draw_arc(c, r * 0.78, 0, TAU, 64, Color(Pal.WATER.r, Pal.WATER.g, Pal.WATER.b, 0.35), 3.0, true)
-	for i in 12:
-		var a := i * TAU / 12.0
-		draw_circle(c + Vector2(cos(a), sin(a)) * r * 0.9, 7.0, Pal.INK)
-	for i in 3:
-		var a := i * TAU / 3.0 + 0.5
-		draw_line(c + Vector2(cos(a), sin(a)) * r * 0.25, c + Vector2(cos(a), sin(a)) * r * 0.76, Pal.INK, 12.0)
-	var pulse := 0.5 + sin(_t * 1.1) * 0.25
-	draw_circle(c, r * 0.2, Pal.INK)
-	draw_arc(c, r * 0.2, 0, TAU, 32, Color(Pal.EYES.r, Pal.EYES.g, Pal.EYES.b, 0.5 + 0.3 * pulse), 3.0, true)
-	for i in 3:
-		draw_circle(c, r * (0.3 + 0.25 * i), Color(Pal.WATER.r, Pal.WATER.g, Pal.WATER.b, 0.04 * pulse))
-
-
-func _draw_crack() -> void:
-	var rng := RandomNumberGenerator.new()
-	rng.seed = 5
-	for i in 5:
-		var p := Vector2(w * rng.randf_range(0.1, 0.9), 0)
-		var pts := PackedVector2Array([p])
-		for k in 5:
-			p += Vector2(rng.randf_range(-22, 22), rng.randf_range(8, 20))
-			pts.append(p)
-		draw_polyline(pts, Pal.HAZE, 3.0, true)
-	draw_line(Vector2(0, 2), Vector2(w, 2), Pal.HAZE_MID, 2.0)

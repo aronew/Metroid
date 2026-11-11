@@ -1,57 +1,83 @@
 extends Node2D
-## The art pass: dresses a Level's data and never collides.
+## The art pass: dresses a Level's data with the environment kit. It never
+## collides, and it never adds a shape the collision does not have.
 ##
-## The look follows the environment mockups: rooms are openings in solid
-## black, their walls a hazy indigo, with a deep Gothic vista behind and
-## everything close to the eye drawn as ink. Layers, far to near:
+## Layers, far to near (z_index):
 ##
-##   screen     haze gradient                           (fixed to the screen)
-##   0.10-0.50  far arcades, mid arcades, near windows  (parallax)
-##   1.0  -60   room walls, windows, shelves
-##   1.0  -50   painted plates cut from the mockups (assets/plates)
-##   1.0  -30   railings, balustrades, candle light
-##   1.0    0   the collision mass in ink, its edges, vault ribs
-##   1.0   10   Cowl and the creatures (set by their own scripts)
-##   1.0   20   moss and roots hanging in front
-##   screen     dust, vignette
+##   screen  haze gradient                                  (fixed to the screen)
+##   para    far arcades, middle galleries, near arcade      (kit W03-W05, parallax)
+##   -60     room walls by mood (kit W18-W25, W06), windows (W17), stains
+##   -50     painted room plates (kit P_*), their candle flames
+##   -45     piers (W15) and cobwebs
+##   -28     candelabra and lamps (W35) with the flame loop (W36)
+##    -5     railings (W14), floor decals (W39)
+##     0     the collision mass in the kit's own ink, then its skin: floor
+##           tops (W08), ceilings (W09), wall faces (W10), corners (W11), stairs (W13)
+##     1     wreckage fitted to the masses it stands for (W26-W29), vault ribs (W16)
+##     2     door frames (W12)
+##    10     Cowl and the creatures (their own scripts)
+##    20     hanging moss (W37) and the sway loop (W38)
+##   screen  dust, vignette
 ##
-## Everything here is derived from the level JSON: rooms and their `mood`,
-## the solid rectangles, the ramps and the `props`. Art is laid along the
-## collision's edges; it never adds a shape the collision does not have.
+## Pieces are fitted to the collision, to an entity's rectangle or to a height
+## relative to Cowl, never drawn at an arbitrary scale: the kit's sheets were
+## not exported at one consistent scale.
 
 const TILE := 64.0
-const TILT := 0.055          # the house leans: hanging things hang true, so they look askew
+const INK := Color("060713")         # the kit's mass colour (W08/W10/W11 fill)
+const COWL_H := 124.0
 
+## room mood -> wall texture, floor top, ceiling, wall face
 const MOODS := {
-	"bedroom": {"wall": Color(0.235, 0.2, 0.4), "windows": true},
-	"hall_upper": {"wall": Color(0.2, 0.18, 0.36), "windows": true},
-	"kitchen": {"wall": Color(0.21, 0.19, 0.39), "windows": false},
-	"dining": {"wall": Color(0.25, 0.22, 0.45), "windows": true},
-	"living": {"wall": Color(0.26, 0.22, 0.44), "windows": false},
-	"study": {"wall": Color(0.2, 0.18, 0.38), "shelves": true},
-	"library": {"wall": Color(0.19, 0.17, 0.36), "shelves": true},
-	"attic": {"wall": Color(0.1, 0.095, 0.2), "beams": true},
-	"pantry": {"wall": Color(0.13, 0.13, 0.27), "courses": true},
-	"storage": {"wall": Color(0.15, 0.14, 0.3), "courses": true},
-	"workshop": {"wall": Color(0.13, 0.14, 0.28), "courses": true, "pipes": true},
-	"boiler": {"wall": Color(0.16, 0.12, 0.25), "courses": true, "pipes": true},
-	"lab": {"wall": Color(0.07, 0.15, 0.22), "panels": true},
-	"conservatory": {"wall": Color(0.1, 0.2, 0.24), "glass": true},
-	"tower": {"wall": Color(0.12, 0.12, 0.26), "windows": true, "alpha": 0.55},
-	"grand_hall": {"open": true},
-	"undercroft": {"open": true, "tint": Color(0.16, 0.2, 0.4)},
+	"bedroom": {"wall": "walls/bedroom", "floor": "carved", "ceiling": "ribs", "face": "pilaster", "windows": "lancet"},
+	"hall_upper": {"wall": "walls/common", "floor": "carved", "ceiling": "ribs", "face": "pilaster", "windows": "lancet"},
+	"kitchen": {"wall": "walls/common", "floor": "flagstone", "ceiling": "beams", "face": "pilaster"},
+	"dining": {"wall": "walls/common", "floor": "carved", "ceiling": "ribs", "face": "pilaster", "windows": "lancet"},
+	"living": {"wall": "walls/common", "floor": "carved", "ceiling": "ribs", "face": "pilaster"},
+	"study": {"wall": "walls/library", "floor": "carved", "ceiling": "beams", "face": "pilaster"},
+	"library": {"wall": "walls/library", "floor": "carved", "ceiling": "ribs", "face": "pilaster"},
+	"attic": {"wall": "walls/attic", "floor": "carved", "ceiling": "beams", "face": "stone", "windows": "dormer"},
+	"pantry": {"wall": "walls/cellar", "floor": "flagstone", "ceiling": "stone", "face": "stone", "windows": "cellar_bars"},
+	"storage": {"wall": "walls/cellar", "floor": "flagstone", "ceiling": "stone", "face": "stone"},
+	"workshop": {"wall": "walls/cellar", "floor": "flagstone", "ceiling": "iron", "face": "stone", "windows": "cellar_bars"},
+	"boiler": {"wall": "walls/cellar", "floor": "flagstone", "ceiling": "iron", "face": "stone"},
+	"lab": {"wall": "walls/lab", "floor": "iron", "ceiling": "iron", "face": "stone", "windows": "porthole"},
+	"conservatory": {"wall": "walls/conservatory", "floor": "flagstone", "ceiling": "stone", "face": "stone"},
+	"tower": {"wall": "walls/tower", "floor": "flagstone", "ceiling": "stone", "face": "stone", "windows": "lancet"},
+	"grand_hall": {"wall": "", "floor": "carved", "ceiling": "ribs", "face": "pilaster"},
+	"undercroft": {"wall": "parallax/undercroft", "floor": "flagstone", "ceiling": "stone", "face": "stone"},
 }
+## Heights in game px for pieces placed by size rather than fitted.
+const HEIGHTS := {
+	"lights/candelabrum_3": 150.0, "lights/candelabrum_5": 185.0, "lights/candle_table": 132.0,
+	"lights/sconce": 84.0, "lights/father_lamp": 120.0, "lights/chandelier_small": 170.0,
+	"lights/candle_stubs": 46.0, "lights/candelabrum_toppled": 58.0,
+	"decals/cobweb_L": 120.0, "decals/cobweb_R": 120.0, "decals/damp_stain": 180.0,
+	"decals/wall_crack": 130.0, "decals/ceiling_roots": 170.0,
+}
+## Floor decals are capped to a quarter tile at the depth of play.
+const FLOOR_DECAL_MAX := 15.0
+## Moss clump widths in game px (the kit's stated widths at 64 px a tile).
+const MOSS_W := [30.0, 40.0, 80.0, 100.0, 150.0, 200.0, 22.0, 240.0]
+## Nothing hangs lower than this above the floor beneath it.
+const CLEAR := 2.5 * TILE
 
 var level: Level
 var data: Dictionary
 var _w := 0
 var _h := 0
 var _solid: PackedByteArray
+var _dressed: PackedByteArray        # mass cells covered by wreckage art
+var _room_of: PackedInt32Array       # room index per cell (-1 outside)
 var _glow_tex: Texture2D
-var _candles: Array = []
+var _lights: Array = []              # glow sprites to flicker
+var _flames: Array = []              # {"node", "pts": [[pos, height]], "ph"}
+var _sways: Array = []               # {"pos", "h", "ph", "flip"}
+var _sway_node: Node2D
 var _t := 0.0
+var _ticks := 0
 var _dust: CPUParticles2D
-var _plates_meta: Dictionary = {}
+var _plate_spans: Dictionary = {}    # room index -> Array of Vector2 (x spans covered)
 
 
 func dress(lvl: Level) -> void:
@@ -59,28 +85,50 @@ func dress(lvl: Level) -> void:
 	data = lvl.data
 	_w = int(data["w"])
 	_h = int(data["h"])
-	_build_grid()
+	_build_grids()
 	_glow_tex = _make_glow()
-	var meta_path := "res://assets/plates/plates.json"
-	if FileAccess.file_exists(meta_path):
-		_plates_meta = JSON.parse_string(FileAccess.get_file_as_string(meta_path))
 	_build_sky()
 	_build_parallax()
-	_build_rooms()
+	_build_walls()
 	_build_plates()
+	_build_piers()
 	_build_lights()
 	_build_mass()
+	_build_wreckage()
+	_build_frames()
+	_build_moss()
 	_build_overlay()
 
 
-# ======================================================================= grid
-func _build_grid() -> void:
+# ====================================================================== grids
+func _build_grids() -> void:
 	_solid = PackedByteArray()
 	_solid.resize(_w * _h)
+	_dressed = PackedByteArray()
+	_dressed.resize(_w * _h)
+	_room_of = PackedInt32Array()
+	_room_of.resize(_w * _h)
+	_room_of.fill(-1)
 	for r: Array in data["solids"]:
 		for y in range(int(r[1]), int(r[1] + r[3])):
 			for x in range(int(r[0]), int(r[0] + r[2])):
 				_solid[y * _w + x] = 1
+	for p: Dictionary in data.get("props", []):
+		if p["sprite"] == "wreck":
+			var m: Array = p["mass"]
+			for y in range(int(m[1]), int(m[1] + m[3])):
+				for x in range(int(m[0]), int(m[0] + m[2])):
+					_dressed[y * _w + x] = 1
+	# smallest room wins
+	var rooms: Array = data["rooms"]
+	var order := range(rooms.size())
+	order.sort_custom(func(a: int, b: int) -> bool:
+		return rooms[a]["w"] * rooms[a]["h"] > rooms[b]["w"] * rooms[b]["h"])
+	for i: int in order:
+		var r: Dictionary = rooms[i]
+		for y in range(maxi(int(r["y"]) - 1, 0), mini(int(r["y"] + r["h"]) + 1, _h)):
+			for x in range(maxi(int(r["x"]), 0), mini(int(r["x"] + r["w"]), _w)):
+				_room_of[y * _w + x] = i
 
 
 func solid(x: int, y: int) -> bool:
@@ -89,11 +137,46 @@ func solid(x: int, y: int) -> bool:
 	return _solid[y * _w + x] == 1
 
 
-func _open_run(x: int, y: int, dx: int, dy: int, n: int) -> bool:
-	for i in n:
-		if solid(x + dx * i, y + dy * i):
-			return false
-	return true
+func dressed(x: int, y: int) -> bool:
+	if x < 0 or y < 0 or x >= _w or y >= _h:
+		return false
+	return _dressed[y * _w + x] == 1
+
+
+func mood_at(x: int, y: int) -> Dictionary:
+	if x < 0 or y < 0 or x >= _w or y >= _h:
+		return MOODS["hall_upper"]
+	var i := _room_of[y * _w + x]
+	if i < 0:
+		return MOODS["hall_upper"]
+	return MOODS.get(data["rooms"][i].get("mood", ""), MOODS["hall_upper"])
+
+
+func room_index(x: int, y: int) -> int:
+	if x < 0 or y < 0 or x >= _w or y >= _h:
+		return -1
+	return _room_of[y * _w + x]
+
+
+## Open cells straight down from (x, y), up to `limit`.
+func clearance(x: int, y: int, limit: int = 12) -> int:
+	var n := 0
+	while n < limit and not solid(x, y + n):
+		n += 1
+	return n
+
+
+## A gallery: a floor slab with open air close beneath it, in the same room
+## (a storey floor with another room under it is not a gallery).
+func is_gallery(x: int, y: int) -> bool:
+	for k in range(1, 5):
+		if not solid(x, y + k):
+			return room_index(x, y + k) >= 0 and room_index(x, y + k) == room_index(x, y - 1)
+	return false
+
+
+func _hash(a: int, b: int) -> int:
+	return absi((a * 73856093) ^ (b * 19349663))
 
 
 func _make_glow() -> Texture2D:
@@ -110,24 +193,43 @@ func _make_glow() -> Texture2D:
 	return tex
 
 
-func _add_drawer(z: int, draw_fn: Callable, parent: Node = self) -> Node2D:
+func _drawer(z: int, fn: Callable, parent: Node = self, repeat := CanvasItem.TEXTURE_REPEAT_MIRROR) -> Node2D:
 	var n := Node2D.new()
 	n.z_index = z
-	n.draw.connect(draw_fn.bind(n))
+	n.texture_repeat = repeat
+	n.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+	n.draw.connect(fn.bind(n))
 	parent.add_child(n)
 	return n
 
 
+## Draw `key` into `rect`, optionally mirrored.
+func _put(n: CanvasItem, key: String, rect: Rect2, flip := false, modulate := Color.WHITE) -> void:
+	var t := Kit.tex(key)
+	if t == null:
+		return
+	if flip:
+		rect = Rect2(rect.position.x + rect.size.x, rect.position.y, -rect.size.x, rect.size.y)
+	n.draw_texture_rect(t, rect, false, modulate)
+
+
+## Draw `key` at a height, standing with its bottom centre on `foot`.
+func _stand(n: CanvasItem, key: String, foot: Vector2, height: float, flip := false) -> Rect2:
+	var s := height / Kit.size(key).y
+	var size := Kit.size(key) * s
+	var rect := Rect2(foot - Vector2(size.x * 0.5, size.y), size)
+	_put(n, key, rect, flip)
+	return rect
+
+
 # ======================================================================== sky
 func _build_sky() -> void:
-	# The haze the whole house hangs in: deep at the top, a band of lavender
-	# light low in the frame, deep again beneath.
 	var layer := CanvasLayer.new()
 	layer.layer = -100
 	add_child(layer)
 	var g := Gradient.new()
 	g.offsets = PackedFloat32Array([0.0, 0.42, 0.68, 1.0])
-	g.colors = PackedColorArray([Color("12112a"), Color("3b3a6e"), Color("5a5296"), Color("1a1936")])
+	g.colors = PackedColorArray([Color("0b0b1f"), Color("2a2c58"), Color("3b3f78"), Color("141632")])
 	var tex := GradientTexture2D.new()
 	tex.gradient = g
 	tex.fill_from = Vector2(0.5, 0.0)
@@ -144,351 +246,173 @@ func _build_sky() -> void:
 
 # =================================================================== parallax
 func _build_parallax() -> void:
-	# Three depths of the same Gothic arcade, each paler and smaller than the
-	# one in front: the tiers of galleries that fade into the haze in the mockups.
+	# The kit's three depths of the same Gothic arcade. Horizontal scroll is
+	# stronger than vertical, so climbing never makes the house swim.
+	var world := Vector2(_w, _h) * TILE
+	var centre_y := world.y * 0.45
 	var layers := [
-		{"scroll": 0.1, "size": Vector2(1920, 760), "bay": 120.0, "band": Color("46437f"), "open": Color("57528f"), "alpha": 0.45},
-		{"scroll": 0.24, "size": Vector2(2240, 1040), "bay": 224.0, "band": Color("37356b"), "open": Color("4a4680"), "alpha": 0.55},
-		{"scroll": 0.46, "size": Vector2(2880, 1500), "bay": 480.0, "band": Color("262450"), "open": Color("37346a"), "alpha": 0.62},
+		{"key": "parallax/far_arcades", "scroll": Vector2(0.08, 0.04), "scale": 1.5, "tint": Color(0.82, 0.82, 0.95, 1.0)},
+		{"key": "parallax/middle_galleries", "scroll": Vector2(0.2, 0.1), "scale": 1.15, "tint": Color(0.72, 0.72, 0.88, 0.85)},
+		{"key": "parallax/near_arcade", "scroll": Vector2(0.38, 0.2), "scale": 1.25, "tint": Color(0.52, 0.52, 0.68, 0.8)},
 	]
 	var i := 0
 	for l: Dictionary in layers:
 		var p := Parallax2D.new()
-		p.scroll_scale = Vector2(l["scroll"], l["scroll"])
-		p.repeat_size = l["size"]
-		p.repeat_times = 5
+		p.scroll_scale = l["scroll"]
 		p.z_index = -90 + i
-		p.modulate.a = l["alpha"]
+		p.ignore_camera_scroll = false
 		add_child(p)
-		_add_drawer(0, _draw_arcade.bind(l), p)
+		var key: String = l["key"]
+		var sc: float = l["scale"]
+		var size := Kit.size(key) * sc
+		var scroll: Vector2 = l["scroll"]
+		# Wide enough to cover the whole walk across the house at the widest zoom.
+		var span := world.x * scroll.x + 6000.0
+		var top := centre_y * scroll.y - size.y * 0.5
+		var tint: Color = l["tint"]
+		var vertical := i > 0
+		_drawer(0, func(n: Node2D) -> void:
+			var t := Kit.tex(key)
+			var rows := [0.0]
+			if vertical:
+				rows = [-2.0, -1.0, 0.0, 1.0, 2.0]
+			for r: float in rows:
+				n.draw_texture_rect_region(t, Rect2(-3000.0, top + r * size.y, span, size.y),
+					Rect2(0, 0, span / sc, t.get_height()), tint)
+		, p)
 		i += 1
 
 
-func _arch(cx: float, base: float, w: float, h: float, steps: int = 10) -> PackedVector2Array:
-	## A pointed (two-centred) arch standing on `base`, as a closed polygon.
-	var pts := PackedVector2Array()
-	var spring := base - h * 0.45
-	pts.append(Vector2(cx - w * 0.5, base))
-	for k in steps + 1:
-		var f := float(k) / steps
-		# left haunch: from the springing up to the point
-		var a := f * PI * 0.5
-		pts.append(Vector2(cx - w * 0.5 + (1.0 - cos(a)) * w * 0.5, spring - sin(a) * h * 0.55))
-	for k in range(steps - 1, -1, -1):
-		var f := float(k) / steps
-		var a := f * PI * 0.5
-		pts.append(Vector2(cx + w * 0.5 - (1.0 - cos(a)) * w * 0.5, spring - sin(a) * h * 0.55))
-	pts.append(Vector2(cx + w * 0.5, base))
-	return pts
-
-
-func _draw_arcade(n: Node2D, l: Dictionary) -> void:
-	var size: Vector2 = l["size"]
-	var bay: float = l["bay"]
-	var band: Color = l["band"]
-	var open: Color = l["open"]
-	# Two tiers per tile: a tall arcade over a low one, with a balustrade between.
-	var tiers := [[0.0, 0.6], [0.6, 0.4]]
-	for t: Array in tiers:
-		var top := size.y * float(t[0])
-		var th := size.y * float(t[1])
-		n.draw_rect(Rect2(0, top, size.x, th), band)
-		var count := int(size.x / bay)
-		for b in count:
-			var cx := (b + 0.5) * bay
-			n.draw_colored_polygon(_arch(cx, top + th * 0.93, bay * 0.72, th * 0.86), open)
-			# mullion and a trefoil eye: enough tracery to read as a window
-			n.draw_line(Vector2(cx, top + th * 0.93), Vector2(cx, top + th * 0.2), band, bay * 0.022)
-			n.draw_line(Vector2(cx - bay * 0.36, top + th * 0.5), Vector2(cx + bay * 0.36, top + th * 0.5), band, bay * 0.016)
-			# light gathers low in each opening, as it does in the mockups
-			var glow := Color(open.r * 1.25, open.g * 1.2, open.b * 1.2, 0.5)
-			n.draw_colored_polygon(_arch(cx, top + th * 0.93, bay * 0.5, th * 0.45), glow)
-			# the pier between bays
-			var px := b * bay
-			n.draw_rect(Rect2(px - bay * 0.045, top + th * 0.1, bay * 0.09, th * 0.9), band.darkened(0.15))
-			n.draw_rect(Rect2(px - bay * 0.08, top + th * 0.36, bay * 0.16, th * 0.03), band.darkened(0.15))
-		# balustrade
-		n.draw_rect(Rect2(0, top + th * 0.93, size.x, th * 0.07), band.darkened(0.25))
-		var posts := int(size.x / (bay * 0.125))
-		for k in posts:
-			n.draw_rect(Rect2(k * bay * 0.125, top + th * 0.86, bay * 0.02, th * 0.07), band.darkened(0.25))
-		n.draw_rect(Rect2(0, top + th * 0.855, size.x, th * 0.012), band.darkened(0.25))
-
-
-# ====================================================================== rooms
-func _build_rooms() -> void:
-	for r: Dictionary in data["rooms"]:
+# ====================================================================== walls
+func _build_walls() -> void:
+	var rooms: Array = data["rooms"]
+	for i in rooms.size():
+		var r: Dictionary = rooms[i]
 		var mood: Dictionary = MOODS.get(r.get("mood", ""), {})
-		if mood.is_empty():
-			continue
-		var n := _add_drawer(-60, _draw_room.bind(r, mood))
+		var n := _drawer(-60, _draw_room.bind(r, mood, i))
 		n.position = Vector2(r["x"], r["y"]) * TILE
 
 
-func _plates_in(r: Dictionary) -> Array:
-	## Horizontal spans (in room-local px) already covered by a painted plate.
-	var spans := []
-	for p: Dictionary in data.get("props", []):
-		var sprite: String = p["sprite"]
-		if not sprite.begins_with("plate:"):
-			continue
-		var meta: Dictionary = _plates_meta.get(sprite.trim_prefix("plate:"), {})
-		if meta.is_empty():
-			continue
-		var s := float(p.get("scale", 1.0))
-		var x0: float = float(p["x"]) - float(r["x"])
-		var wt: float = float(meta["size"][0]) * s / TILE
-		if p["y"] > r["y"] and p["y"] <= r["y"] + r["h"] and x0 + wt > 0.0 and x0 < r["w"]:
-			spans.append(Vector2(x0 * TILE, (x0 + wt) * TILE))
-	return spans
-
-
-func _draw_room(n: Node2D, r: Dictionary, mood: Dictionary) -> void:
+func _draw_room(n: Node2D, r: Dictionary, mood: Dictionary, index: int) -> void:
 	var size := Vector2(r["w"], r["h"]) * TILE
-	var rng := RandomNumberGenerator.new()
-	rng.seed = int(r["x"]) * 131 + int(r["y"])
-	if mood.get("open", false):
-		if mood.has("tint"):
-			var t: Color = mood["tint"]
-			_grad_rect(n, Rect2(Vector2(-TILE, -TILE), size + Vector2(2, 2) * TILE), Color(t.r, t.g, t.b, 0.55), Color(t.r * 0.5, t.g * 0.5, t.b * 0.6, 0.75))
-		return
-	var wall: Color = mood["wall"]
-	var alpha: float = mood.get("alpha", 0.86)
-	# The wall: lit at mid-height, falling off to the ceiling and the skirting.
-	var top_c := Color(wall.r * 0.55, wall.g * 0.55, wall.b * 0.62, alpha)
-	var mid_c := Color(wall.r * 1.12, wall.g * 1.1, wall.b * 1.12, alpha)
-	var bot_c := Color(wall.r * 0.7, wall.g * 0.68, wall.b * 0.76, alpha)
 	var pad := TILE
-	_grad_rect(n, Rect2(-pad, -pad, size.x + pad * 2.0, size.y * 0.55 + pad), top_c, mid_c)
-	_grad_rect(n, Rect2(-pad, size.y * 0.55, size.x + pad * 2.0, size.y * 0.45 + pad), mid_c, bot_c)
-	var covered := _plates_in(r)
-	var line := Color(wall.r * 0.5, wall.g * 0.5, wall.b * 0.58, 0.9)
-
-	if mood.get("windows", false):
-		# Tall lancets with the lavender haze behind them.
-		var spacing := 7.0 * TILE
-		var count := int(size.x / spacing)
-		for i in count:
-			var cx := (i + 0.5) * size.x / count
-			if _covered(covered, cx, 150.0):
-				continue
-			var wh := minf(size.y * 0.7, 7.0 * TILE)
-			var base := size.y - 1.4 * TILE
-			_window(n, cx, base, 2.4 * TILE, wh, wall)
-	if mood.get("shelves", false):
-		_shelves(n, size, covered, wall, rng)
-	if mood.get("courses", false):
-		# Cellar stone: courses and the odd upright joint.
-		var y := 0.0
-		while y < size.y:
-			n.draw_line(Vector2(-pad, y), Vector2(size.x + pad, y), Color(line.r, line.g, line.b, 0.35), 2.0)
-			var x := rng.randf_range(0.0, 120.0)
-			while x < size.x:
-				n.draw_line(Vector2(x, y), Vector2(x, y + 70.0), Color(line.r, line.g, line.b, 0.22), 2.0)
-				x += rng.randf_range(110.0, 190.0)
-			y += 70.0
-	if mood.get("pipes", false):
-		for i in 3:
-			var y := size.y * (0.14 + 0.11 * i)
-			n.draw_line(Vector2(-pad, y), Vector2(size.x + pad, y), Color(line.r, line.g, line.b, 0.85), 10.0 - i * 2.0)
-			var x := rng.randf_range(100.0, 300.0)
-			while x < size.x:
-				n.draw_rect(Rect2(x, y - 9.0, 14.0, 18.0), line)
-				x += rng.randf_range(260.0, 520.0)
-	if mood.get("beams", false):
-		# Roof timbers, raking.
-		var x := -TILE
-		while x < size.x + TILE:
-			n.draw_line(Vector2(x, size.y), Vector2(x + size.y * 0.55, 0), Color(line.r, line.g, line.b, 0.7), 14.0)
-			n.draw_line(Vector2(x + size.y * 1.1, size.y), Vector2(x + size.y * 0.55, 0), Color(line.r, line.g, line.b, 0.7), 14.0)
-			x += size.y * 1.6
-	if mood.get("panels", false):
-		# Father's work: plate metal, seams, and a thin live line.
-		var x := 0.0
-		while x < size.x:
-			n.draw_line(Vector2(x, 0), Vector2(x, size.y), Color(0.03, 0.07, 0.12, 0.7), 4.0)
-			x += 3.0 * TILE
-		n.draw_line(Vector2(-pad, size.y * 0.42), Vector2(size.x + pad, size.y * 0.42), Color(0.03, 0.07, 0.12, 0.7), 4.0)
-		n.draw_line(Vector2(-pad, size.y * 0.3), Vector2(size.x + pad, size.y * 0.3), Color(Pal.EYES.r, Pal.EYES.g, Pal.EYES.b, 0.22), 3.0)
-	if mood.get("glass", false):
-		# The glasshouse: iron glazing bars, and what has grown through them.
-		var x := 0.0
-		while x < size.x:
-			n.draw_line(Vector2(x, 0), Vector2(x, size.y), Color(0.04, 0.09, 0.12, 0.8), 5.0)
-			x += 2.0 * TILE
-		for i in 4:
-			var y := size.y * i / 4.0
-			n.draw_line(Vector2(0, y), Vector2(size.x, y), Color(0.04, 0.09, 0.12, 0.8), 4.0)
-		for i in 26:
-			var p := Vector2(rng.randf() * size.x, rng.randf() * size.y)
-			_frond(n, p, rng.randf_range(60.0, 190.0), rng.randf_range(-2.4, -0.7), Color(0.05, 0.14, 0.15, 0.9), rng)
-	# Skirting.
-	n.draw_rect(Rect2(-pad, size.y - 26.0, size.x + pad * 2.0, 26.0), Color(line.r, line.g, line.b, 0.55))
+	var rng := RandomNumberGenerator.new()
+	rng.seed = index * 7919 + 13
+	var key: String = mood.get("wall", "")
+	if key != "":
+		var t := Kit.tex(key)
+		var ts := t.get_size()
+		# Fill the room's height, bottom aligned to its floor; a tall room
+		# mirrors the texture upward. Never drawn beyond the room and its pad.
+		var s := clampf((size.y + pad) / ts.y, 0.45, 1.0)
+		var rect := Rect2(-pad, -pad, size.x + pad * 2.0, size.y + pad * 2.0)
+		var ox := float(_hash(index, 3) % int(ts.x))
+		n.draw_texture_rect_region(t, rect, Rect2(ox, ts.y - (size.y + pad) / s, rect.size.x / s, rect.size.y / s))
+	# Depth: the top of every room falls away into shadow.
+	var dark := Color(INK.r, INK.g, INK.b, 0.55)
+	var clear := Color(INK.r, INK.g, INK.b, 0.0)
+	n.draw_polygon(PackedVector2Array([Vector2(-pad, -pad), Vector2(size.x + pad, -pad), Vector2(size.x + pad, size.y * 0.42), Vector2(-pad, size.y * 0.42)]),
+		PackedColorArray([dark, dark, clear, clear]))
+	if key == "":
+		return
+	# Windows, where the wall is not covered by a painted plate.
+	var win: String = mood.get("windows", "")
+	if win != "":
+		_draw_windows(n, r, size, win, index, rng)
+	# Stains and cracks: a few, never in a row.
+	var count := int(size.x / (TILE * 11.0))
+	for k in count:
+		var x := rng.randf_range(0.08, 0.92) * size.x
+		if _covered(index, x + r["x"] * TILE, 90.0):
+			continue
+		var which := "decals/damp_stain" if rng.randf() < 0.55 else "decals/wall_crack"
+		var h: float = HEIGHTS[which] * rng.randf_range(0.8, 1.1)
+		var sz := Kit.size(which) * (h / Kit.size(which).y)
+		var y := 0.0 if which == "decals/damp_stain" else rng.randf_range(0.25, 0.45) * size.y
+		_put(n, which, Rect2(x - sz.x * 0.5, y, sz.x, sz.y), rng.randf() < 0.5, Color(1, 1, 1, 0.7))
 
 
-func _covered(spans: Array, x: float, margin: float) -> bool:
-	for s: Vector2 in spans:
+func _draw_windows(n: Node2D, r: Dictionary, size: Vector2, win: String, index: int, rng: RandomNumberGenerator) -> void:
+	var spacing := 8.0 * TILE
+	var count := maxi(int(size.x / spacing), 1)
+	for i in count:
+		var cx := (i + 0.5) * size.x / count
+		if _covered(index, cx + r["x"] * TILE, 110.0):
+			continue
+		var key := "arch/" + win
+		var h: float
+		var base: float
+		match win:
+			"lancet":
+				var roll := rng.randf()
+				key = "arch/lancet" if roll < 0.45 else ("arch/lancet_broken" if roll < 0.7 else ("arch/lancet_boarded" if roll < 0.85 else "arch/lancet_small"))
+				h = minf(size.y * 0.66, 6.2 * TILE)
+				base = size.y - 1.0 * TILE
+			"cellar_bars":
+				h = 1.9 * TILE
+				base = 2.6 * TILE
+			"dormer":
+				h = minf(size.y * 0.72, 3.2 * TILE)
+				base = size.y - 0.5 * TILE
+			"porthole":
+				h = 2.3 * TILE
+				base = size.y * 0.62
+			_:
+				h = 3.0 * TILE
+				base = size.y - TILE
+		_stand(n, key, Vector2(cx, base), h, rng.randf() < 0.5)
+
+
+func _covered(room: int, x: float, margin: float) -> bool:
+	for s: Vector2 in _plate_spans.get(room, []):
 		if x > s.x - margin and x < s.y + margin:
 			return true
 	return false
 
 
-func _grad_rect(n: Node2D, rect: Rect2, top: Color, bottom: Color) -> void:
-	n.draw_polygon(
-		PackedVector2Array([rect.position, Vector2(rect.end.x, rect.position.y), rect.end, Vector2(rect.position.x, rect.end.y)]),
-		PackedColorArray([top, top, bottom, bottom]))
-
-
-func _window(n: Node2D, cx: float, base: float, w: float, h: float, wall: Color) -> void:
-	var frame := Color(wall.r * 0.5, wall.g * 0.5, wall.b * 0.58, 1.0)
-	n.draw_colored_polygon(_arch(cx, base, w + 22.0, h + 20.0), frame)
-	var pane := _arch(cx, base - 10.0, w, h)
-	var cols := PackedColorArray()
-	for p in pane:
-		var k := clampf((base - p.y) / h, 0.0, 1.0)
-		cols.append(Color(wall.r * 1.25, wall.g * 1.25, wall.b * 1.3).lerp(Color(wall.r * 1.7, wall.g * 1.6, wall.b * 1.55), (1.0 - k) * 0.8))
-	n.draw_polygon(pane, cols)
-	n.draw_line(Vector2(cx, base - 10.0), Vector2(cx, base - h * 0.62), frame, 6.0)
-	n.draw_line(Vector2(cx - w * 0.5, base - h * 0.42), Vector2(cx + w * 0.5, base - h * 0.42), frame, 5.0)
-	n.draw_arc(Vector2(cx, base - h * 0.74), w * 0.13, 0, TAU, 20, frame, 5.0)
-	n.draw_arc(Vector2(cx - w * 0.25, base - h * 0.56), w * 0.22, PI, TAU, 12, frame, 6.0)
-	n.draw_arc(Vector2(cx + w * 0.25, base - h * 0.56), w * 0.22, PI, TAU, 12, frame, 6.0)
-
-
-func _shelves(n: Node2D, size: Vector2, covered: Array, wall: Color, rng: RandomNumberGenerator) -> void:
-	# Bookcases to the ceiling, as in the study mockup: dark carcass, rows of spines.
-	var case_w := 5.0 * TILE
-	var x := 0.6 * TILE
-	while x + case_w < size.x:
-		if _covered(covered, x + case_w * 0.5, case_w * 0.5):
-			x += case_w + 1.2 * TILE
-			continue
-		var top := 0.9 * TILE
-		var bottom := size.y - 0.4 * TILE
-		n.draw_rect(Rect2(x - 10.0, top - 14.0, case_w + 20.0, bottom - top + 14.0), Color(wall.r * 0.35, wall.g * 0.35, wall.b * 0.42))
-		var row := 76.0
-		var y := top
-		while y + row < bottom:
-			n.draw_rect(Rect2(x, y, case_w, row - 10.0), Color(wall.r * 0.52, wall.g * 0.5, wall.b * 0.6))
-			var bx := x + 4.0
-			while bx < x + case_w - 8.0:
-				var bw := rng.randf_range(7.0, 16.0)
-				var bh := rng.randf_range(row * 0.5, row * 0.8)
-				if rng.randf() < 0.9:
-					var tone := rng.randf_range(0.7, 1.25)
-					n.draw_rect(Rect2(bx, y + row - 10.0 - bh, bw - 2.0, bh), Color(wall.r * tone, wall.g * tone * 0.95, wall.b * tone * 1.05))
-				bx += bw
-			y += row
-		x += case_w + 1.2 * TILE
-
-
-func _frond(n: Node2D, at: Vector2, length: float, angle: float, col: Color, rng: RandomNumberGenerator) -> void:
-	var pts := PackedVector2Array()
-	var p := at
-	var a := angle
-	for i in 8:
-		pts.append(p)
-		p += Vector2(cos(a), sin(a)) * length / 8.0
-		a += rng.randf_range(-0.25, 0.3)
-	n.draw_polyline(pts, col, 5.0, true)
-	for i in range(2, 8):
-		var q := pts[i]
-		for side: float in [-1.0, 1.0]:
-			n.draw_line(q, q + Vector2(cos(a + side * 1.2), sin(a + side * 1.2)) * length * 0.18, col, 3.0, true)
-
-
 # ===================================================================== plates
 func _build_plates() -> void:
-	var add := CanvasItemMaterial.new()
-	add.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+	var holder := _drawer(-50, func(_n: Node2D) -> void: pass)
 	for p: Dictionary in data.get("props", []):
-		var sprite: String = p["sprite"]
-		if not sprite.begins_with("plate:"):
+		if p["sprite"] != "plate":
 			continue
-		var key := sprite.trim_prefix("plate:")
-		var path := "res://assets/plates/%s.png" % key
-		if not ResourceLoader.exists(path):
+		var key: String = "plates/" + String(p["key"])
+		var t := Kit.tex(key)
+		if t == null:
 			continue
-		var s := Sprite2D.new()
-		s.texture = load(path)
-		s.centered = false
-		var sc := float(p.get("scale", 1.0))
+		var m := Kit.meta(key)
+		var s: float = float(p["width"]) * TILE / t.get_width()
+		var size := t.get_size() * s
+		var floor_y: float = float(p["y"]) * TILE
+		var origin := Vector2(float(p["x"]) * TILE, floor_y - float(m["floor"]) * s - 2.0)
 		var flip: bool = p.get("flip", false)
-		var size := s.texture.get_size() * sc
-		s.scale = Vector2(-sc if flip else sc, sc)
-		s.position = Vector2(float(p["x"]) * TILE + (size.x if flip else 0.0), float(p["y"]) * TILE - size.y + 6.0)
-		s.z_index = -50
-		s.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR
-		add_child(s)
-		# The painted candles get a live flame-glow laid over them.
-		for c: Array in p.get("candles", []):
-			var local := Vector2(c[0], c[1]) * sc
+		var sprite := Sprite2D.new()
+		sprite.texture = t
+		sprite.centered = false
+		sprite.position = origin + (Vector2(size.x, 0) if flip else Vector2.ZERO)
+		sprite.scale = Vector2(-s if flip else s, s)
+		sprite.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+		holder.add_child(sprite)
+		var room := room_index(int(p["x"] + 1.0), int(p["y"]) - 1)
+		if not _plate_spans.has(room):
+			_plate_spans[room] = []
+		_plate_spans[room].append(Vector2(origin.x, origin.x + size.x))
+		# Live flames over the painted ones.
+		var pts: Array = []
+		for w: Array in m.get("wicks", []):
+			var local := Vector2(w[0], w[1]) * s
 			if flip:
 				local.x = size.x - local.x
-			var at := Vector2(float(p["x"]) * TILE, float(p["y"]) * TILE - size.y + 6.0) + local
-			for big: bool in [true, false]:
-				var g := Sprite2D.new()
-				g.texture = _glow_tex
-				g.material = add
-				g.position = at
-				g.z_index = -30
-				g.modulate = Color(1.0, 0.5, 0.56, 0.3) if big else Color(1.0, 0.82, 0.66, 0.6)
-				add_child(g)
-				_candles.append({"node": g, "base": 6.5 if big else 0.6, "ph": at.x * 0.013 + (0.0 if big else 2.0), "a": g.modulate.a})
+			pts.append([origin + local, maxf(float(w[2]) * s * 0.8, 7.0)])
+		_add_flames(pts, -49, true)
 
 
-# ===================================================================== lights
-func _build_lights() -> void:
-	var add := CanvasItemMaterial.new()
-	add.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
-	for p: Dictionary in data.get("props", []):
-		var kind: String = p["sprite"]
-		if kind != "candle" and kind != "lamp":
-			continue
-		var at := Vector2(p["x"], p["y"]) * TILE
-		var holder := _add_drawer(-28, _draw_candlestick.bind(kind))
-		holder.position = at
-		var flame := at + (Vector2(0, -150) if kind == "candle" else Vector2(0, -300))
-		var warm := kind == "candle"
-		for big: bool in [true, false]:
-			var g := Sprite2D.new()
-			g.texture = _glow_tex
-			g.material = add
-			g.position = flame
-			g.z_index = -27
-			if warm:
-				g.modulate = Color(1.0, 0.5, 0.56, 0.3) if big else Color(1.0, 0.82, 0.66, 0.6)
-			else:
-				g.modulate = Color(0.4, 0.85, 1.0, 0.16) if big else Color(0.7, 0.95, 1.0, 0.5)
-			add_child(g)
-			_candles.append({"node": g, "base": 7.5 if big else 0.7, "ph": at.x * 0.013 + (0.0 if big else 2.0),
-				"a": g.modulate.a, "steady": not warm})
+# ====================================================================== piers
+func _build_piers() -> void:
+	_drawer(-45, _draw_piers)
 
 
-func _draw_candlestick(n: Node2D, kind: String) -> void:
-	var c := Color(0.045, 0.04, 0.09)
-	if kind == "lamp":
-		# Father's lamps: a caged tube on a bracket.
-		n.draw_rect(Rect2(-5, -330, 10, 60), c)
-		n.draw_rect(Rect2(-16, -320, 32, 44), Color(0.75, 0.95, 1.0))
-		n.draw_rect(Rect2(-20, -326, 40, 6), c)
-		n.draw_rect(Rect2(-20, -278, 40, 6), c)
-		return
-	# A three-branch floor candelabrum, like the ones in the mockups.
-	n.draw_colored_polygon(PackedVector2Array([Vector2(-20, 0), Vector2(20, 0), Vector2(4, -14), Vector2(-4, -14)]), c)
-	n.draw_rect(Rect2(-3, -112, 6, 100), c)
-	n.draw_arc(Vector2(0, -128), 22.0, 0.15, PI - 0.15, 14, c, 4.0)
-	for dx: float in [-22.0, 0.0, 22.0]:
-		var top := -126.0 if dx != 0.0 else -112.0
-		n.draw_rect(Rect2(dx - 6, top - 4, 12, 4), c)
-		n.draw_rect(Rect2(dx - 3, top - 26, 6, 22), Color(0.78, 0.74, 0.88))
-		n.draw_circle(Vector2(dx, top - 32), 4.0, Color(1.0, 0.9, 0.8))
-
-
-func _draw_columns(n: Node2D) -> void:
-	# Piers at the depth of the back wall: from each floor to whatever is above it.
-	var shaft := Color(0.075, 0.07, 0.165)
-	var lit := Color(0.16, 0.15, 0.32)
+func _draw_piers(n: Node2D) -> void:
 	var ramps: Array = []
 	for s: Dictionary in data["slopes"]:
 		var l: Array = s["line"]
@@ -502,253 +426,418 @@ func _draw_columns(n: Node2D) -> void:
 			for rr: Vector2 in ramps:
 				if x + 1 > rr.x and x < rr.y:
 					blocked = true
-			# every floor in this column of the room
 			var y := int(r["y"] + r["h"])
 			while not blocked and y > int(r["y"]):
 				if solid(x, y) and solid(x + 1, y) and not solid(x, y - 1) and not solid(x + 1, y - 1):
 					var top := y - 1
 					while top > int(r["y"]) - 1 and not solid(x, top) and not solid(x + 1, top):
 						top -= 1
-					if y - top - 1 >= 5:
-						_column(n, (x + 1) * TILE, y * TILE, (top + 1) * TILE, shaft, lit)
+					if y - top - 1 >= 5 and not _covered(room_index(x, y - 1), (x + 1) * TILE, 70.0):
+						_column(n, (x + 1) * TILE, y * TILE, (top + 1) * TILE, _hash(x, y) % 5 == 0)
 					y = top
 				else:
 					y -= 1
 			x += 9
 
 
-func _column(n: Node2D, cx: float, base: float, top: float, shaft: Color, lit: Color) -> void:
-	var w := 34.0
-	n.draw_rect(Rect2(cx - w * 0.5, top, w, base - top), shaft)
-	n.draw_rect(Rect2(cx - w * 0.5 + 5.0, top + 60.0, 4.0, base - top - 110.0), lit)
-	# base: plinth and two rolls
-	n.draw_rect(Rect2(cx - w * 0.5 - 14.0, base - 20.0, w + 28.0, 20.0), shaft)
-	n.draw_rect(Rect2(cx - w * 0.5 - 8.0, base - 34.0, w + 16.0, 14.0), shaft)
-	n.draw_rect(Rect2(cx - w * 0.5 - 4.0, base - 62.0, w + 8.0, 8.0), shaft)
-	# capital
-	n.draw_rect(Rect2(cx - w * 0.5 - 16.0, top, w + 32.0, 16.0), shaft)
-	n.draw_rect(Rect2(cx - w * 0.5 - 9.0, top + 16.0, w + 18.0, 14.0), shaft)
-	n.draw_rect(Rect2(cx - w * 0.5 - 4.0, top + 48.0, w + 8.0, 8.0), shaft)
-	n.draw_line(Vector2(cx - w * 0.5 - 16.0, top + 16.0), Vector2(cx + w * 0.5 + 16.0, top + 16.0), lit, 2.0)
+## A column three-sliced so its capital and base keep their shape at any height.
+func _column(n: Node2D, cx: float, base: float, top: float, broken: bool) -> void:
+	var key := "arch/column_broken" if broken else "arch/column"
+	var t := Kit.tex(key)
+	var ts := t.get_size()
+	var w := 54.0
+	var s := w / ts.x
+	if broken:
+		_put(n, key, Rect2(cx - w * 0.5, base - ts.y * s, w, ts.y * s), false, Color(0.8, 0.8, 0.9))
+		return
+	var cap := ts.y * 0.16
+	var foot := ts.y * 0.14
+	var h := base - top
+	var tint := Color(0.8, 0.8, 0.9)
+	n.draw_texture_rect_region(t, Rect2(cx - w * 0.5, top, w, cap * s), Rect2(0, 0, ts.x, cap), tint)
+	n.draw_texture_rect_region(t, Rect2(cx - w * 0.5, top + cap * s, w, h - (cap + foot) * s), Rect2(0, cap, ts.x, ts.y - cap - foot), tint)
+	n.draw_texture_rect_region(t, Rect2(cx - w * 0.5, base - foot * s, w, foot * s), Rect2(0, ts.y - foot, ts.x, foot), tint)
+
+
+# ===================================================================== lights
+func _build_lights() -> void:
+	var add := CanvasItemMaterial.new()
+	add.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+	var holder := _drawer(-28, func(_n: Node2D) -> void: pass)
+	var i := 0
+	for p: Dictionary in data.get("props", []):
+		var kind: String = p["sprite"]
+		if kind != "candle" and kind != "lamp":
+			continue
+		var at := Vector2(p["x"], p["y"]) * TILE
+		var key: String
+		var h: float
+		var foot := at
+		if kind == "lamp":
+			key = "lights/father_lamp"
+			h = HEIGHTS[key]
+			foot = at + Vector2(0, -2.6 * TILE)
+		else:
+			var big := room_index(int(p["x"]), int(p["y"]) - 1) >= 0 and String(data["rooms"][room_index(int(p["x"]), int(p["y"]) - 1)].get("mood", "")) in ["grand_hall", "library", "dining", "living"]
+			key = "lights/candelabrum_5" if big and i % 2 == 0 else ("lights/candle_table" if i % 5 == 3 else "lights/candelabrum_3")
+			h = HEIGHTS[key]
+		var s := h / Kit.size(key).y
+		var size := Kit.size(key) * s
+		var origin := foot - Vector2(size.x * 0.5, size.y)
+		var spr := Sprite2D.new()
+		spr.texture = Kit.tex(key)
+		spr.centered = false
+		spr.position = origin
+		spr.scale = Vector2(s, s)
+		spr.flip_h = i % 2 == 1
+		spr.texture_filter = CanvasItem.TEXTURE_FILTER_LINEAR_WITH_MIPMAPS
+		holder.add_child(spr)
+		var pts: Array = []
+		for w: Array in Kit.meta(key).get("wicks", []):
+			var local := Vector2(w[0], w[1]) * s
+			if spr.flip_h:
+				local.x = size.x - local.x
+			pts.append([origin + local, maxf(float(w[2]) * s * 1.1, 6.0)])
+		var warm := kind == "candle"
+		if warm:
+			_add_flames(pts, -27, false)
+		var centre := origin + Vector2(size.x * 0.5, size.y * (0.12 if warm else 0.55))
+		for big_glow: bool in [true, false]:
+			var g := Sprite2D.new()
+			g.texture = _glow_tex
+			g.material = add
+			g.position = centre
+			g.z_index = -26
+			if warm:
+				g.modulate = Color(1.0, 0.5, 0.58, 0.26) if big_glow else Color(1.0, 0.82, 0.7, 0.42)
+			else:
+				g.modulate = Color(0.4, 0.85, 1.0, 0.2) if big_glow else Color(0.7, 0.95, 1.0, 0.45)
+			add_child(g)
+			_lights.append({"node": g, "base": (6.5 if big_glow else 0.9), "ph": at.x * 0.013 + (0.0 if big_glow else 2.0),
+				"a": g.modulate.a, "steady": not warm})
+		i += 1
+
+
+## A node that draws the flame loop at each point. pts: [[Vector2 base, height]]
+func _add_flames(pts: Array, z: int, glow: bool) -> void:
+	if pts.is_empty():
+		return
+	var add := CanvasItemMaterial.new()
+	add.blend_mode = CanvasItemMaterial.BLEND_MODE_ADD
+	var ph := randi() % Kit.FLAME_LOOP
+	var n := _drawer(z, func(node: Node2D) -> void:
+		var k := 0
+		for p: Array in pts:
+			Kit.draw_flame(node, p[0], p[1], _ticks + ph + k * 13)
+			k += 1
+	, self, CanvasItem.TEXTURE_REPEAT_DISABLED)
+	_flames.append(n)
+	if glow:
+		for p: Array in pts:
+			var g := Sprite2D.new()
+			g.texture = _glow_tex
+			g.material = add
+			g.position = (p[0] as Vector2) + Vector2(0, -float(p[1]) * 0.5)
+			g.z_index = z + 1
+			g.modulate = Color(1.0, 0.55, 0.6, 0.22)
+			add_child(g)
+			_lights.append({"node": g, "base": maxf(float(p[1]) / 12.0, 1.4), "ph": g.position.x * 0.01, "a": 0.22, "steady": false})
 
 
 # ======================================================================= mass
 func _build_mass() -> void:
-	_add_drawer(-40, _draw_columns)
-	_add_drawer(0, _draw_mass)
-	_add_drawer(-5, _draw_rails)
-	_add_drawer(20, _draw_hanging)
-	_add_drawer(1, _draw_vaults)
+	_drawer(0, _draw_mass)
+	_drawer(-5, _draw_rails)
+	_drawer(1, _draw_vaults)
 
 
 func _draw_mass(n: Node2D) -> void:
-	# Everything that collides, in one ink. Bleeds past the level's edge so the
-	# camera never finds the end of the earth.
+	# The ink, bled past the level's edge so the camera never finds the end of
+	# the earth. Dressed masses are inset a little: the wreckage drawn over
+	# them is their edge, and the ink behind its gaps says "solid".
 	var bleed := 40.0 * TILE
 	var world := Vector2(_w, _h) * TILE
-	n.draw_rect(Rect2(-bleed, -bleed, bleed, world.y + bleed * 2.0), Pal.INK)
-	n.draw_rect(Rect2(world.x, -bleed, bleed, world.y + bleed * 2.0), Pal.INK)
-	n.draw_rect(Rect2(0, -bleed, world.x, bleed), Pal.INK)
-	n.draw_rect(Rect2(0, world.y, world.x, bleed), Pal.INK)
-	for r: Array in data["solids"]:
-		n.draw_rect(Rect2(Vector2(r[0], r[1]) * TILE - Vector2(1, 1), Vector2(r[2], r[3]) * TILE + Vector2(2, 2)), Pal.INK)
-	for s: Dictionary in data["slopes"]:
-		var poly := PackedVector2Array()
-		for p: Array in s["pts"]:
-			poly.append(Vector2(p[0], p[1]) * TILE)
-		n.draw_colored_polygon(poly, Pal.INK)
-		_draw_stair_treads(n, s)
+	n.draw_rect(Rect2(-bleed, -bleed, bleed, world.y + bleed * 2.0), INK)
+	n.draw_rect(Rect2(world.x, -bleed, bleed, world.y + bleed * 2.0), INK)
+	n.draw_rect(Rect2(0, -bleed, world.x, bleed), INK)
+	n.draw_rect(Rect2(0, world.y, world.x, bleed), INK)
+	for y in _h:
+		var x := 0
+		while x < _w:
+			if solid(x, y) and not dressed(x, y):
+				var x0 := x
+				while x < _w and solid(x, y) and not dressed(x, y):
+					x += 1
+				n.draw_rect(Rect2(x0 * TILE - 1, y * TILE - 1, (x - x0) * TILE + 2, TILE + 2), INK)
+			else:
+				x += 1
+	for p: Dictionary in data.get("props", []):
+		if p["sprite"] == "wreck":
+			var m: Array = p["mass"]
+			# Ink only in the lower body of the mass, where gaps in the art
+			# (under a table, between barrels) must still read as solid.
+			var r := Rect2(Vector2(m[0], m[1]) * TILE, Vector2(m[2], m[3]) * TILE)
+			r = r.grow_individual(-r.size.x * 0.2, -r.size.y * 0.4, -r.size.x * 0.2, 0)
+			n.draw_rect(r, Color(INK.r, INK.g, INK.b, 0.9))
+	# Packed earth: the mass's own texture, faint.
+	var earth := Kit.tex("parallax/packed_earth")
+	if earth != null:
+		for r: Array in data["solids"]:
+			var rect := Rect2(Vector2(r[0], r[1]) * TILE, Vector2(r[2], r[3]) * TILE)
+			n.draw_texture_rect_region(earth, rect, Rect2(rect.position * 0.8, rect.size * 0.8), Color(1.9, 1.9, 2.1, 0.5))
+	_draw_walls_faces(n)
+	_draw_ceilings(n)
+	_draw_floors(n)
+	_draw_stairs(n)
 	for o: Dictionary in data["oneways"]:
-		var x0: float = o["x"] * TILE
-		var y0: float = o["y"] * TILE
-		var ow: float = o["w"] * TILE
-		n.draw_rect(Rect2(x0, y0, ow, 14.0), Pal.INK)
-		n.draw_line(Vector2(x0, y0 + 1.0), Vector2(x0 + ow, y0 + 1.0), Pal.EDGE, 3.0)
-		if o.get("kind", "") == "lamp":
-			# hung on two chains, lit
-			for cx: float in [x0 + 16.0, x0 + ow - 16.0]:
-				n.draw_line(Vector2(cx, y0), Vector2(cx - TILT * 400.0, y0 - 500.0), Pal.INK, 4.0)
-			n.draw_colored_polygon(PackedVector2Array([Vector2(x0 + 20, y0 + 14), Vector2(x0 + ow - 20, y0 + 14), Vector2(x0 + ow * 0.5, y0 + 60)]), Pal.INK)
-		else:
-			for cx: float in [x0 + 10.0, x0 + ow - 10.0]:
-				n.draw_rect(Rect2(cx - 6.0, y0 - 6.0, 12.0, 26.0), Pal.INK)
+		_draw_oneway(n, o)
 
-	# Lit edges. Floors catch the light along the top; walls and soffits only faintly.
-	var floor_c := Pal.EDGE
-	var faint := Color(Pal.EDGE.r, Pal.EDGE.g, Pal.EDGE.b, 0.45)
+
+func _draw_floors(n: Node2D) -> void:
 	for y in range(1, _h):
 		var x := 0
 		while x < _w:
-			if solid(x, y) and not solid(x, y - 1):
+			# A floor runs on under wreckage too: the art stands on it.
+			if solid(x, y) and (not solid(x, y - 1) or dressed(x, y - 1)) and not dressed(x, y):
 				var x0 := x
-				while x < _w and solid(x, y) and not solid(x, y - 1):
+				while x < _w and solid(x, y) and (not solid(x, y - 1) or dressed(x, y - 1)) and not dressed(x, y):
 					x += 1
-				var a := Vector2(x0, y) * TILE
-				var b := Vector2(x, y) * TILE
-				n.draw_line(a + Vector2(0, 1.5), b + Vector2(0, 1.5), floor_c, 3.0)
-				n.draw_line(a + Vector2(6, 9), b + Vector2(-6, 9), Color(floor_c.r, floor_c.g, floor_c.b, 0.35), 2.0)
-				# flagstone joints
-				var jx := a.x + 40.0 + float((x0 * 37 + y * 11) % 50)
-				while jx < b.x - 20.0:
-					n.draw_line(Vector2(jx, a.y + 2.0), Vector2(jx, a.y + 9.0), Color(floor_c.r, floor_c.g, floor_c.b, 0.5), 2.0)
-					jx += 70.0 + float((int(jx) * 7) % 60)
+				_floor_run(n, x0, x, y)
 			else:
 				x += 1
+
+
+func _floor_run(n: Node2D, x0: int, x1: int, y: int) -> void:
+	var mid := (x0 + x1) / 2
+	var mood := mood_at(mid, y - 1)
+	var variant: String = mood["floor"]
+	if is_gallery(mid, y) and variant != "iron":
+		variant = "gallery"
+	var key := "edges/floor_" + variant
+	var t := Kit.tex(key)
+	var walk: float = Kit.meta(key)["walk"]
+	var rect := Rect2(x0 * TILE, y * TILE - walk, (x1 - x0) * TILE, t.get_height())
+	n.draw_texture_rect_region(t, rect, Rect2(_hash(x0, y) % t.get_width(), 0, rect.size.x, t.get_height()))
+	if x1 - x0 < 4:
+		return
+	# Ends: a ledge's lip where the floor drops away, a corner where it meets a wall.
+	var roots := _hash(x0, y * 3) % 3 == 0
+	if solid(x0 - 1, y - 1) and solid(x0 - 1, y - 2) and not dressed(x0 - 1, y - 1):
+		_corner(n, "edges/inner_corner_L", Vector2(x0 * TILE, y * TILE))
+	elif not solid(x0 - 1, y):
+		_corner(n, "edges/ledge_roots_L" if roots else "edges/ledge_end_L", Vector2(x0 * TILE, y * TILE))
+	if solid(x1, y - 1) and solid(x1, y - 2) and not dressed(x1, y - 1):
+		_corner(n, "edges/inner_corner_R", Vector2(x1 * TILE, y * TILE))
+	elif not solid(x1, y):
+		_corner(n, "edges/ledge_roots_R" if roots else "edges/ledge_end_R", Vector2(x1 * TILE, y * TILE))
+
+
+func _corner(n: Node2D, key: String, at: Vector2) -> void:
+	var m := Kit.meta(key)
+	var off := Vector2(m["edge"], m.get("walk", m.get("soffit", 0)))
+	_put(n, key, Rect2(at - off, Kit.size(key)))
+
+
+func _draw_ceilings(n: Node2D) -> void:
+	for y in range(0, _h - 1):
+		var x := 0
+		while x < _w:
+			if solid(x, y) and not solid(x, y + 1) and not dressed(x, y):
+				var x0 := x
+				while x < _w and solid(x, y) and not solid(x, y + 1) and not dressed(x, y):
+					x += 1
+				_ceiling_run(n, x0, x, y + 1)
+			else:
+				x += 1
+
+
+func _ceiling_run(n: Node2D, x0: int, x1: int, y: int) -> void:
+	var mid := (x0 + x1) / 2
+	var key: String = "edges/ceiling_" + String(mood_at(mid, y)["ceiling"])
+	var t := Kit.tex(key)
+	# Nothing may hang lower than CLEAR above the floor under it; cut the run
+	# into stretches of equal clearance so a low doorway never gets long drips.
+	var x := x0
+	while x < x1:
+		var c := clearance(x, y)
+		var xe := x + 1
+		while xe < x1 and clearance(xe, y) == c:
+			xe += 1
+		var hang := minf(t.get_height(), c * TILE - CLEAR)
+		if hang > 10.0:
+			var rect := Rect2(x * TILE, y * TILE - 2.0, (xe - x) * TILE, hang)
+			n.draw_texture_rect_region(t, rect, Rect2((_hash(x0, y) + (x - x0) * int(TILE)) % t.get_width(), 0, rect.size.x, hang))
+		x = xe
+	if x1 - x0 < 4:
+		return
+	# The end of an overhang gets a moss-hung corner.
+	for side: int in [-1, 1]:
+		var ex := x0 - 1 if side < 0 else x1
+		if not solid(ex, y - 1) and clearance(ex if side > 0 else x0, y) * TILE - CLEAR > 60.0:
+			var ck := "edges/soffit_end_L" if side < 0 else "edges/soffit_end_R"
+			_corner(n, ck, Vector2((x0 if side < 0 else x1) * TILE, y * TILE))
+
+
+func _draw_walls_faces(n: Node2D) -> void:
 	for x in range(1, _w):
 		var y := 0
 		while y < _h:
-			var left := solid(x - 1, y) and not solid(x, y)
-			var right := solid(x, y) and not solid(x - 1, y)
-			if left or right:
+			var open_right := solid(x - 1, y) and not solid(x, y) and not dressed(x - 1, y)
+			var open_left := solid(x, y) and not solid(x - 1, y) and not dressed(x, y)
+			if open_right or open_left:
 				var y0 := y
-				while y < _h and ((left and solid(x - 1, y) and not solid(x, y)) or (right and solid(x, y) and not solid(x - 1, y))):
+				while y < _h and ((open_right and solid(x - 1, y) and not solid(x, y) and not dressed(x - 1, y)) \
+						or (open_left and solid(x, y) and not solid(x - 1, y) and not dressed(x, y))):
 					y += 1
-				var px := x * TILE + (1.5 if left else -1.5)
-				n.draw_line(Vector2(px, y0 * TILE), Vector2(px, y * TILE), faint, 2.0)
+				if y - y0 >= 2:
+					_wall_run(n, x, y0, y, open_right)
 			else:
 				y += 1
 
 
-func _draw_stair_treads(n: Node2D, s: Dictionary) -> void:
-	# The ramp is one smooth collision edge; the treads are drawn just under it.
-	var l: Array = s["line"]
-	var a := Vector2(l[0], l[1]) * TILE
-	var b := Vector2(l[2], l[3]) * TILE
-	var steps := int(absf(b.x - a.x) / 32.0)
-	if steps < 1:
-		return
-	var d := (b - a) / steps
-	var pts := PackedVector2Array()
-	for i in steps:
-		var p := a + d * i
-		var q := a + d * (i + 1)
-		var up := d.y < 0.0
-		# riser then tread, tucked 3 px under the walking line
-		if up:
-			pts.append(p + Vector2(0, 3))
-			pts.append(Vector2(p.x, q.y) + Vector2(0, 3))
+func _wall_run(n: Node2D, x: int, y0: int, y1: int, open_right: bool) -> void:
+	var side := x if open_right else x - 1
+	var mood := mood_at(side, (y0 + y1) / 2)
+	var key: String = "edges/face_%s_%s" % [mood["face"], "R" if open_right else "L"]
+	var t := Kit.tex(key)
+	var face: float = Kit.meta(key)["face"]
+	var inset := 8.0
+	var left := x * TILE - face - inset if open_right else x * TILE - face + inset
+	var rect := Rect2(left, y0 * TILE, t.get_width(), (y1 - y0) * TILE)
+	n.draw_texture_rect_region(t, rect, Rect2(0, _hash(x, y0) % t.get_height(), t.get_width(), rect.size.y))
+
+
+func _draw_stairs(n: Node2D) -> void:
+	var slopes: Array = data["slopes"]
+	for s: Dictionary in slopes:
+		var poly := PackedVector2Array()
+		for p: Array in s["pts"]:
+			poly.append(Vector2(p[0], p[1]) * TILE)
+		n.draw_colored_polygon(poly, INK)
+	for s: Dictionary in slopes:
+		var note: String = s.get("note", "")
+		var l: Array = s["line"]
+		var a := Vector2(l[0], l[1]) * TILE
+		var b := Vector2(l[2], l[3]) * TILE
+		if a.x > b.x:
+			var tmp := a
+			a = b
+			b = tmp
+		var rising := b.y < a.y
+		var thick: Variant = s.get("thick")
+		var key: String
+		var rect: Rect2
+		if note.begins_with("fallen flight, down"):
+			continue
+		if note.begins_with("fallen flight, up"):
+			# Both halves of the fallen flight are one mound of steps.
+			var other: Dictionary = {}
+			for o: Dictionary in slopes:
+				if String(o.get("note", "")).begins_with("fallen flight, down"):
+					other = o
+			var end_x: float = maxf(other["line"][0], other["line"][2]) * TILE
+			key = "arch/stair_mound"
+			rect = Rect2(a.x, minf(a.y, b.y), end_x - a.x, maxf(a.y, b.y) - minf(a.y, b.y))
+			_put(n, key, rect.grow_individual(0, 6, 0, 2))
+			continue
+		var top := minf(a.y, b.y)
+		if thick == null:
+			var steep := absf(b.y - a.y) / maxf(b.x - a.x, 1.0) > 0.75
+			key = ("arch/stair_steep_up" if rising else "arch/stair_steep_down_rubble") if steep else ("arch/stair_up" if rising else "arch/stair_down")
+			rect = Rect2(a.x, top, b.x - a.x, maxf(a.y, b.y) - top)
+			_put(n, key, rect.grow_individual(0, 6, 0, 2))
 		else:
-			pts.append(p + Vector2(0, 3))
-			pts.append(Vector2(q.x, p.y) + Vector2(0, 3))
-	pts.append(b + Vector2(0, 3))
-	n.draw_polyline(pts, Pal.EDGE, 2.5)
-	n.draw_line(a, b, Color(Pal.EDGE.r, Pal.EDGE.g, Pal.EDGE.b, 0.5), 2.0)
+			key = "arch/stair_broken_up" if note.contains("remnant") else "arch/stair_flying_up"
+			rect = Rect2(a.x, top, b.x - a.x, absf(b.y - a.y) + float(thick) * TILE)
+			# flying pieces rise to the right; a remnant's broken end is its free (high) end
+			var flip := not rising
+			if note.contains("remnant"):
+				flip = rising
+			_put(n, key, rect.grow_individual(0, 6, 0, 0), flip)
+
+
+func _draw_oneway(n: Node2D, o: Dictionary) -> void:
+	var x0: float = o["x"] * TILE
+	var y0: float = o["y"] * TILE
+	var ow: float = o["w"] * TILE
+	var key := "machines/lamp_platform" if o.get("kind", "") == "lamp" else "machines/pipe_platform"
+	var t := Kit.tex(key)
+	var s := ow / t.get_width()
+	var deck: float = Kit.meta(key)["deck"]
+	_put(n, key, Rect2(x0, y0 - deck * s, ow, t.get_height() * s))
+	if o.get("kind", "") == "lamp":
+		var chain := Kit.tex("machines/chain")
+		var cs := 0.55
+		for cx: float in [x0 + ow * 0.18, x0 + ow * 0.82]:
+			var r := Rect2(cx - chain.get_width() * cs * 0.5, y0 - 640.0, chain.get_width() * cs, 640.0 - deck * s + 6.0)
+			n.draw_texture_rect_region(chain, r, Rect2(0, 0, chain.get_width(), r.size.y / cs))
 
 
 func _draw_rails(n: Node2D) -> void:
-	# Balustrades: on every stair, and along every gallery (a floor with open
-	# air under it). Drawn behind Cowl so they never hide him.
-	var c := Color(0.05, 0.045, 0.1)
-	for s: Dictionary in data["slopes"]:
-		var l: Array = s["line"]
-		_rail(n, Vector2(l[0], l[1]) * TILE, Vector2(l[2], l[3]) * TILE, c)
+	# Iron railings: along every stair's tread line and every gallery's edge.
+	var t := Kit.tex("arch/rail_section")
+	var hgt := 86.0
+	var s := hgt / t.get_height()
+	for sl: Dictionary in data["slopes"]:
+		var l: Array = sl["line"]
+		var a := Vector2(l[0], l[1]) * TILE
+		var b := Vector2(l[2], l[3]) * TILE
+		if a.x > b.x:
+			var tmp := a
+			a = b
+			b = tmp
+		var slope := (b.y - a.y) / maxf(b.x - a.x, 1.0)
+		# Skew, so the balusters stay upright while the rail follows the stair.
+		n.draw_set_transform_matrix(Transform2D(Vector2(1, slope), Vector2(0, 1), a + Vector2(0, -hgt + 4.0)))
+		n.draw_texture_rect_region(t, Rect2(0, 0, b.x - a.x, hgt), Rect2(0, 0, (b.x - a.x) / s, t.get_height()))
+		n.draw_set_transform_matrix(Transform2D.IDENTITY)
+	var newel := Kit.tex("arch/rail_newel")
+	var ns := (hgt + 34.0) / newel.get_height()
 	for y in range(2, _h - 3):
 		var x := 0
 		while x < _w:
-			var gallery := solid(x, y) and not solid(x, y - 1) and not solid(x, y - 2) and solid(x, y + 1) and not solid(x, y + 2) and not solid(x, y + 3)
+			var gallery := solid(x, y) and not solid(x, y - 1) and not solid(x, y - 2) and not dressed(x, y) \
+				and is_gallery(x, y)
 			if gallery:
 				var x0 := x
-				while x < _w and solid(x, y) and not solid(x, y - 1) and not solid(x, y + 2):
+				while x < _w and solid(x, y) and not solid(x, y - 1) and not dressed(x, y) and is_gallery(x, y):
 					x += 1
 				if x - x0 >= 4:
-					_rail(n, Vector2(x0, y) * TILE, Vector2(x, y) * TILE, c)
+					var a := Vector2(x0 * TILE + 10.0, y * TILE)
+					var w := (x - x0) * TILE - 20.0
+					n.draw_texture_rect_region(t, Rect2(a.x, a.y - hgt + 4.0, w, hgt), Rect2(_hash(x0, y) % t.get_width(), 0, w / s, t.get_height()))
+					for px: float in [a.x, a.x + w]:
+						n.draw_texture_rect(newel, Rect2(px - newel.get_width() * ns * 0.5, a.y - newel.get_height() * ns + 4.0, newel.get_width() * ns, newel.get_height() * ns), false)
 			else:
 				x += 1
-
-
-func _rail(n: Node2D, a: Vector2, b: Vector2, c: Color) -> void:
-	var length := a.distance_to(b)
-	var count := maxi(int(length / 40.0), 1)
-	var hgt := 92.0
-	n.draw_line(a + Vector2(0, -hgt), b + Vector2(0, -hgt), c, 7.0)
-	n.draw_line(a + Vector2(0, -hgt * 0.22), b + Vector2(0, -hgt * 0.22), c, 3.0)
-	for i in count + 1:
-		var p := a.lerp(b, float(i) / count)
-		var newel := i % 6 == 0
-		n.draw_line(p, p + Vector2(0, -hgt - (26.0 if newel else 0.0)), c, 7.0 if newel else 3.0)
-		if newel:
-			# the spear finial of the mockups' ironwork
-			n.draw_colored_polygon(PackedVector2Array([p + Vector2(-7, -hgt - 22), p + Vector2(0, -hgt - 52), p + Vector2(7, -hgt - 22)]), c)
-
-
-func _draw_hanging(n: Node2D) -> void:
-	# Tatters of moss and root under every soffit: the mockups' signature edge.
-	# In front of Cowl, short, and never low enough to read as something to duck.
-	for y in range(0, _h - 1):
-		var x := 0
-		while x < _w:
-			if solid(x, y) and not solid(x, y + 1):
-				var x0 := x
-				while x < _w and solid(x, y) and not solid(x, y + 1):
-					x += 1
-				_tatters(n, x0, x, y + 1)
-			else:
-				x += 1
-
-
-func _tatters(n: Node2D, x0: int, x1: int, y: int) -> void:
-	var rng := RandomNumberGenerator.new()
-	rng.seed = x0 * 977 + y * 131
-	var px := x0 * TILE
-	var end := x1 * TILE
-	var clump := 0.0                 # tatters come in clumps, with bare soffit between
-	while px < end:
-		var col := int(px / TILE)
-		# How much clear air is under this soffit, in tiles?
-		var room := 0
-		while room < 8 and not solid(col, y + room):
-			room += 1
-		var max_len := clampf((room - 3.2) * TILE, 0.0, 1.7 * TILE)
-		if clump <= 0.0:
-			if rng.randf() < 0.45:
-				px += rng.randf_range(30.0, 150.0)       # a bare stretch
-			clump = rng.randf_range(60.0, 260.0)
-			continue
-		var w := rng.randf_range(7.0, 26.0)
-		if max_len > 6.0:
-			# Mostly short, now and then one long strand.
-			var k := pow(rng.randf(), 2.6)
-			var length := maxf(k * max_len, 5.0)
-			var lean := length * TILT + rng.randf_range(-4.0, 4.0)
-			var top_y := y * TILE - 1.0
-			var tip := Vector2(px + w * 0.5 + lean, top_y + length)
-			# a drip: straight-sided most of the way, then a rounded point
-			n.draw_colored_polygon(PackedVector2Array([
-				Vector2(px - 3.0, top_y), Vector2(px + w + 3.0, top_y),
-				Vector2(px + w * 0.72 + lean * 0.6, top_y + length * 0.62), tip,
-				Vector2(px + w * 0.28 + lean * 0.6, top_y + length * 0.62)]), Pal.INK)
-		px += w * rng.randf_range(0.55, 1.1)
-		clump -= w
 
 
 func _draw_vaults(n: Node2D) -> void:
-	# Gothic shoulders: every room's upper corners are filled with an arch
-	# spandrel in ink, and wide rooms get pendant ribs along the ceiling. Only
-	# where the wall and ceiling behind are unbroken and the air beneath is clear.
+	# Gothic shoulders in each room's upper corners and a boss under each bay.
 	for r: Dictionary in data["rooms"]:
 		var rx := int(r["x"])
 		var ry := int(r["y"])
 		var rw := int(r["w"])
 		var rh := int(r["h"])
-		var rad := mini(mini(3, rw / 5), (rh - 5))
-		if rad >= 2:
+		var tall := rh >= 12
+		var reach := minf((rh - 2.5) * TILE - COWL_H, (3.4 if tall else 2.2) * TILE)
+		if reach > 70.0 and rw >= 6:
 			for side: int in [-1, 1]:
-				var cx := rx if side < 0 else rx + rw
 				var wall_x := rx - 1 if side < 0 else rx + rw
 				var inner_x := rx if side < 0 else rx + rw - 1
-				var ok := true
-				for i in rad + 3:
-					if not solid(wall_x, ry + i):
+				var ok := solid(wall_x, ry) and solid(wall_x, ry + 1) and solid(wall_x, ry + 2) and solid(inner_x, ry - 1)
+				for j in 4:
+					if solid(inner_x, ry + j) or solid(inner_x - side, ry + j):
 						ok = false
-				for i in rad + 1:
-					if not solid(inner_x - side * i, ry - 1):
-						ok = false
-					for j in rad + 3:
-						if solid(inner_x - side * i, ry + j):
-							ok = false
-				if ok:
-					_spandrel(n, Vector2(cx, ry) * TILE, rad * TILE, -side)
-		if rw >= 18:
+				if not ok:
+					continue
+				var key := ("arch/spandrel_tall_" if tall else "arch/spandrel_") + ("L" if side < 0 else "R")
+				var t := Kit.tex(key)
+				var s := reach / t.get_height()
+				var size := t.get_size() * s
+				var x := rx * TILE - 6.0 if side < 0 else (rx + rw) * TILE - size.x + 6.0
+				_put(n, key, Rect2(x, ry * TILE - 4.0, size.x, size.y))
+		if rw >= 18 and rh >= 8:
 			var bays := int(round(rw / 11.0))
 			for b in range(1, bays):
 				var bx := rx + int(round(float(rw) * b / bays))
@@ -760,35 +849,118 @@ func _draw_vaults(n: Node2D) -> void:
 						if solid(bx + i, ry + j):
 							clear = false
 				if clear:
-					_pendant(n, Vector2(bx, ry) * TILE, minf(2.2, rh * 0.22) * TILE)
+					_stand(n, "arch/corbel_bat", Vector2(bx * TILE, ry * TILE + 92.0), 92.0)
 
 
-func _spandrel(n: Node2D, corner: Vector2, rad: float, dir: int) -> void:
-	var pts := PackedVector2Array([corner])
-	for k in 11:
-		var a := k / 10.0 * PI * 0.5
-		pts.append(corner + Vector2(dir * rad * (1.0 - sin(a)), rad * (1.0 - cos(a)) * 1.25))
-	n.draw_colored_polygon(pts, Pal.INK)
-	var edge := pts.slice(1)
-	n.draw_polyline(edge, Color(Pal.EDGE.r, Pal.EDGE.g, Pal.EDGE.b, 0.5), 2.0, true)
+# =================================================================== wreckage
+func _build_wreckage() -> void:
+	_drawer(1, func(n: Node2D) -> void:
+		for p: Dictionary in data.get("props", []):
+			if p["sprite"] != "wreck":
+				continue
+			var r: Array = p["rect"]
+			_put(n, "wreck/" + String(p["key"]), Rect2(Vector2(r[0], r[1]) * TILE, Vector2(r[2], r[3]) * TILE), p.get("flip", false))
+		# Floor litter by the wreckage: books in the library, glass under
+		# windows, rubble elsewhere. Capped to a quarter tile tall.
+		for p: Dictionary in data.get("props", []):
+			if p["sprite"] != "wreck":
+				continue
+			var m: Array = p["mass"]
+			var y: float = (m[1] + m[3]) * TILE
+			var mood := String(data["rooms"][maxi(room_index(int(m[0]), int(m[1] + m[3]) - 1), 0)].get("mood", ""))
+			var key := "decals/fallen_books" if mood in ["library", "study", "living"] else ("decals/broken_glass" if mood in ["conservatory", "attic"] else "decals/rubble")
+			var size := Kit.size(key)
+			var s := minf(FLOOR_DECAL_MAX / size.y, 1.4 * TILE / size.x)
+			var side := 1.0 if _hash(int(m[0]), 9) % 2 == 0 else -1.0
+			var cx: float = (m[0] + (m[2] + 0.9 if side > 0 else -0.9)) * TILE
+			if not solid(int(cx / TILE), int(y / TILE)) or solid(int(cx / TILE), int(y / TILE) - 1):
+				continue
+			_put(n, key, Rect2(cx - size.x * s * 0.5, y - size.y * s + 2.0, size.x * s, size.y * s), side < 0)
+	)
 
 
-func _pendant(n: Node2D, at: Vector2, depth: float) -> void:
-	var w := depth * 1.5
-	var pts := PackedVector2Array()
-	for k in 9:
-		var a := k / 8.0 * PI * 0.5
-		pts.append(at + Vector2(-w + w * sin(a), depth * (1.0 - cos(a))))
-	for k in range(8, -1, -1):
-		var a := k / 8.0 * PI * 0.5
-		pts.append(at + Vector2(w - w * sin(a), depth * (1.0 - cos(a))))
-	n.draw_colored_polygon(pts, Pal.INK)
-	n.draw_polyline(pts, Color(Pal.EDGE.r, Pal.EDGE.g, Pal.EDGE.b, 0.5), 2.0, true)
+# ===================================================================== frames
+func _build_frames() -> void:
+	_drawer(2, func(n: Node2D) -> void:
+		for p: Dictionary in data.get("props", []):
+			if p["sprite"] != "frame":
+				continue
+			var x: float = p["x"]
+			var floor_y: float = p["y"]
+			var w: float = p.get("w", 2)
+			var h: float = p.get("h", 4)
+			var mood := String(data["rooms"][maxi(room_index(int(x) - 1, int(floor_y) - 1), 0)].get("mood", ""))
+			var roll := _hash(int(x), int(floor_y)) % 7
+			var key := "arch/door_gothic"
+			if mood in ["pantry", "storage", "workshop", "boiler", "undercroft", "lab"]:
+				key = "arch/door_round"
+			elif roll == 0:
+				key = "arch/door_broken"
+			elif roll == 1:
+				key = "arch/door_narrow_roots"
+			elif roll == 2 or h >= 6:
+				key = "arch/door_tall"
+			var size := Kit.size(key)
+			var height := (h + 1.3) * TILE
+			var s := height / size.y
+			# The frame's opening must not look narrower than the doorway.
+			s = maxf(s, (w + 1.1) * TILE / size.x)
+			var fs := size * s
+			_put(n, key, Rect2((x + w * 0.5) * TILE - fs.x * 0.5, floor_y * TILE - fs.y + 4.0, fs.x, fs.y))
+	)
+
+
+# ======================================================================= moss
+func _build_moss() -> void:
+	var still := _drawer(20, _draw_moss)
+	still.modulate = Color(0.85, 0.85, 0.92)
+	# Swaying strands in the tall open rooms, where they have room to hang.
+	_sway_node = _drawer(20, _draw_sway)
+	_sway_node.modulate = Color(0.85, 0.85, 0.92)
+	for y in range(0, _h - 1):
+		var x := 0
+		while x < _w:
+			if solid(x, y) and not solid(x, y + 1) and clearance(x, y + 1) >= 9:
+				if _hash(x, y) % 23 == 0:
+					_sways.append({"pos": Vector2(x * TILE + 32.0, (y + 1) * TILE - 4.0), "ph": _hash(x, y) % 64,
+						"flip": _hash(y, x) % 2 == 0, "h": minf(280.0, (clearance(x, y + 1) * TILE - CLEAR) * 0.8)})
+			x += 1
+
+
+func _draw_moss(n: Node2D) -> void:
+	for y in range(0, _h - 1):
+		var x := 0
+		while x < _w:
+			if solid(x, y) and not solid(x, y + 1) and not dressed(x, y):
+				var room := clearance(x, y + 1) * TILE - CLEAR
+				var roll := _hash(x * 7, y * 13) % 100
+				if room > 30.0 and roll < 16:
+					var i := _hash(x, y * 5) % 8
+					var key := "moss/clump_%d" % i
+					var size := Kit.size(key)
+					var s: float = float(MOSS_W[i]) / size.x
+					s = minf(s, room / size.y)
+					_put(n, key, Rect2(x * TILE + 32.0 - size.x * s * 0.5, (y + 1) * TILE - 6.0, size.x * s, size.y * s), roll % 2 == 0)
+					x += 2
+			x += 1
+
+
+func _draw_sway(n: Node2D) -> void:
+	for s: Dictionary in _sways:
+		var frame := int((_ticks + int(s["ph"])) / Kit.SWAY_TICKS) % 8
+		var key := "sway/f%d" % frame
+		var t := Kit.tex(key)
+		if t == null:
+			continue
+		var anchor: Array = Kit.meta(key)["anchor"]
+		var sc: float = float(s["h"]) / t.get_height()
+		var pos: Vector2 = s["pos"]
+		var rect := Rect2(pos - Vector2(anchor[0], anchor[1]) * sc, t.get_size() * sc)
+		_put(n, key, rect, s["flip"])
 
 
 # ==================================================================== overlay
 func _build_overlay() -> void:
-	# Dust in the air, lit by whatever light there is.
 	_dust = CPUParticles2D.new()
 	_dust.amount = 70
 	_dust.lifetime = 9.0
@@ -803,7 +975,7 @@ func _build_overlay() -> void:
 	_dust.initial_velocity_max = 16.0
 	_dust.scale_amount_min = 1.5
 	_dust.scale_amount_max = 4.0
-	_dust.color = Color(0.75, 0.72, 1.0, 0.28)
+	_dust.color = Color(0.75, 0.72, 1.0, 0.24)
 	var ramp := Gradient.new()
 	ramp.offsets = PackedFloat32Array([0.0, 0.2, 0.8, 1.0])
 	ramp.colors = PackedColorArray([Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)])
@@ -811,7 +983,6 @@ func _build_overlay() -> void:
 	_dust.z_index = 25
 	add_child(_dust)
 
-	# Vignette: the dark presses in at the edges of the frame.
 	var layer := CanvasLayer.new()
 	layer.layer = 40
 	add_child(layer)
@@ -824,8 +995,8 @@ shader_type canvas_item;
 void fragment() {
 	vec2 p = UV - vec2(0.5);
 	float d = length(p * vec2(1.0, 0.82));
-	float v = smoothstep(0.38, 0.86, d);
-	COLOR = vec4(0.015, 0.01, 0.04, v * 0.78);
+	float v = smoothstep(0.4, 0.88, d);
+	COLOR = vec4(0.015, 0.01, 0.04, v * 0.72);
 }"
 	var mat := ShaderMaterial.new()
 	mat.shader = sh
@@ -835,10 +1006,11 @@ void fragment() {
 
 func _process(delta: float) -> void:
 	_t += delta
+	_ticks = int(_t * 60.0)
 	var cam := get_viewport().get_camera_2d()
 	if cam != null and _dust != null:
 		_dust.global_position = cam.get_screen_center_position()
-	for c: Dictionary in _candles:
+	for c: Dictionary in _lights:
 		var g: Sprite2D = c["node"]
 		var ph: float = c["ph"]
 		var f := 1.0 + sin(_t * 9.0 + ph) * 0.05 + sin(_t * 17.3 + ph * 2.1) * 0.035 + sin(_t * 2.1 + ph) * 0.04
@@ -847,3 +1019,7 @@ func _process(delta: float) -> void:
 		var base: float = c["base"]
 		g.scale = Vector2(base, base) * f
 		g.modulate.a = float(c["a"]) * (0.9 + (f - 1.0) * 2.0)
+	for f: Node2D in _flames:
+		f.queue_redraw()
+	if _sway_node != null and not _sways.is_empty() and _ticks % Kit.SWAY_TICKS == 0:
+		_sway_node.queue_redraw()

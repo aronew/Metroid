@@ -1,0 +1,1772 @@
+{
+ "arch/arch_post_L": {
+  "path": "res://assets/kit/arch/arch_post_L.png",
+  "size": [
+   169,
+   184
+  ]
+ },
+ "arch/arch_post_R": {
+  "path": "res://assets/kit/arch/arch_post_R.png",
+  "size": [
+   168,
+   187
+  ]
+ },
+ "arch/canopy_torn": {
+  "path": "res://assets/kit/arch/canopy_torn.png",
+  "size": [
+   158,
+   156
+  ]
+ },
+ "arch/cellar_bars": {
+  "path": "res://assets/kit/arch/cellar_bars.png",
+  "size": [
+   138,
+   156
+  ]
+ },
+ "arch/column": {
+  "path": "res://assets/kit/arch/column.png",
+  "size": [
+   90,
+   307
+  ]
+ },
+ "arch/column_broken": {
+  "path": "res://assets/kit/arch/column_broken.png",
+  "size": [
+   126,
+   194
+  ]
+ },
+ "arch/corbel_bat": {
+  "path": "res://assets/kit/arch/corbel_bat.png",
+  "size": [
+   129,
+   112
+  ]
+ },
+ "arch/corbel_bracket": {
+  "path": "res://assets/kit/arch/corbel_bracket.png",
+  "size": [
+   154,
+   112
+  ]
+ },
+ "arch/door_broken": {
+  "path": "res://assets/kit/arch/door_broken.png",
+  "size": [
+   154,
+   222
+  ]
+ },
+ "arch/door_gothic": {
+  "path": "res://assets/kit/arch/door_gothic.png",
+  "size": [
+   146,
+   268
+  ]
+ },
+ "arch/door_narrow_roots": {
+  "path": "res://assets/kit/arch/door_narrow_roots.png",
+  "size": [
+   132,
+   284
+  ]
+ },
+ "arch/door_round": {
+  "path": "res://assets/kit/arch/door_round.png",
+  "size": [
+   152,
+   178
+  ]
+ },
+ "arch/door_tall": {
+  "path": "res://assets/kit/arch/door_tall.png",
+  "size": [
+   136,
+   314
+  ]
+ },
+ "arch/dormer": {
+  "path": "res://assets/kit/arch/dormer.png",
+  "size": [
+   154,
+   183
+  ]
+ },
+ "arch/header_torn": {
+  "path": "res://assets/kit/arch/header_torn.png",
+  "size": [
+   153,
+   144
+  ]
+ },
+ "arch/lancet": {
+  "path": "res://assets/kit/arch/lancet.png",
+  "size": [
+   102,
+   220
+  ]
+ },
+ "arch/lancet_boarded": {
+  "path": "res://assets/kit/arch/lancet_boarded.png",
+  "size": [
+   107,
+   200
+  ]
+ },
+ "arch/lancet_broken": {
+  "path": "res://assets/kit/arch/lancet_broken.png",
+  "size": [
+   128,
+   202
+  ]
+ },
+ "arch/lancet_small": {
+  "path": "res://assets/kit/arch/lancet_small.png",
+  "size": [
+   98,
+   172
+  ]
+ },
+ "arch/lintel_cloth": {
+  "path": "res://assets/kit/arch/lintel_cloth.png",
+  "size": [
+   154,
+   112
+  ]
+ },
+ "arch/pier_block": {
+  "path": "res://assets/kit/arch/pier_block.png",
+  "size": [
+   47,
+   312
+  ]
+ },
+ "arch/pier_cap": {
+  "path": "res://assets/kit/arch/pier_cap.png",
+  "size": [
+   132,
+   84
+  ]
+ },
+ "arch/plinth": {
+  "path": "res://assets/kit/arch/plinth.png",
+  "size": [
+   129,
+   78
+  ]
+ },
+ "arch/porthole": {
+  "path": "res://assets/kit/arch/porthole.png",
+  "size": [
+   180,
+   167
+  ]
+ },
+ "arch/rail_broken": {
+  "path": "res://assets/kit/arch/rail_broken.png",
+  "size": [
+   152,
+   132
+  ]
+ },
+ "arch/rail_end_scroll": {
+  "path": "res://assets/kit/arch/rail_end_scroll.png",
+  "size": [
+   106,
+   178
+  ]
+ },
+ "arch/rail_fallen": {
+  "path": "res://assets/kit/arch/rail_fallen.png",
+  "size": [
+   148,
+   162
+  ]
+ },
+ "arch/rail_newel": {
+  "path": "res://assets/kit/arch/rail_newel.png",
+  "size": [
+   73,
+   184
+  ]
+ },
+ "arch/rail_section": {
+  "path": "res://assets/kit/arch/rail_section.png",
+  "size": [
+   152,
+   122
+  ]
+ },
+ "arch/rail_stair_down": {
+  "path": "res://assets/kit/arch/rail_stair_down.png",
+  "size": [
+   148,
+   171
+  ]
+ },
+ "arch/rail_stair_up": {
+  "path": "res://assets/kit/arch/rail_stair_up.png",
+  "size": [
+   148,
+   172
+  ]
+ },
+ "arch/rail_twisted": {
+  "path": "res://assets/kit/arch/rail_twisted.png",
+  "size": [
+   114,
+   166
+  ]
+ },
+ "arch/rib_narrow": {
+  "path": "res://assets/kit/arch/rib_narrow.png",
+  "size": [
+   222,
+   80
+  ]
+ },
+ "arch/rib_wide": {
+  "path": "res://assets/kit/arch/rib_wide.png",
+  "size": [
+   358,
+   124
+  ]
+ },
+ "arch/rose": {
+  "path": "res://assets/kit/arch/rose.png",
+  "size": [
+   198,
+   214
+  ]
+ },
+ "arch/shaft_thin": {
+  "path": "res://assets/kit/arch/shaft_thin.png",
+  "size": [
+   40,
+   308
+  ]
+ },
+ "arch/spandrel_L": {
+  "path": "res://assets/kit/arch/spandrel_L.png",
+  "size": [
+   124,
+   130
+  ]
+ },
+ "arch/spandrel_R": {
+  "path": "res://assets/kit/arch/spandrel_R.png",
+  "size": [
+   121,
+   130
+  ]
+ },
+ "arch/spandrel_tall_L": {
+  "path": "res://assets/kit/arch/spandrel_tall_L.png",
+  "size": [
+   147,
+   215
+  ]
+ },
+ "arch/spandrel_tall_R": {
+  "path": "res://assets/kit/arch/spandrel_tall_R.png",
+  "size": [
+   147,
+   215
+  ]
+ },
+ "arch/stair_broken_up": {
+  "path": "res://assets/kit/arch/stair_broken_up.png",
+  "size": [
+   198,
+   78
+  ]
+ },
+ "arch/stair_down": {
+  "path": "res://assets/kit/arch/stair_down.png",
+  "size": [
+   304,
+   100
+  ]
+ },
+ "arch/stair_flying_up": {
+  "path": "res://assets/kit/arch/stair_flying_up.png",
+  "size": [
+   305,
+   120
+  ]
+ },
+ "arch/stair_mound": {
+  "path": "res://assets/kit/arch/stair_mound.png",
+  "size": [
+   305,
+   82
+  ]
+ },
+ "arch/stair_steep_down_rubble": {
+  "path": "res://assets/kit/arch/stair_steep_down_rubble.png",
+  "size": [
+   305,
+   150
+  ]
+ },
+ "arch/stair_steep_up": {
+  "path": "res://assets/kit/arch/stair_steep_up.png",
+  "size": [
+   204,
+   120
+  ]
+ },
+ "arch/stair_up": {
+  "path": "res://assets/kit/arch/stair_up.png",
+  "size": [
+   304,
+   100
+  ]
+ },
+ "arch/stair_up_newel": {
+  "path": "res://assets/kit/arch/stair_up_newel.png",
+  "size": [
+   304,
+   100
+  ]
+ },
+ "decals/broken_glass": {
+  "path": "res://assets/kit/decals/broken_glass.png",
+  "size": [
+   146,
+   33
+  ]
+ },
+ "decals/ceiling_roots": {
+  "path": "res://assets/kit/decals/ceiling_roots.png",
+  "size": [
+   200,
+   212
+  ]
+ },
+ "decals/cobweb_L": {
+  "path": "res://assets/kit/decals/cobweb_L.png",
+  "size": [
+   176,
+   182
+  ]
+ },
+ "decals/cobweb_R": {
+  "path": "res://assets/kit/decals/cobweb_R.png",
+  "size": [
+   170,
+   174
+  ]
+ },
+ "decals/damp_stain": {
+  "path": "res://assets/kit/decals/damp_stain.png",
+  "size": [
+   173,
+   209
+  ]
+ },
+ "decals/fallen_books": {
+  "path": "res://assets/kit/decals/fallen_books.png",
+  "size": [
+   162,
+   47
+  ]
+ },
+ "decals/rubble": {
+  "path": "res://assets/kit/decals/rubble.png",
+  "size": [
+   218,
+   28
+  ]
+ },
+ "decals/wall_crack": {
+  "path": "res://assets/kit/decals/wall_crack.png",
+  "size": [
+   62,
+   207
+  ]
+ },
+ "doors/bookcase_door": {
+  "path": "res://assets/kit/doors/bookcase_door.png",
+  "size": [
+   106,
+   434
+  ]
+ },
+ "doors/cracked_floor": {
+  "path": "res://assets/kit/doors/cracked_floor.png",
+  "size": [
+   307,
+   54
+  ]
+ },
+ "doors/front_door": {
+  "path": "res://assets/kit/doors/front_door.png",
+  "size": [
+   346,
+   417
+  ]
+ },
+ "doors/garage_shutter": {
+  "path": "res://assets/kit/doors/garage_shutter.png",
+  "size": [
+   290,
+   267
+  ]
+ },
+ "doors/green_door": {
+  "path": "res://assets/kit/doors/green_door.png",
+  "size": [
+   202,
+   372
+  ]
+ },
+ "doors/green_door_small": {
+  "path": "res://assets/kit/doors/green_door_small.png",
+  "size": [
+   92,
+   198
+  ]
+ },
+ "doors/lab_vault": {
+  "path": "res://assets/kit/doors/lab_vault.png",
+  "size": [
+   176,
+   376
+  ]
+ },
+ "doors/pipe_wall": {
+  "path": "res://assets/kit/doors/pipe_wall.png",
+  "size": [
+   160,
+   434
+  ]
+ },
+ "edges/ceiling_beams": {
+  "path": "res://assets/kit/edges/ceiling_beams.png",
+  "size": [
+   887,
+   74
+  ]
+ },
+ "edges/ceiling_iron": {
+  "path": "res://assets/kit/edges/ceiling_iron.png",
+  "size": [
+   887,
+   72
+  ]
+ },
+ "edges/ceiling_ribs": {
+  "path": "res://assets/kit/edges/ceiling_ribs.png",
+  "size": [
+   887,
+   76
+  ]
+ },
+ "edges/ceiling_stone": {
+  "path": "res://assets/kit/edges/ceiling_stone.png",
+  "size": [
+   887,
+   68
+  ]
+ },
+ "edges/face_pilaster_L": {
+  "face": 31,
+  "open": "L",
+  "path": "res://assets/kit/edges/face_pilaster_L.png",
+  "size": [
+   96,
+   887
+  ]
+ },
+ "edges/face_pilaster_R": {
+  "face": 68,
+  "open": "R",
+  "path": "res://assets/kit/edges/face_pilaster_R.png",
+  "size": [
+   94,
+   887
+  ]
+ },
+ "edges/face_stone_L": {
+  "face": 16,
+  "open": "L",
+  "path": "res://assets/kit/edges/face_stone_L.png",
+  "size": [
+   102,
+   887
+  ]
+ },
+ "edges/face_stone_R": {
+  "face": 55,
+  "open": "R",
+  "path": "res://assets/kit/edges/face_stone_R.png",
+  "size": [
+   78,
+   887
+  ]
+ },
+ "edges/floor_carved": {
+  "path": "res://assets/kit/edges/floor_carved.png",
+  "size": [
+   887,
+   84
+  ],
+  "walk": 3
+ },
+ "edges/floor_flagstone": {
+  "path": "res://assets/kit/edges/floor_flagstone.png",
+  "size": [
+   887,
+   84
+  ],
+  "walk": 4
+ },
+ "edges/floor_gallery": {
+  "path": "res://assets/kit/edges/floor_gallery.png",
+  "size": [
+   887,
+   84
+  ],
+  "walk": 3
+ },
+ "edges/floor_iron": {
+  "path": "res://assets/kit/edges/floor_iron.png",
+  "size": [
+   887,
+   84
+  ],
+  "walk": 3
+ },
+ "edges/inner_corner_L": {
+  "edge": 24,
+  "path": "res://assets/kit/edges/inner_corner_L.png",
+  "size": [
+   199,
+   178
+  ],
+  "walk": 136
+ },
+ "edges/inner_corner_R": {
+  "edge": 176,
+  "path": "res://assets/kit/edges/inner_corner_R.png",
+  "size": [
+   200,
+   178
+  ],
+  "walk": 136
+ },
+ "edges/ledge_end_L": {
+  "edge": 6,
+  "path": "res://assets/kit/edges/ledge_end_L.png",
+  "size": [
+   180,
+   98
+  ],
+  "walk": 4
+ },
+ "edges/ledge_end_R": {
+  "edge": 173,
+  "path": "res://assets/kit/edges/ledge_end_R.png",
+  "size": [
+   178,
+   98
+  ],
+  "walk": 4
+ },
+ "edges/ledge_roots_L": {
+  "edge": 14,
+  "path": "res://assets/kit/edges/ledge_roots_L.png",
+  "size": [
+   204,
+   107
+  ],
+  "walk": 6
+ },
+ "edges/ledge_roots_R": {
+  "edge": 184,
+  "path": "res://assets/kit/edges/ledge_roots_R.png",
+  "size": [
+   196,
+   106
+  ],
+  "walk": 5
+ },
+ "edges/soffit_end_L": {
+  "edge": 7,
+  "path": "res://assets/kit/edges/soffit_end_L.png",
+  "size": [
+   202,
+   150
+  ],
+  "soffit": 34
+ },
+ "edges/soffit_end_R": {
+  "edge": 195,
+  "path": "res://assets/kit/edges/soffit_end_R.png",
+  "size": [
+   202,
+   156
+  ],
+  "soffit": 33
+ },
+ "flame/f0": {
+  "anchor": [
+   110.8,
+   205.1
+  ],
+  "path": "res://assets/kit/flame/f0.png",
+  "size": [
+   222,
+   222
+  ]
+ },
+ "flame/f1": {
+  "anchor": [
+   110.8,
+   205.1
+  ],
+  "path": "res://assets/kit/flame/f1.png",
+  "size": [
+   222,
+   222
+  ]
+ },
+ "flame/f2": {
+  "anchor": [
+   110.8,
+   205.1
+  ],
+  "path": "res://assets/kit/flame/f2.png",
+  "size": [
+   222,
+   222
+  ]
+ },
+ "flame/f3": {
+  "anchor": [
+   110.8,
+   205.1
+  ],
+  "path": "res://assets/kit/flame/f3.png",
+  "size": [
+   222,
+   222
+  ]
+ },
+ "flame/f4": {
+  "anchor": [
+   110.8,
+   205.1
+  ],
+  "path": "res://assets/kit/flame/f4.png",
+  "size": [
+   222,
+   222
+  ]
+ },
+ "flame/f5": {
+  "anchor": [
+   110.8,
+   205.1
+  ],
+  "path": "res://assets/kit/flame/f5.png",
+  "size": [
+   222,
+   222
+  ]
+ },
+ "flame/f6": {
+  "anchor": [
+   110.8,
+   205.1
+  ],
+  "path": "res://assets/kit/flame/f6.png",
+  "size": [
+   222,
+   222
+  ]
+ },
+ "flame/f7": {
+  "anchor": [
+   110.8,
+   205.1
+  ],
+  "path": "res://assets/kit/flame/f7.png",
+  "size": [
+   222,
+   222
+  ]
+ },
+ "lights/candelabrum_3": {
+  "path": "res://assets/kit/lights/candelabrum_3.png",
+  "size": [
+   92,
+   249
+  ],
+  "wicks": [
+   [
+    13.0,
+    42.0,
+    12.0
+   ],
+   [
+    45.2,
+    17.0,
+    13.0
+   ],
+   [
+    78.0,
+    42.0,
+    11.0
+   ]
+  ]
+ },
+ "lights/candelabrum_5": {
+  "path": "res://assets/kit/lights/candelabrum_5.png",
+  "size": [
+   121,
+   284
+  ],
+  "wicks": [
+   [
+    12.5,
+    41.0,
+    11.0
+   ],
+   [
+    35.8,
+    39.0,
+    12.0
+   ],
+   [
+    60.7,
+    17.0,
+    13.0
+   ],
+   [
+    84.0,
+    41.0,
+    11.0
+   ],
+   [
+    107.8,
+    44.0,
+    11.0
+   ]
+  ]
+ },
+ "lights/candelabrum_toppled": {
+  "path": "res://assets/kit/lights/candelabrum_toppled.png",
+  "size": [
+   183,
+   132
+  ],
+  "wicks": []
+ },
+ "lights/candle_stubs": {
+  "path": "res://assets/kit/lights/candle_stubs.png",
+  "size": [
+   161,
+   132
+  ],
+  "wicks": [
+   [
+    42.2,
+    66.0,
+    14.0
+   ],
+   [
+    78.6,
+    20.0,
+    16.0
+   ],
+   [
+    115.3,
+    61.0,
+    15.0
+   ]
+  ]
+ },
+ "lights/candle_table": {
+  "path": "res://assets/kit/lights/candle_table.png",
+  "size": [
+   124,
+   232
+  ],
+  "wicks": [
+   [
+    63.0,
+    18.0,
+    14.0
+   ]
+  ]
+ },
+ "lights/chandelier_small": {
+  "path": "res://assets/kit/lights/chandelier_small.png",
+  "size": [
+   146,
+   248
+  ],
+  "wicks": []
+ },
+ "lights/father_lamp": {
+  "path": "res://assets/kit/lights/father_lamp.png",
+  "size": [
+   106,
+   212
+  ],
+  "wicks": []
+ },
+ "lights/sconce": {
+  "path": "res://assets/kit/lights/sconce.png",
+  "size": [
+   116,
+   144
+  ],
+  "wicks": [
+   [
+    16.5,
+    20.0,
+    14.0
+   ],
+   [
+    98.9,
+    20.0,
+    14.0
+   ]
+  ]
+ },
+ "machines/cage": {
+  "deck": 110,
+  "path": "res://assets/kit/machines/cage.png",
+  "size": [
+   187,
+   121
+  ]
+ },
+ "machines/chain": {
+  "deck": 142,
+  "path": "res://assets/kit/machines/chain.png",
+  "size": [
+   23,
+   240
+  ]
+ },
+ "machines/chandelier_lift": {
+  "deck": 133,
+  "path": "res://assets/kit/machines/chandelier_lift.png",
+  "size": [
+   185,
+   186
+  ]
+ },
+ "machines/dumbwaiter": {
+  "deck": 170,
+  "path": "res://assets/kit/machines/dumbwaiter.png",
+  "size": [
+   212,
+   184
+  ]
+ },
+ "machines/lamp_platform": {
+  "deck": 51,
+  "path": "res://assets/kit/machines/lamp_platform.png",
+  "size": [
+   132,
+   136
+  ]
+ },
+ "machines/lever_down": {
+  "deck": 86,
+  "path": "res://assets/kit/machines/lever_down.png",
+  "size": [
+   100,
+   97
+  ]
+ },
+ "machines/lever_up": {
+  "deck": 115,
+  "path": "res://assets/kit/machines/lever_up.png",
+  "size": [
+   82,
+   126
+  ]
+ },
+ "machines/pipe_platform": {
+  "deck": 16,
+  "path": "res://assets/kit/machines/pipe_platform.png",
+  "size": [
+   220,
+   85
+  ]
+ },
+ "machines/winch": {
+  "deck": 116,
+  "path": "res://assets/kit/machines/winch.png",
+  "size": [
+   138,
+   176
+  ]
+ },
+ "materials/arch_fragment": {
+  "path": "res://assets/kit/materials/arch_fragment.png",
+  "size": [
+   196,
+   213
+  ]
+ },
+ "materials/candle_drip": {
+  "path": "res://assets/kit/materials/candle_drip.png",
+  "size": [
+   112,
+   218
+  ]
+ },
+ "materials/curtain_cushion": {
+  "path": "res://assets/kit/materials/curtain_cushion.png",
+  "size": [
+   201,
+   207
+  ]
+ },
+ "materials/iron_finial_gate": {
+  "path": "res://assets/kit/materials/iron_finial_gate.png",
+  "size": [
+   197,
+   210
+  ]
+ },
+ "materials/masonry_broken": {
+  "path": "res://assets/kit/materials/masonry_broken.png",
+  "size": [
+   200,
+   198
+  ]
+ },
+ "materials/panel_floor": {
+  "path": "res://assets/kit/materials/panel_floor.png",
+  "size": [
+   202,
+   204
+  ]
+ },
+ "materials/roots_branch": {
+  "path": "res://assets/kit/materials/roots_branch.png",
+  "size": [
+   210,
+   204
+  ]
+ },
+ "materials/rubble_mossy": {
+  "path": "res://assets/kit/materials/rubble_mossy.png",
+  "size": [
+   211,
+   208
+  ]
+ },
+ "moss/clump_0": {
+  "path": "res://assets/kit/moss/clump_0.png",
+  "size": [
+   47,
+   102
+  ]
+ },
+ "moss/clump_1": {
+  "path": "res://assets/kit/moss/clump_1.png",
+  "size": [
+   61,
+   180
+  ]
+ },
+ "moss/clump_2": {
+  "path": "res://assets/kit/moss/clump_2.png",
+  "size": [
+   115,
+   174
+  ]
+ },
+ "moss/clump_3": {
+  "path": "res://assets/kit/moss/clump_3.png",
+  "size": [
+   144,
+   88
+  ]
+ },
+ "moss/clump_4": {
+  "path": "res://assets/kit/moss/clump_4.png",
+  "size": [
+   200,
+   140
+  ]
+ },
+ "moss/clump_5": {
+  "path": "res://assets/kit/moss/clump_5.png",
+  "size": [
+   207,
+   188
+  ]
+ },
+ "moss/clump_6": {
+  "path": "res://assets/kit/moss/clump_6.png",
+  "size": [
+   78,
+   202
+  ]
+ },
+ "moss/clump_7": {
+  "path": "res://assets/kit/moss/clump_7.png",
+  "size": [
+   212,
+   30
+  ]
+ },
+ "parallax/far_arcades": {
+  "path": "res://assets/kit/parallax/far_arcades.jpg",
+  "size": [
+   1774,
+   887
+  ],
+  "source_scale": 1.0
+ },
+ "parallax/middle_galleries": {
+  "path": "res://assets/kit/parallax/middle_galleries.png",
+  "size": [
+   1774,
+   887
+  ],
+  "source_scale": 1.0
+ },
+ "parallax/near_arcade": {
+  "path": "res://assets/kit/parallax/near_arcade.png",
+  "size": [
+   1254,
+   1254
+  ],
+  "source_scale": 1.0
+ },
+ "parallax/packed_earth": {
+  "path": "res://assets/kit/parallax/packed_earth.png",
+  "size": [
+   627,
+   627
+  ],
+  "source_scale": 0.5
+ },
+ "parallax/undercroft": {
+  "path": "res://assets/kit/parallax/undercroft.jpg",
+  "size": [
+   1774,
+   887
+  ],
+  "source_scale": 1.0
+ },
+ "plates/bedroom": {
+  "floor": 473.5,
+  "path": "res://assets/kit/plates/bedroom.png",
+  "size": [
+   782,
+   475
+  ],
+  "wicks": [
+   [
+    668.3,
+    308.0,
+    30.0
+   ],
+   [
+    684.9,
+    299.0,
+    41.0
+   ],
+   [
+    701.5,
+    312.0,
+    31.0
+   ]
+  ]
+ },
+ "plates/bedroom2": {
+  "floor": 417.5,
+  "path": "res://assets/kit/plates/bedroom2.png",
+  "size": [
+   841,
+   422
+  ],
+  "wicks": [
+   [
+    184.6,
+    173.0,
+    34.0
+   ],
+   [
+    205.5,
+    160.0,
+    14.0
+   ],
+   [
+    206.5,
+    144.0,
+    31.0
+   ],
+   [
+    227.1,
+    178.0,
+    37.0
+   ],
+   [
+    677.9,
+    178.0,
+    38.0
+   ],
+   [
+    699.6,
+    162.0,
+    16.0
+   ],
+   [
+    700.2,
+    144.0,
+    34.0
+   ],
+   [
+    722.2,
+    173.0,
+    34.0
+   ]
+  ]
+ },
+ "plates/dining": {
+  "floor": 456.5,
+  "path": "res://assets/kit/plates/dining.png",
+  "size": [
+   784,
+   457
+  ],
+  "wicks": [
+   [
+    410.2,
+    179.0,
+    45.0
+   ],
+   [
+    431.0,
+    138.0,
+    25.0
+   ],
+   [
+    431.0,
+    172.0,
+    32.0
+   ],
+   [
+    452.1,
+    179.0,
+    46.0
+   ]
+  ]
+ },
+ "plates/flooded": {
+  "floor": 430.5,
+  "path": "res://assets/kit/plates/flooded.png",
+  "size": [
+   834,
+   432
+  ],
+  "wicks": []
+ },
+ "plates/kitchen": {
+  "floor": 383.5,
+  "path": "res://assets/kit/plates/kitchen.png",
+  "size": [
+   934,
+   391
+  ],
+  "wicks": [
+   [
+    741.6,
+    241.0,
+    44.0
+   ]
+  ]
+ },
+ "plates/living": {
+  "floor": 426.0,
+  "path": "res://assets/kit/plates/living.png",
+  "size": [
+   830,
+   428
+  ],
+  "wicks": [
+   [
+    67.4,
+    351.0,
+    30.0
+   ],
+   [
+    77.8,
+    346.0,
+    37.0
+   ],
+   [
+    88.9,
+    351.0,
+    32.0
+   ],
+   [
+    762.1,
+    318.0,
+    29.0
+   ],
+   [
+    774.5,
+    312.0,
+    35.0
+   ],
+   [
+    785.7,
+    313.0,
+    23.0
+   ]
+  ]
+ },
+ "plates/storage": {
+  "floor": 480.0,
+  "path": "res://assets/kit/plates/storage.png",
+  "size": [
+   793,
+   480
+  ],
+  "wicks": []
+ },
+ "plates/study": {
+  "floor": 380.5,
+  "path": "res://assets/kit/plates/study.png",
+  "size": [
+   960,
+   381
+  ],
+  "wicks": [
+   [
+    302.4,
+    218.0,
+    10.0
+   ],
+   [
+    302.5,
+    208.0,
+    32.0
+   ]
+  ]
+ },
+ "props/butcher_block": {
+  "block_top": 103,
+  "path": "res://assets/kit/props/butcher_block.png",
+  "size": [
+   178,
+   240
+  ]
+ },
+ "props/candle_lit": {
+  "path": "res://assets/kit/props/candle_lit.png",
+  "size": [
+   68,
+   234
+  ],
+  "wicks": [
+   [
+    32.0,
+    28.0,
+    23.0
+   ]
+  ]
+ },
+ "props/candle_unlit": {
+  "path": "res://assets/kit/props/candle_unlit.png",
+  "size": [
+   68,
+   214
+  ]
+ },
+ "props/knife": {
+  "path": "res://assets/kit/props/knife.png",
+  "size": [
+   235,
+   55
+  ]
+ },
+ "props/letter": {
+  "path": "res://assets/kit/props/letter.png",
+  "size": [
+   120,
+   73
+  ]
+ },
+ "props/note": {
+  "path": "res://assets/kit/props/note.png",
+  "size": [
+   134,
+   77
+  ]
+ },
+ "props/stalagmites": {
+  "path": "res://assets/kit/props/stalagmites.png",
+  "size": [
+   455,
+   98
+  ]
+ },
+ "roots/barrier_a": {
+  "cell": [
+   157,
+   314
+  ],
+  "floor": 297,
+  "path": "res://assets/kit/roots/barrier_a.png",
+  "size": [
+   157,
+   314
+  ]
+ },
+ "roots/barrier_b": {
+  "cell": [
+   156,
+   314
+  ],
+  "path": "res://assets/kit/roots/barrier_b.png",
+  "size": [
+   156,
+   314
+  ]
+ },
+ "roots/barrier_c": {
+  "cell": [
+   156,
+   314
+  ],
+  "path": "res://assets/kit/roots/barrier_c.png",
+  "size": [
+   156,
+   314
+  ]
+ },
+ "roots/barrier_wide": {
+  "cell": [
+   156,
+   314
+  ],
+  "path": "res://assets/kit/roots/barrier_wide.png",
+  "size": [
+   156,
+   314
+  ]
+ },
+ "roots/cut_0": {
+  "cell": [
+   157,
+   314
+  ],
+  "path": "res://assets/kit/roots/cut_0.png",
+  "size": [
+   157,
+   314
+  ]
+ },
+ "roots/cut_1": {
+  "cell": [
+   157,
+   314
+  ],
+  "path": "res://assets/kit/roots/cut_1.png",
+  "size": [
+   157,
+   314
+  ]
+ },
+ "roots/cut_2": {
+  "cell": [
+   156,
+   314
+  ],
+  "path": "res://assets/kit/roots/cut_2.png",
+  "size": [
+   156,
+   314
+  ]
+ },
+ "roots/lever_bound": {
+  "cell": [
+   157,
+   314
+  ],
+  "path": "res://assets/kit/roots/lever_bound.png",
+  "size": [
+   157,
+   314
+  ]
+ },
+ "roots/lever_bound_crop": {
+  "path": "res://assets/kit/roots/lever_bound_crop.png",
+  "size": [
+   138,
+   182
+  ]
+ },
+ "sway/f0": {
+  "anchor": [
+   55.2,
+   0.0
+  ],
+  "path": "res://assets/kit/sway/f0.png",
+  "size": [
+   111,
+   444
+  ]
+ },
+ "sway/f1": {
+  "anchor": [
+   55.2,
+   0.0
+  ],
+  "path": "res://assets/kit/sway/f1.png",
+  "size": [
+   111,
+   444
+  ]
+ },
+ "sway/f2": {
+  "anchor": [
+   55.2,
+   0.0
+  ],
+  "path": "res://assets/kit/sway/f2.png",
+  "size": [
+   110,
+   444
+  ]
+ },
+ "sway/f3": {
+  "anchor": [
+   55.2,
+   0.0
+  ],
+  "path": "res://assets/kit/sway/f3.png",
+  "size": [
+   111,
+   444
+  ]
+ },
+ "sway/f4": {
+  "anchor": [
+   55.2,
+   0.0
+  ],
+  "path": "res://assets/kit/sway/f4.png",
+  "size": [
+   111,
+   444
+  ]
+ },
+ "sway/f5": {
+  "anchor": [
+   55.2,
+   0.0
+  ],
+  "path": "res://assets/kit/sway/f5.png",
+  "size": [
+   110,
+   444
+  ]
+ },
+ "sway/f6": {
+  "anchor": [
+   55.2,
+   0.0
+  ],
+  "path": "res://assets/kit/sway/f6.png",
+  "size": [
+   111,
+   444
+  ]
+ },
+ "sway/f7": {
+  "anchor": [
+   55.2,
+   0.0
+  ],
+  "path": "res://assets/kit/sway/f7.png",
+  "size": [
+   111,
+   444
+  ]
+ },
+ "walls/attic": {
+  "path": "res://assets/kit/walls/attic.jpg",
+  "size": [
+   1190,
+   744
+  ],
+  "source_scale": 0.75
+ },
+ "walls/bedroom": {
+  "path": "res://assets/kit/walls/bedroom.jpg",
+  "size": [
+   1190,
+   744
+  ],
+  "source_scale": 0.75
+ },
+ "walls/cellar": {
+  "path": "res://assets/kit/walls/cellar.jpg",
+  "size": [
+   1190,
+   744
+  ],
+  "source_scale": 0.75
+ },
+ "walls/common": {
+  "path": "res://assets/kit/walls/common.jpg",
+  "size": [
+   1190,
+   744
+  ],
+  "source_scale": 0.75
+ },
+ "walls/conservatory": {
+  "path": "res://assets/kit/walls/conservatory.jpg",
+  "size": [
+   1190,
+   744
+  ],
+  "source_scale": 0.75
+ },
+ "walls/lab": {
+  "path": "res://assets/kit/walls/lab.jpg",
+  "size": [
+   1190,
+   744
+  ],
+  "source_scale": 0.75
+ },
+ "walls/library": {
+  "path": "res://assets/kit/walls/library.jpg",
+  "size": [
+   665,
+   1330
+  ],
+  "source_scale": 0.75
+ },
+ "walls/tower": {
+  "path": "res://assets/kit/walls/tower.jpg",
+  "size": [
+   665,
+   1330
+  ],
+  "source_scale": 0.75
+ },
+ "wreck/barrel": {
+  "path": "res://assets/kit/wreck/barrel.png",
+  "size": [
+   166,
+   122
+  ],
+  "top": 6.0
+ },
+ "wreck/barrel_rack": {
+  "path": "res://assets/kit/wreck/barrel_rack.png",
+  "size": [
+   278,
+   218
+  ],
+  "top": 8.0
+ },
+ "wreck/bed_on_side": {
+  "path": "res://assets/kit/wreck/bed_on_side.png",
+  "size": [
+   220,
+   114
+  ],
+  "top": 27.0
+ },
+ "wreck/boiler": {
+  "path": "res://assets/kit/wreck/boiler.png",
+  "size": [
+   288,
+   274
+  ],
+  "top": 40.0
+ },
+ "wreck/book_pile": {
+  "path": "res://assets/kit/wreck/book_pile.png",
+  "size": [
+   228,
+   88
+  ],
+  "top": 31.0
+ },
+ "wreck/bookcase_leaning": {
+  "path": "res://assets/kit/wreck/bookcase_leaning.png",
+  "size": [
+   193,
+   188
+  ],
+  "top": 30.0
+ },
+ "wreck/bookshelf_toppled": {
+  "path": "res://assets/kit/wreck/bookshelf_toppled.png",
+  "size": [
+   184,
+   104
+  ],
+  "top": 18.0
+ },
+ "wreck/broken_beams": {
+  "path": "res://assets/kit/wreck/broken_beams.png",
+  "size": [
+   264,
+   84
+  ],
+  "top": 24.0
+ },
+ "wreck/cabinet_tipped": {
+  "path": "res://assets/kit/wreck/cabinet_tipped.png",
+  "size": [
+   216,
+   100
+  ],
+  "top": 8.0
+ },
+ "wreck/canopy_bed": {
+  "path": "res://assets/kit/wreck/canopy_bed.png",
+  "size": [
+   286,
+   126
+  ],
+  "top": 18.0
+ },
+ "wreck/coal_bunker": {
+  "path": "res://assets/kit/wreck/coal_bunker.png",
+  "size": [
+   272,
+   134
+  ],
+  "top": 16.0
+ },
+ "wreck/crates": {
+  "path": "res://assets/kit/wreck/crates.png",
+  "size": [
+   258,
+   179
+  ],
+  "top": 3.0
+ },
+ "wreck/engine": {
+  "path": "res://assets/kit/wreck/engine.png",
+  "size": [
+   216,
+   218
+  ],
+  "top": 21.0
+ },
+ "wreck/heap": {
+  "path": "res://assets/kit/wreck/heap.png",
+  "size": [
+   281,
+   133
+  ],
+  "top": 42.5
+ },
+ "wreck/long_bench": {
+  "path": "res://assets/kit/wreck/long_bench.png",
+  "size": [
+   258,
+   70
+  ],
+  "top": 3.0
+ },
+ "wreck/reading_table": {
+  "path": "res://assets/kit/wreck/reading_table.png",
+  "size": [
+   218,
+   106
+  ],
+  "top": 12.0
+ },
+ "wreck/root_window": {
+  "path": "res://assets/kit/wreck/root_window.png",
+  "size": [
+   282,
+   152
+  ],
+  "top": 43.0
+ },
+ "wreck/table_clutter": {
+  "path": "res://assets/kit/wreck/table_clutter.png",
+  "size": [
+   578,
+   184
+  ],
+  "top": 58.0
+ },
+ "wreck/trough_planter": {
+  "path": "res://assets/kit/wreck/trough_planter.png",
+  "size": [
+   206,
+   110
+  ],
+  "top": 17.0
+ },
+ "wreck/trunks": {
+  "path": "res://assets/kit/wreck/trunks.png",
+  "size": [
+   250,
+   118
+  ],
+  "top": 40.0
+ },
+ "wreck/urn_planter": {
+  "path": "res://assets/kit/wreck/urn_planter.png",
+  "size": [
+   110,
+   125
+  ],
+  "top": 15.0
+ },
+ "wreck/vault_stone": {
+  "path": "res://assets/kit/wreck/vault_stone.png",
+  "size": [
+   384,
+   152
+  ],
+  "top": 7.0
+ },
+ "wreck/wardrobe": {
+  "path": "res://assets/kit/wreck/wardrobe.png",
+  "size": [
+   142,
+   206
+  ],
+  "top": 30.0
+ },
+ "wreck/wardrobe_toppled": {
+  "path": "res://assets/kit/wreck/wardrobe_toppled.png",
+  "size": [
+   219,
+   78
+  ],
+  "top": 9.0
+ },
+ "wreck/workbench": {
+  "path": "res://assets/kit/wreck/workbench.png",
+  "size": [
+   286,
+   162
+  ],
+  "top": 30.0
+ }
+}

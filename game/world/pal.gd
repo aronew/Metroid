@@ -1,7 +1,7 @@
 class_name Pal
 ## The mansion's palette, sampled from the environment mockups.
 
-const INK := Color("06050d")
+const INK := Color("060713")
 const INK_SOFT := Color("0e0f21")
 const EDGE := Color("3a3558")
 const HAZE_DEEP := Color("1d1e34")

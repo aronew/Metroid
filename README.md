@@ -49,9 +49,14 @@ the mansion and the lab, **F3** show collision, **F4** fly, **F5** give the knif
   laboratory door. The opening runs bedroom, hallway, grand hall, the rooms,
   the pantry and the knife, the basement, the hidden way behind the boiler,
   the vault, and father's lift back up into his study.
-- **The art pass** (`game/level/level_art.gd`): the painted interiors of the
-  two environment mockups, cut out as room plates (`tools/build_env_assets.py`),
-  set into ink architecture, parallax arcades, candlelight and dust.
+- **The art pass** (`game/level/level_art.gd`) uses the environment kit
+  (W00-W39 and the room plates), cut by `tools/build_kit.py` and fitted to the
+  collision. It covers walls by room, parallax arcades, floor, ceiling and
+  wall edges, stairs, railings, columns, windows, door frames, and wreckage
+  over the masses. It also wires up the roots and their cut, the lifts and
+  levers, the sealed doors, candles with a live flame loop, and hanging and
+  swaying moss. See `docs/kit-integration.md` for what each piece is for,
+  what the builder changes and what is still needed.
 
 ## How it is put together
 
@@ -66,7 +71,8 @@ game/ui         HUD and the F1 tuning panel
 levels/         level data as JSON (written by the tools, loaded by the game)
 tools/          Python: level layouts, validation, art and sound builders
 tests/          scripted tests that drive the real controller
-assets/source   the supplied mockups, untouched
+assets/source   the supplied mockups and the environment kit, untouched
+assets/kit      the kit cut into pieces (tools/build_kit.py)
 docs/           design notes, blockout drawings, test reports
 ```
 
@@ -78,6 +84,7 @@ dresses the same data.
 ## Checks you can run
 
 ```bash
+python3 tools/build_kit.py          # cut the kit (then tools/build_knife.py for Cowl's knife)
 python3 tools/mansion_layout.py     # rebuild the level data and the blockout drawings
 python3 tools/validate.py           # walk the mansion with the real controller (about 3 minutes)
 godot --headless --path . res://tests/feel_test.tscn    # measure the controller
@@ -91,13 +98,11 @@ lock-and-key plan and what the checks found.
 
 Stated plainly, so nothing here is mistaken for finished art:
 
+- **Cowl's animation** is a cut-out rig from the single front-facing
+  mockup. Side-view parts or frame animation would lift it most; see
+  `docs/kit-integration.md`.
 - **Creatures** (crawler, drifter) are ink silhouettes with lit eyes. No
-  creature art was supplied.
-- **The butcher knife** was drawn for this slice in Cowl's line style; there
-  was no knife in the supplied art.
-- **Architecture outside the painted plates** (walls, windows, shelves,
-  columns, railings, the vault door, lifts, candlesticks) is drawn in code in
-  the mockups' palette. It is a stand-in skin over approved-for-review
-  collision, not final environment art.
+  creature art has been supplied yet.
+- **Hit effects and dust** are drawn in code.
 - **Sound** is synthesised (`tools/build_sfx.py`). There is no music.
 - **Text** in the house is first-draft writing.

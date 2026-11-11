@@ -33,6 +33,7 @@ func configure(spec: Dictionary) -> void:
 
 
 func _ready() -> void:
+	texture_repeat = CanvasItem.TEXTURE_REPEAT_ENABLED
 	collision_layer = 1
 	collision_mask = 0
 	sync_to_physics = false
@@ -109,44 +110,25 @@ func _process(_delta: float) -> void:
 		queue_redraw()
 
 
+## Kit art (W31): the dumbwaiter's frame, the iron cage, the chandelier ring.
+## Each is scaled to the platform's width with its standing line on the deck.
 func _draw() -> void:
-	match kind:
-		"chandelier":
-			_draw_chandelier()
-		_:
-			_draw_cage()
-
-
-func _draw_cage() -> void:
-	# Deck, a low rail, and the lever.
-	draw_rect(Rect2(0, 0, w, 20), Pal.INK)
-	draw_line(Vector2(0, 1), Vector2(w, 1), Pal.EDGE, 3.0)
-	for x: float in [6.0, w - 6.0]:
-		draw_line(Vector2(x, 0), Vector2(x, -150), Pal.INK, 7.0)
-	draw_line(Vector2(6, -150), Vector2(w - 6, -150), Pal.INK, 7.0)
-	var lx := w - 30.0
-	draw_line(Vector2(lx, 0), Vector2(lx + (10.0 if at_top else -10.0), -44), Pal.INK_SOFT, 6.0)
-	draw_circle(Vector2(lx + (10.0 if at_top else -10.0), -46), 7.0, Pal.LAVENDER)
-	# Cables up into the dark.
-	for x: float in [18.0, w - 18.0]:
-		draw_line(Vector2(x, -150), Vector2(x, -1400), Color(Pal.INK.r, Pal.INK.g, Pal.INK.b, 0.9), 3.0)
-
-
-func _draw_chandelier() -> void:
-	# An iron ring of candles on a chain. You ride the ring.
-	var sway := sin(_t * 0.9) * 3.0
-	draw_line(Vector2(w * 0.5, -6), Vector2(w * 0.5 + sway * 0.2, -1700), Pal.INK, 5.0)
-	for i in 3:
-		var x := w * (0.2 + 0.3 * i)
-		draw_line(Vector2(w * 0.5, -150), Vector2(x, 0), Pal.INK, 4.0)
-	draw_rect(Rect2(0, 0, w, 16), Pal.INK)
-	draw_line(Vector2(0, 1), Vector2(w, 1), Pal.EDGE, 3.0)
-	draw_colored_polygon(PackedVector2Array([Vector2(20, 16), Vector2(w - 20, 16), Vector2(w * 0.5, 70)]), Pal.INK)
-	for i in 6:
-		var x := 14.0 + (w - 28.0) * i / 5.0
-		draw_rect(Rect2(x - 4, -26, 8, 26), Color(0.72, 0.68, 0.84))
-		var f := 1.0 + sin(_t * 12.0 + i * 1.7) * 0.12
-		for k in 3:
-			draw_circle(Vector2(x, -34), (46.0 - k * 14.0) * f, Color(Pal.CANDLE.r, Pal.CANDLE.g, Pal.CANDLE.b, 0.05 * (k + 1)))
-		draw_circle(Vector2(x, -34 - 2 * f), 5.5 * f, Color(1.0, 0.92, 0.82))
-		draw_colored_polygon(PackedVector2Array([Vector2(x - 8, 0), Vector2(x + 8, 0), Vector2(x, 14)]), Pal.INK)
+	var key := {"dumbwaiter": "machines/dumbwaiter", "chandelier": "machines/chandelier_lift"}.get(kind, "machines/cage") as String
+	var t := Kit.tex(key)
+	if t == null:
+		return
+	var s := w / t.get_width()
+	var deck: float = Kit.meta(key)["deck"]
+	var sway := sin(_t * 0.9) * 0.006 if kind == "chandelier" else 0.0
+	draw_set_transform(Vector2(w * 0.5, 0), sway, Vector2.ONE)
+	draw_texture_rect(t, Rect2(-w * 0.5, -deck * s, w, t.get_height() * s), false)
+	# Cables (or the chandelier's chain) up into the dark.
+	var chain := Kit.tex("machines/chain")
+	var cs := 0.6
+	var cw := chain.get_width() * cs
+	var tops: Array = [0.0] if kind == "chandelier" else [-w * 0.36, w * 0.36]
+	for cx: float in tops:
+		var y0 := -deck * s - 1800.0
+		var y1 := -deck * s + (6.0 if kind != "chandelier" else 4.0)
+		draw_texture_rect_region(chain, Rect2(cx - cw * 0.5, y0, cw, y1 - y0), Rect2(0, 0, chain.get_width(), (y1 - y0) / cs))
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)

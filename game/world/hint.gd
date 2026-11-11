@@ -8,6 +8,7 @@ var prompt := ""
 var text := ""
 var when := ""
 var interactive := false
+var paper := ""            # "note" or "letter": something lying where the hint is
 var _t := 0.0
 
 
@@ -18,6 +19,7 @@ func configure(spec: Dictionary) -> void:
 	text = spec.get("text", "")
 	when = spec.get("when", "")
 	interactive = spec.get("interact", false)
+	paper = spec.get("paper", "")
 
 
 func _ready() -> void:
@@ -62,6 +64,11 @@ func _process(delta: float) -> void:
 func _draw() -> void:
 	if not interactive:
 		return
+	if paper != "":
+		var t := Kit.tex("props/" + paper)
+		if t != null:
+			var s := 44.0 / t.get_width()
+			draw_texture_rect(t, Rect2(w * 0.5 - 22.0, -t.get_height() * s + 2.0, 44.0, t.get_height() * s), false, Color(0.85, 0.85, 0.95))
 	# A mote that says "there is something here".
 	var c := Vector2(w * 0.5, -46.0 + sin(_t * 1.7) * 5.0)
 	var a := 0.45 + sin(_t * 2.3) * 0.2

@@ -47,17 +47,24 @@ func _process(delta: float) -> void:
 		queue_redraw()
 
 
+## Kit art (W34): a candle on an iron stand, unlit until Cowl passes; then
+## the flame loop (W36) and its light.
 func _draw() -> void:
 	if kind == "bed":
 		return
-	# A floor candlestick, in the mansion's ink.
-	draw_rect(Rect2(-14, -6, 28, 6), Pal.INK)
-	draw_rect(Rect2(-3, -70, 6, 66), Pal.INK)
-	draw_rect(Rect2(-12, -76, 24, 6), Pal.INK)
-	draw_rect(Rect2(-4, -92, 8, 16), Color(0.75, 0.7, 0.85) if _glow > 0.0 else Pal.INK_SOFT)
+	var key := "props/candle_lit" if _glow > 0.0 else "props/candle_unlit"
+	var t := Kit.tex(key)
+	if t == null:
+		return
+	var s := 112.0 / t.get_height()
+	var size := t.get_size() * s
+	var rect := Rect2(-size.x * 0.5, -size.y + 2.0, size.x, size.y)
+	draw_texture_rect(t, rect, false)
 	if _glow > 0.0:
+		var wicks: Array = Kit.meta("props/candle_lit").get("wicks", [])
+		var base := rect.position + (Vector2(wicks[0][0], wicks[0][1]) * s if not wicks.is_empty() else Vector2(size.x * 0.5, size.y * 0.12))
 		var f := 1.0 + sin(_t * 11.0) * 0.08 + sin(_t * 23.0) * 0.05
 		for i in 5:
 			var r := (150.0 - i * 26.0) * f
-			draw_circle(Vector2(0, -100), r, Color(Pal.CANDLE.r, Pal.CANDLE.g, Pal.CANDLE.b, 0.035 * _glow * (i + 1)))
-		draw_circle(Vector2(0, -100 - 4 * f), 7.0 * f, Color(1.0, 0.9, 0.8, _glow))
+			draw_circle(base + Vector2(0, -8), r, Color(Pal.CANDLE.r, Pal.CANDLE.g, Pal.CANDLE.b, 0.03 * _glow * (i + 1)))
+		Kit.draw_flame(self, base, 18.0, int(_t * 60.0), _glow)

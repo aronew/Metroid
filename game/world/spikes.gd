@@ -27,14 +27,11 @@ func is_spikes() -> bool:
 	return true
 
 
+## Kit art (W34): stalagmites in their trench, fitted to the hazard's width.
 func _draw() -> void:
-	var rng := RandomNumberGenerator.new()
-	rng.seed = int(global_position.x)
-	var x := 0.0
-	while x < w:
-		var bw := rng.randf_range(22.0, 44.0)
-		var bh := rng.randf_range(0.7, 1.35) * h
-		var tip := Vector2(x + bw * rng.randf_range(0.35, 0.65), -bh)
-		draw_colored_polygon(PackedVector2Array([Vector2(x - 4, 4), tip, Vector2(x + bw + 4, 4)]), Pal.INK)
-		draw_line(Vector2(x - 2, 0), tip, Pal.EDGE, 2.0, true)
-		x += bw * 0.8
+	var t := Kit.tex("props/stalagmites")
+	if t == null:
+		return
+	var s := (w + 20.0) / t.get_width()
+	var size := t.get_size() * s
+	draw_texture_rect(t, Rect2(-10.0, -size.y + 6.0, size.x, size.y), false)
