@@ -1,0 +1,29 @@
+WARREN 01
+
+Movement numbers (provisional):
+  body 0.8 x 1.8 tiles; cautious jump rises 3.4 and clears a 5.0 gap; generous 3.9 and 6.6; screen 32 x 18
+
+Measured:
+  open share of the frame                  0.315
+  floor tiles                              1567
+  longest flat floor                       85
+  floor in flat runs of 8 or more          0.877
+  floor under a ceiling of 5 or less       0.808
+  footholds (floors 8 long or shorter)     58
+  stacked footholds                        0
+  zig-zag climbs                           0
+  one- or two-tile floor steps             5
+  platforms                                0
+  ladders                                  0
+  rectangles                               82 spaces, 41 masses
+
+Walked from the west door:
+  standing tiles                           1540
+  reached with starting moves, and back    1519 (98.6%)
+  traps (reached, no way back)             0
+  opened only by the wall cling            14  (shut to the generous model: yes; way back: yes)
+  opened only by the crust dive            10  (shut to the generous model: yes; way back: yes)
+  one-way exits off the frame at x =       [16, 17, 18, 19]
+  never reached by any set                 0
+
+Not checked: enemies, hazards, camera, and anything that depends on the final movement numbers.
