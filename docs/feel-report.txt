@@ -1,0 +1,73 @@
+FEEL REPORT  preset=cowl_default
+rise 3.35t  flat gap 5.6t  air 0.65s  run 8.6t/s
+
+GROUND
+  rest to top speed: 6 frames (0.100 s), covering 0.56 tiles
+  ok    top speed inside 8 frames
+  ok    holds top speed exactly (550.4 px/s)
+  top speed to rest: 5 frames, sliding 0.23 tiles
+  ok    stops inside 6 frames and 0.6 tiles
+  full reverse: 9 frames, carried 0.17 tiles past the turn
+  ok    full reverse inside 12 frames
+  ok    half stick walks at 3.4 t/s
+
+JUMP
+  full jump: rise 3.52 tiles, 42 frames in the air (0.70 s)
+  ok    full jump rises about jump_height (3.35, hang adds a little)
+  one-frame tap: rise 1.15 tiles, 23 frames
+  ok    tap is a short hop, under half the full jump
+  eight-frame press: rise 2.46 tiles
+  ok    height follows how long the button is held
+  running full jump on the flat: travels 6.02 tiles
+  running tap: travels 3.30 tiles
+  jump right, reverse at the apex: out 3.44 tiles, lands 2.33 tiles from take-off
+  ok    air steering can bring Cowl back from the apex
+
+COYOTE TIME AND JUMP BUFFER
+  ok    jump 5 frames after leaving a ledge still fires
+  ok    jump 8 frames after leaving a ledge does not fire
+  ok    jump pressed 6 frames before landing fires on landing
+  ok    jump pressed 10 frames before landing is forgotten
+
+GAPS (running full jump from the lip)
+  gap 3: cleared
+  gap 4: cleared
+  gap 5: cleared
+  gap 6: cleared
+  gap 7: not cleared
+  widest gap cleared on the flat: 6 tiles
+  ok    flat-ground reach tops out at 6 tiles with a perfect take-off; 7 is a wall
+
+RISES (standing start beside the block, jump and steer on)
+  rise 1: reached
+  rise 2: reached
+  rise 3: reached
+  rise 4: not reached
+  ok    a 3-tile block is reachable and a 4-tile block is not (got 3)
+
+RAMPS
+  ok    east over both ramps: never leaves the ground (0 airborne frames of 119)
+  ok    east over both ramps: speed holds (slowest 8.3 t/s)
+  ok    west over both ramps: never leaves the ground (0 airborne frames of 120)
+  ok    west over both ramps: speed holds (slowest 7.3 t/s)
+  ok    standing on the 1:1 ramp does not slide
+
+CORNER CORRECTION (block at x 168..171, underside 4 tiles up)
+  ok    head clips the corner by 4 px: slides round (rise 3.52)
+  ok    head clips the corner by 8 px: slides round (rise 3.52)
+  ok    head clips the corner by 12 px: slides round (rise 3.52)
+  ok    head overlaps by 20 px: stopped by the block (rise 2.44)
+
+WALLS (press into the tall shelf at x 188 while falling and rising)
+  ok    sliding down a wall never snags
+  ok    body rests flush against the wall
+
+DODGE
+  standing dodge: 3.61 tiles in 15 frames, 11 of them untouchable
+  ok    dodge covers its set distance (3.6)
+  ok    cannot dodge again inside the cooldown
+  ok    no dodge in the air (kept for a later ability)
+
+ONE-WAY LEDGES (ledge at x 174..179, 3 tiles up)
+  ok    jumps up through a ledge and lands on it
+  ok    down + jump drops through it
