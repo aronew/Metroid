@@ -16,6 +16,7 @@ var _left := 0
 var _frame := 0
 var _cur: Dictionary = {}
 var _inp: Cowl.InputState
+var _busy := false
 
 
 func _ready() -> void:
@@ -33,7 +34,7 @@ func _ready() -> void:
 
 func _physics_process(_delta: float) -> void:
 	var cowl: Cowl = main.get("cowl")
-	if cowl == null:
+	if cowl == null or _busy:
 		return
 	if _left > 0:
 		_left -= 1
@@ -46,10 +47,13 @@ func _physics_process(_delta: float) -> void:
 			if _frame == int(_cur.get("stop_at", -1)):
 				_inp.move = 0.0
 		if _left == 0:
+			_busy = true
+			var shot_name: String = _cur["name"]
 			await RenderingServer.frame_post_draw
 			var img := get_viewport().get_texture().get_image()
-			img.save_png("%s/%s.png" % [out_dir, _cur["name"]])
-			print("shot ", _cur["name"])
+			img.save_png("%s/%s.png" % [out_dir, shot_name])
+			print("shot ", shot_name)
+			_busy = false
 		return
 	_i += 1
 	if _i >= shots.size():
@@ -64,7 +68,8 @@ func _physics_process(_delta: float) -> void:
 		if _cur.get("awake", true) and cowl.state == Cowl.State.CUTSCENE:
 			cowl.state = Cowl.State.NORMAL
 			cowl.wake_progress = -1.0
-		cowl.teleport(Vector2(_cur["x"], _cur["y"]) * 64.0)
+		cowl.sim_reset(Vector2(_cur["x"], _cur["y"]) * 64.0)
+		cowl.reset_physics_interpolation()
 		if _cur.has("facing"):
 			cowl.facing = int(_cur["facing"])
 		main.get("camera").call(&"snap")

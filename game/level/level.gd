@@ -15,15 +15,19 @@ const ENTITY_SCRIPTS := {
 	"dummy": "res://game/enemies/dummy.gd",
 	"spikes": "res://game/world/spikes.gd",
 	"checkpoint": "res://game/world/checkpoint.gd",
-	"lab_door": "res://game/world/lab_door.gd",
 	"lift": "res://game/world/lift.gd",
-	"family": "res://game/world/frozen_figure.gd",
-	"biome_door": "res://game/world/biome_door.gd",
+	"lever": "res://game/world/lever.gd",
 	"hint": "res://game/world/hint.gd",
 	"false_wall": "res://game/world/false_wall.gd",
 	"bookcase_door": "res://game/world/bookcase_door.gd",
 	"note": "res://game/world/note.gd",
-	"crack": "res://game/world/crack.gd",
+	"family": "res://game/world/fixture.gd",
+	"biome_door": "res://game/world/fixture.gd",
+	"crack": "res://game/world/fixture.gd",
+	"lab_door": "res://game/world/fixture.gd",
+	"glint": "res://game/world/fixture.gd",
+	"front_door": "res://game/world/fixture.gd",
+	"garage_door": "res://game/world/fixture.gd",
 }
 
 @export_file("*.json") var data_path := ""

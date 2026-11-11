@@ -64,6 +64,7 @@ func load_level(which: String) -> void:
 	camera.follow(cowl)
 
 	hud.bind(cowl, self)
+	cowl.attack_started.connect(func(_k: StringName) -> void: Game.set_flag("swung"))
 	if not Game.player_died.is_connected(_on_player_died):
 		Game.player_died.connect(_on_player_died)
 
@@ -76,6 +77,44 @@ func load_level(which: String) -> void:
 		Game.set_checkpoint(level.spawn_px)
 		camera.snap()
 		Sfx.loop(&"ambience", -14.0)
+
+
+## Offer the nearest thing Cowl can act on, and show any control prompt for
+## the ground he is standing on.
+func _process(_delta: float) -> void:
+	if cowl == null or not is_instance_valid(cowl):
+		return
+	var best: Node = null
+	var best_d := INF
+	var text := ""
+	if cowl.state == Cowl.State.NORMAL:
+		for n in get_tree().get_nodes_in_group(&"interactable"):
+			var p: String = n.call(&"interact_prompt", cowl)
+			if p == "":
+				continue
+			var origin: Vector2 = n.call(&"interact_origin") if n.has_method(&"interact_origin") else (n as Node2D).global_position
+			var d := origin.distance_to(cowl.global_position)
+			if d < best_d and d < 420.0:
+				best = n
+				best_d = d
+				text = p
+	if best == null:
+		for n in get_tree().get_nodes_in_group(&"prompt_zone"):
+			var p: String = n.call(&"zone_prompt", cowl)
+			if p != "":
+				text = p
+				break
+	elif Input.is_action_just_pressed(&"interact") and cowl.controls_enabled:
+		best.call(&"interact", cowl)
+	hud.set_prompt(text)
+	if Game.get_flag("lab_door_seen") and not Game.get_flag("slice_end_shown"):
+		Game.set_flag("slice_end_shown")
+		_show_end_card()
+
+
+func _show_end_card() -> void:
+	await get_tree().create_timer(7.0).timeout
+	Game.say("END OF THE VERTICAL SLICE\nThe house is yours to keep exploring.", 9.0)
 
 
 func _unhandled_input(event: InputEvent) -> void:

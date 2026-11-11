@@ -66,8 +66,8 @@ class Level:
         """A camera zone: zoom and framing while Cowl is inside."""
         self.zones.append(dict(x=x, y=y, w=w, h=h, **kw))
 
-    def entity(self, kind, x, y, **kw):
-        self.entities.append(dict(type=kind, x=x, y=y, **kw))
+    def entity(self, etype, x, y, **kw):
+        self.entities.append(dict(type=etype, x=x, y=y, **kw))
 
     def prop(self, sprite, x, y, **kw):
         """Decoration. Never collides. x, y is the prop's bottom centre."""

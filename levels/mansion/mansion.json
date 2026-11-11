@@ -1,0 +1,1300 @@
+{
+ "name": "mansion",
+ "tile": 64,
+ "w": 256,
+ "h": 76,
+ "spawn": [
+  25,
+  28
+ ],
+ "solids": [
+  [
+   0,
+   0,
+   256,
+   5
+  ],
+  [
+   0,
+   5,
+   236,
+   1
+  ],
+  [
+   18,
+   6,
+   218,
+   1
+  ],
+  [
+   148,
+   7,
+   88,
+   2
+  ],
+  [
+   246,
+   5,
+   10,
+   6
+  ],
+  [
+   234,
+   9,
+   2,
+   3
+  ],
+  [
+   148,
+   9,
+   2,
+   3
+  ],
+  [
+   242,
+   11,
+   14,
+   2
+  ],
+  [
+   0,
+   6,
+   8,
+   8
+  ],
+  [
+   186,
+   13,
+   6,
+   3
+  ],
+  [
+   210,
+   14,
+   8,
+   2
+  ],
+  [
+   0,
+   14,
+   12,
+   2
+  ],
+  [
+   126,
+   16,
+   45,
+   2
+  ],
+  [
+   175,
+   16,
+   64,
+   2
+  ],
+  [
+   18,
+   7,
+   70,
+   12
+  ],
+  [
+   175,
+   18,
+   61,
+   1
+  ],
+  [
+   148,
+   18,
+   23,
+   1
+  ],
+  [
+   48,
+   19,
+   2,
+   2
+  ],
+  [
+   86,
+   19,
+   2,
+   2
+  ],
+  [
+   176,
+   19,
+   2,
+   3
+  ],
+  [
+   18,
+   19,
+   2,
+   5
+  ],
+  [
+   206,
+   19,
+   2,
+   5
+  ],
+  [
+   234,
+   19,
+   2,
+   5
+  ],
+  [
+   148,
+   19,
+   2,
+   5
+  ],
+  [
+   170,
+   22,
+   8,
+   2
+  ],
+  [
+   0,
+   16,
+   8,
+   12
+  ],
+  [
+   170,
+   24,
+   6,
+   4
+  ],
+  [
+   41,
+   25,
+   14,
+   3
+  ],
+  [
+   159,
+   25,
+   6,
+   3
+  ],
+  [
+   33,
+   26,
+   5,
+   2
+  ],
+  [
+   214,
+   26,
+   8,
+   2
+  ],
+  [
+   70,
+   28,
+   32,
+   2
+  ],
+  [
+   136,
+   28,
+   51,
+   2
+  ],
+  [
+   197,
+   28,
+   43,
+   2
+  ],
+  [
+   0,
+   28,
+   9,
+   3
+  ],
+  [
+   13,
+   28,
+   53,
+   3
+  ],
+  [
+   206,
+   30,
+   30,
+   1
+  ],
+  [
+   148,
+   30,
+   30,
+   1
+  ],
+  [
+   70,
+   30,
+   18,
+   1
+  ],
+  [
+   86,
+   31,
+   2,
+   4
+  ],
+  [
+   176,
+   31,
+   2,
+   4
+  ],
+  [
+   114,
+   34,
+   12,
+   2
+  ],
+  [
+   34,
+   31,
+   2,
+   6
+  ],
+  [
+   60,
+   31,
+   2,
+   6
+  ],
+  [
+   206,
+   31,
+   2,
+   6
+  ],
+  [
+   234,
+   31,
+   2,
+   6
+  ],
+  [
+   148,
+   31,
+   2,
+   6
+  ],
+  [
+   79,
+   35,
+   9,
+   2
+  ],
+  [
+   170,
+   35,
+   8,
+   2
+  ],
+  [
+   189,
+   35,
+   6,
+   3
+  ],
+  [
+   246,
+   13,
+   10,
+   28
+  ],
+  [
+   0,
+   31,
+   8,
+   10
+  ],
+  [
+   18,
+   37,
+   6,
+   4
+  ],
+  [
+   74,
+   38,
+   4,
+   3
+  ],
+  [
+   189,
+   38,
+   10,
+   3
+  ],
+  [
+   182,
+   38,
+   4,
+   3
+  ],
+  [
+   163,
+   38,
+   5,
+   3
+  ],
+  [
+   38,
+   39,
+   4,
+   2
+  ],
+  [
+   26,
+   39,
+   4,
+   2
+  ],
+  [
+   14,
+   39,
+   3,
+   2
+  ],
+  [
+   65,
+   39,
+   6,
+   2
+  ],
+  [
+   49,
+   41,
+   3,
+   3
+  ],
+  [
+   0,
+   41,
+   44,
+   3
+  ],
+  [
+   56,
+   41,
+   173,
+   3
+  ],
+  [
+   86,
+   44,
+   2,
+   4
+  ],
+  [
+   148,
+   44,
+   2,
+   4
+  ],
+  [
+   60,
+   44,
+   2,
+   6
+  ],
+  [
+   176,
+   44,
+   2,
+   6
+  ],
+  [
+   140,
+   48,
+   10,
+   2
+  ],
+  [
+   77,
+   48,
+   6,
+   3
+  ],
+  [
+   0,
+   44,
+   36,
+   10
+  ],
+  [
+   194,
+   47,
+   8,
+   7
+  ],
+  [
+   166,
+   49,
+   5,
+   5
+  ],
+  [
+   156,
+   51,
+   6,
+   3
+  ],
+  [
+   98,
+   51,
+   5,
+   3
+  ],
+  [
+   68,
+   51,
+   5,
+   3
+  ],
+  [
+   182,
+   51,
+   6,
+   3
+  ],
+  [
+   77,
+   51,
+   9,
+   3
+  ],
+  [
+   43,
+   52,
+   7,
+   2
+  ],
+  [
+   120,
+   54,
+   83,
+   2
+  ],
+  [
+   0,
+   54,
+   116,
+   2
+  ],
+  [
+   233,
+   41,
+   23,
+   16
+  ],
+  [
+   206,
+   44,
+   23,
+   13
+  ],
+  [
+   0,
+   56,
+   203,
+   1
+  ],
+  [
+   234,
+   57,
+   22,
+   9
+  ],
+  [
+   0,
+   57,
+   190,
+   9
+  ],
+  [
+   0,
+   66,
+   256,
+   10
+  ]
+ ],
+ "slopes": [
+  {
+   "pts": [
+    [
+     102,
+     28
+    ],
+    [
+     105,
+     29.5
+    ],
+    [
+     105,
+     31.0
+    ],
+    [
+     102,
+     29.5
+    ]
+   ],
+   "note": "upper flight, top stub",
+   "line": [
+    102,
+    28,
+    105,
+    29.5
+   ],
+   "thick": 1.5
+  },
+  {
+   "pts": [
+    [
+     109,
+     31.5
+    ],
+    [
+     114,
+     34
+    ],
+    [
+     114,
+     35.5
+    ],
+    [
+     109,
+     33.0
+    ]
+   ],
+   "note": "upper flight, lower remnant",
+   "line": [
+    109,
+    31.5,
+    114,
+    34
+   ],
+   "thick": 1.5
+  },
+  {
+   "pts": [
+    [
+     126,
+     34
+    ],
+    [
+     140,
+     41
+    ],
+    [
+     126,
+     41
+    ]
+   ],
+   "note": "grand flight down to the east floor",
+   "line": [
+    126,
+    34,
+    140,
+    41
+   ],
+   "thick": null
+  },
+  {
+   "pts": [
+    [
+     136,
+     28
+    ],
+    [
+     129,
+     31.5
+    ],
+    [
+     129,
+     33.0
+    ],
+    [
+     136,
+     29.5
+    ]
+   ],
+   "note": "east flight: broken, hangs short of the mezzanine",
+   "line": [
+    136,
+    28,
+    129,
+    31.5
+   ],
+   "thick": 1.5
+  },
+  {
+   "pts": [
+    [
+     93,
+     41
+    ],
+    [
+     106,
+     34.5
+    ],
+    [
+     106,
+     41
+    ]
+   ],
+   "note": "fallen flight, up",
+   "line": [
+    93,
+    41,
+    106,
+    34.5
+   ],
+   "thick": null
+  },
+  {
+   "pts": [
+    [
+     106,
+     34.5
+    ],
+    [
+     112.5,
+     41
+    ],
+    [
+     106,
+     41
+    ]
+   ],
+   "note": "fallen flight, down",
+   "line": [
+    106,
+    34.5,
+    112.5,
+    41
+   ],
+   "thick": null
+  }
+ ],
+ "oneways": [
+  {
+   "x": 190.5,
+   "y": 27.5,
+   "w": 3,
+   "kind": "lamp",
+   "note": ""
+  },
+  {
+   "x": 189.5,
+   "y": 48.5,
+   "w": 3.5,
+   "kind": "pipe",
+   "note": ""
+  }
+ ],
+ "rooms": [
+  {
+   "name": "west tower",
+   "x": 8,
+   "y": 6,
+   "w": 10,
+   "h": 22,
+   "tint": [
+    90,
+    120,
+    200
+   ],
+   "mood": "tower"
+  },
+  {
+   "name": "Cowl's bedroom",
+   "x": 20,
+   "y": 19,
+   "w": 28,
+   "h": 9,
+   "mood": "bedroom"
+  },
+  {
+   "name": "upstairs hallway",
+   "x": 50,
+   "y": 19,
+   "w": 36,
+   "h": 9,
+   "mood": "hall_upper"
+  },
+  {
+   "name": "grand entrance hall",
+   "x": 88,
+   "y": 7,
+   "w": 60,
+   "h": 34,
+   "mood": "grand_hall"
+  },
+  {
+   "name": "sister's room",
+   "x": 150,
+   "y": 19,
+   "w": 26,
+   "h": 9,
+   "mood": "bedroom"
+  },
+  {
+   "name": "library",
+   "x": 178,
+   "y": 19,
+   "w": 28,
+   "h": 22,
+   "mood": "library"
+  },
+  {
+   "name": "parents' bedroom",
+   "x": 208,
+   "y": 19,
+   "w": 26,
+   "h": 9,
+   "mood": "bedroom"
+  },
+  {
+   "name": "east tower",
+   "x": 236,
+   "y": 5,
+   "w": 10,
+   "h": 36,
+   "tint": [
+    90,
+    120,
+    200
+   ],
+   "mood": "tower"
+  },
+  {
+   "name": "attic",
+   "x": 150,
+   "y": 9,
+   "w": 84,
+   "h": 7,
+   "mood": "attic"
+  },
+  {
+   "name": "conservatory",
+   "x": 8,
+   "y": 31,
+   "w": 26,
+   "h": 10,
+   "tint": [
+    60,
+    160,
+    90
+   ],
+   "mood": "conservatory"
+  },
+  {
+   "name": "kitchen",
+   "x": 36,
+   "y": 31,
+   "w": 24,
+   "h": 10,
+   "mood": "kitchen"
+  },
+  {
+   "name": "dining room",
+   "x": 62,
+   "y": 31,
+   "w": 24,
+   "h": 10,
+   "mood": "dining"
+  },
+  {
+   "name": "living room",
+   "x": 150,
+   "y": 31,
+   "w": 26,
+   "h": 10,
+   "mood": "living"
+  },
+  {
+   "name": "father's study",
+   "x": 208,
+   "y": 31,
+   "w": 26,
+   "h": 10,
+   "mood": "study"
+  },
+  {
+   "name": "pantry",
+   "x": 36,
+   "y": 44,
+   "w": 24,
+   "h": 10,
+   "mood": "pantry"
+  },
+  {
+   "name": "storage rooms",
+   "x": 62,
+   "y": 44,
+   "w": 24,
+   "h": 10,
+   "mood": "storage"
+  },
+  {
+   "name": "undercroft",
+   "x": 88,
+   "y": 44,
+   "w": 60,
+   "h": 10,
+   "mood": "undercroft"
+  },
+  {
+   "name": "workshop",
+   "x": 150,
+   "y": 44,
+   "w": 26,
+   "h": 10,
+   "mood": "workshop"
+  },
+  {
+   "name": "boiler room",
+   "x": 178,
+   "y": 44,
+   "w": 28,
+   "h": 10,
+   "mood": "boiler"
+  },
+  {
+   "name": "laboratory antechamber",
+   "x": 190,
+   "y": 57,
+   "w": 44,
+   "h": 9,
+   "tint": [
+    60,
+    200,
+    220
+   ],
+   "mood": "lab"
+  }
+ ],
+ "zones": [
+  {
+   "x": 88,
+   "y": 7,
+   "w": 60,
+   "h": 35,
+   "zoom": 0.68,
+   "oy": -1.5
+  },
+  {
+   "x": 178,
+   "y": 19,
+   "w": 28,
+   "h": 23,
+   "zoom": 0.8
+  },
+  {
+   "x": 236,
+   "y": 5,
+   "w": 10,
+   "h": 37,
+   "zoom": 0.8
+  },
+  {
+   "x": 88,
+   "y": 44,
+   "w": 60,
+   "h": 11,
+   "zoom": 0.85
+  }
+ ],
+ "entities": [
+  {
+   "type": "glint",
+   "x": 10,
+   "y": 14,
+   "name": "tower ledge"
+  },
+  {
+   "type": "vine",
+   "x": 18.5,
+   "y": 28,
+   "w": 1,
+   "h": 4,
+   "name": "V1 bedroom west door"
+  },
+  {
+   "type": "checkpoint",
+   "x": 25,
+   "y": 28,
+   "kind": "bed",
+   "w": 5,
+   "h": 2
+  },
+  {
+   "type": "hint",
+   "x": 21,
+   "y": 28,
+   "w": 9,
+   "h": 5,
+   "text": "",
+   "when": "asleep",
+   "prompt": "Press any key"
+  },
+  {
+   "type": "hint",
+   "x": 28,
+   "y": 28,
+   "w": 5,
+   "h": 5,
+   "text": "",
+   "prompt": "Jump  [Space]   hold to jump higher"
+  },
+  {
+   "type": "lift",
+   "x": 117,
+   "y": 34,
+   "w": 5,
+   "top": 16,
+   "bottom": 34,
+   "start": "top",
+   "kind": "chandelier",
+   "name": "chandelier"
+  },
+  {
+   "type": "lever",
+   "x": 124.5,
+   "y": 34,
+   "lift": "chandelier",
+   "bound": true,
+   "name": "V8 chandelier winch"
+  },
+  {
+   "type": "checkpoint",
+   "x": 119,
+   "y": 41,
+   "kind": "rest",
+   "w": 2,
+   "h": 2
+  },
+  {
+   "type": "hint",
+   "x": 90,
+   "y": 28,
+   "w": 10,
+   "h": 5,
+   "text": "",
+   "prompt": "Dodge  [Shift]"
+  },
+  {
+   "type": "front_door",
+   "x": 118,
+   "y": 41,
+   "w": 8,
+   "h": 9
+  },
+  {
+   "type": "vine",
+   "x": 176.5,
+   "y": 28,
+   "w": 1,
+   "h": 4,
+   "name": "V4 sister's room to library gallery"
+  },
+  {
+   "type": "hint",
+   "x": 190,
+   "y": 35,
+   "w": 4,
+   "h": 3,
+   "text": "A ledger, swollen with damp. Most of it is in a code of his own.\nOne line is not: \"density is a choice the sphere makes for you.\"",
+   "interact": true
+  },
+  {
+   "type": "vine",
+   "x": 176.5,
+   "y": 41,
+   "w": 1,
+   "h": 4,
+   "name": "V3 living room to library"
+  },
+  {
+   "type": "glint",
+   "x": 244,
+   "y": 11,
+   "name": "tower ledge"
+  },
+  {
+   "type": "drifter",
+   "x": 200,
+   "y": 12
+  },
+  {
+   "type": "drifter",
+   "x": 224,
+   "y": 12
+  },
+  {
+   "type": "hint",
+   "x": 160,
+   "y": 16,
+   "w": 6,
+   "h": 4,
+   "text": "Boxes of winter coats. Four of everything.",
+   "interact": true
+  },
+  {
+   "type": "biome_door",
+   "x": 9,
+   "y": 41,
+   "w": 3,
+   "h": 5,
+   "name": "overgrown door"
+  },
+  {
+   "type": "vine",
+   "x": 34.5,
+   "y": 41,
+   "w": 1,
+   "h": 4,
+   "name": "V6 kitchen to conservatory"
+  },
+  {
+   "type": "family",
+   "x": 41,
+   "y": 41,
+   "who": "mother"
+  },
+  {
+   "type": "lift",
+   "x": 52,
+   "y": 41,
+   "w": 4,
+   "top": 41,
+   "bottom": 54,
+   "start": "top",
+   "kind": "dumbwaiter",
+   "name": "dumbwaiter"
+  },
+  {
+   "type": "lever",
+   "x": 57,
+   "y": 41,
+   "lift": "dumbwaiter",
+   "bound": true,
+   "name": "V2 dumbwaiter (kitchen)"
+  },
+  {
+   "type": "family",
+   "x": 71.5,
+   "y": 41,
+   "who": "sibling"
+  },
+  {
+   "type": "hint",
+   "x": 81,
+   "y": 35,
+   "w": 4,
+   "h": 3,
+   "text": "A place card: COWL. The seat is pushed in. Dust on the plate, thick as felt.",
+   "interact": true
+  },
+  {
+   "type": "hint",
+   "x": 172,
+   "y": 35,
+   "w": 3,
+   "h": 3,
+   "text": "The family portrait. Four figures. Someone has drawn a small circle above the house.",
+   "interact": true
+  },
+  {
+   "type": "family",
+   "x": 217,
+   "y": 41,
+   "who": "father"
+  },
+  {
+   "type": "bookcase_door",
+   "x": 228,
+   "y": 41,
+   "w": 1,
+   "h": 10,
+   "name": "study bookcase"
+  },
+  {
+   "type": "lift",
+   "x": 229,
+   "y": 66,
+   "w": 4,
+   "top": 41,
+   "bottom": 66,
+   "start": "bottom",
+   "kind": "cage",
+   "name": "study lift"
+  },
+  {
+   "type": "hint",
+   "x": 219,
+   "y": 41,
+   "w": 6,
+   "h": 4,
+   "text": "His notes stop mid-word. The ink has had years to fade.",
+   "interact": true
+  },
+  {
+   "type": "knife",
+   "x": 39.5,
+   "y": 54
+  },
+  {
+   "type": "lever",
+   "x": 57.5,
+   "y": 54,
+   "lift": "dumbwaiter",
+   "bound": true,
+   "name": "V2b dumbwaiter (pantry)"
+  },
+  {
+   "type": "hint",
+   "x": 37,
+   "y": 54,
+   "w": 6,
+   "h": 4,
+   "text": "",
+   "when": "knife",
+   "prompt": "Swing  [J]     hold Up to swing overhead"
+  },
+  {
+   "type": "vine",
+   "x": 60.5,
+   "y": 54,
+   "w": 1,
+   "h": 4,
+   "name": "V5 pantry to storage"
+  },
+  {
+   "type": "crawler",
+   "x": 65,
+   "y": 54
+  },
+  {
+   "type": "crawler",
+   "x": 80,
+   "y": 48
+  },
+  {
+   "type": "spikes",
+   "x": 116,
+   "y": 56,
+   "w": 4,
+   "h": 1
+  },
+  {
+   "type": "crawler",
+   "x": 108,
+   "y": 54
+  },
+  {
+   "type": "crawler",
+   "x": 130,
+   "y": 54
+  },
+  {
+   "type": "drifter",
+   "x": 124,
+   "y": 48
+  },
+  {
+   "type": "biome_door",
+   "x": 144,
+   "y": 48,
+   "w": 3,
+   "h": 4,
+   "name": "door on the high ledge"
+  },
+  {
+   "type": "vine",
+   "x": 148.5,
+   "y": 54,
+   "w": 1,
+   "h": 4,
+   "name": "V7 undercroft to workshop"
+  },
+  {
+   "type": "crack",
+   "x": 160,
+   "y": 54,
+   "w": 4,
+   "h": 1,
+   "name": "cracked floor"
+  },
+  {
+   "type": "garage_door",
+   "x": 170,
+   "y": 54,
+   "w": 5,
+   "h": 5
+  },
+  {
+   "type": "checkpoint",
+   "x": 153,
+   "y": 54,
+   "kind": "rest",
+   "w": 2,
+   "h": 2
+  },
+  {
+   "type": "crawler",
+   "x": 172,
+   "y": 54
+  },
+  {
+   "type": "false_wall",
+   "x": 202,
+   "y": 54,
+   "w": 4,
+   "h": 10,
+   "name": "pipes hiding the gap"
+  },
+  {
+   "type": "crawler",
+   "x": 188,
+   "y": 54
+  },
+  {
+   "type": "lab_door",
+   "x": 190,
+   "y": 66,
+   "w": 3,
+   "h": 7
+  },
+  {
+   "type": "lever",
+   "x": 227,
+   "y": 66,
+   "lift": "study lift",
+   "name": "study lift call (lab)"
+  },
+  {
+   "type": "checkpoint",
+   "x": 214,
+   "y": 66,
+   "kind": "rest",
+   "w": 2,
+   "h": 2
+  }
+ ],
+ "props": [],
+ "labels": []
+}

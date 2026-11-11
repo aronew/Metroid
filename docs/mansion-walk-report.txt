@@ -1,0 +1,56 @@
+MANSION WALK REPORT (real controller, default preset)
+
+BEFORE THE KNIFE  (769 standing spots; 761 with a cautious player)
+  ok    reaches Cowl's bedroom (cautious player)
+  ok    reaches upstairs hallway (cautious player)
+  ok    reaches grand entrance hall (cautious player)
+  ok    reaches sister's room (cautious player)
+  ok    reaches dining room (cautious player)
+  ok    reaches kitchen (cautious player)
+  ok    reaches living room (cautious player)
+  ok    reaches pantry (cautious player)
+  ok    west tower stays shut, even with perfect inputs
+  ok    library stays shut, even with perfect inputs
+  ok    parents' bedroom stays shut, even with perfect inputs
+  ok    east tower stays shut, even with perfect inputs
+  ok    attic stays shut, even with perfect inputs
+  ok    conservatory stays shut, even with perfect inputs
+  ok    father's study stays shut, even with perfect inputs
+  ok    storage rooms stays shut, even with perfect inputs
+  ok    undercroft stays shut, even with perfect inputs
+  ok    workshop stays shut, even with perfect inputs
+  ok    boiler room stays shut, even with perfect inputs
+  ok    laboratory antechamber stays shut, even with perfect inputs
+  ok    west tower high ledge is out of reach (kept for a later ability)
+  ok    east tower high ledge is out of reach (kept for a later ability)
+  ok    undercroft high ledge is out of reach (kept for a later ability)
+  note  pantry cannot be left without the knife, which is in it (50 spots)
+  ok    no traps: every reachable spot can get back to the bedroom
+  floor stood on: Cowl's bedroom 100%, upstairs hallway 100%, grand entrance hall 56%, sister's room 100%, kitchen 100%, dining room 100%, living room 100%, pantry 100%
+
+WITH THE KNIFE  (1744 standing spots; 1745 with a cautious player)
+  ok    reaches Cowl's bedroom (cautious player)
+  ok    reaches upstairs hallway (cautious player)
+  ok    reaches grand entrance hall (cautious player)
+  ok    reaches sister's room (cautious player)
+  ok    reaches dining room (cautious player)
+  ok    reaches kitchen (cautious player)
+  ok    reaches living room (cautious player)
+  ok    reaches pantry (cautious player)
+  ok    reaches west tower (cautious player)
+  ok    reaches conservatory (cautious player)
+  ok    reaches library (cautious player)
+  ok    reaches parents' bedroom (cautious player)
+  ok    reaches east tower (cautious player)
+  ok    reaches attic (cautious player)
+  ok    reaches storage rooms (cautious player)
+  ok    reaches undercroft (cautious player)
+  ok    reaches workshop (cautious player)
+  ok    reaches boiler room (cautious player)
+  ok    reaches laboratory antechamber (cautious player)
+  ok    reaches father's study (cautious player)
+  ok    west tower high ledge is out of reach (kept for a later ability)
+  ok    east tower high ledge is out of reach (kept for a later ability)
+  ok    undercroft high ledge is out of reach (kept for a later ability)
+  ok    no traps: every reachable spot can get back to the bedroom
+  floor stood on: west tower 60%, Cowl's bedroom 100%, upstairs hallway 100%, grand entrance hall 74%, sister's room 100%, library 100%, parents' bedroom 100%, east tower 81%, attic 100%, conservatory 100%, kitchen 100%, dining room 100%, living room 100%, father's study 100%, pantry 100%, storage rooms 100%, undercroft 88%, workshop 100%, boiler room 100%, laboratory antechamber 100%

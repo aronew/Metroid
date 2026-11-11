@@ -700,6 +700,32 @@ func begin_asleep(at: Vector2) -> void:
 	facing = 1
 
 
+## Put the body somewhere at rest with every timer cleared. Used by the tools
+## that drive the controller directly (tests/feel_test, tests/explore).
+func sim_reset(at: Vector2) -> void:
+	global_position = at
+	velocity = Vector2.ZERO
+	state = State.NORMAL
+	facing = 1
+	attack_time = -1.0
+	attack_kind = &""
+	_coyote = 0.0
+	_jump_buffer = 0.0
+	_dodge_buffer = 0.0
+	_attack_buffer = 0.0
+	_dodge_cooldown = 0.0
+	_jumping = false
+	_land_lock = 0.0
+	_invuln = 0.0
+	if _drop_through > 0.0:
+		_drop_through = 0.0
+		set_collision_mask_value(2, true)
+	# Refresh the floor state at the new place.
+	velocity = Vector2(0.0, 60.0)
+	move_and_slide()
+	velocity = Vector2.ZERO
+
+
 func teleport(at: Vector2) -> void:
 	global_position = at
 	velocity = Vector2.ZERO
