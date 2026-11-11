@@ -15,16 +15,18 @@ the MetroidVania repo.
 | Images to attach | [`attach/`](attach/): A, Cowl's mockup; B, the mansion cutaway; C, the four-storey mansion |
 | Review log | [sol-review.md](sol-review.md) |
 
-55 cards in three sets:
+56 cards in three sets:
 
-- **Cowl (H0 to H25):** the look (H0 tests the proposed refinements beside
-  the mockup; H1 to H3 lock the model, eye shapes and key poses), the
+- **Cowl (H0 to H25):** the look (H0 turns the mockup, which is canon, to
+  the game's side view; H1 to H3 lock the model, eye shapes and key poses), the
   sway-and-bob idle, the blunt and bong smoke breaks with a chilled idle
   and a snap-out, the ninja run, the jump with its flip and hang time, two
   landings, the jab, cross and spinning back kick, the flying kick, hurt,
   death and reforming from soot, the wall, the dive stomp, and rig parts
   for a cut-out rig.
-- **Effects (F1 to F4):** strike trails, hit sparks, soot and smoke.
+- **Effects (F1 to F5):** strike trails, hit sparks, soot, smoke, and the
+  flares on his fist or foot (tinted his eye cyan) with knuckle soot, which
+  make his bare charcoal hands read against dark walls.
 - **World (W0 to W24):** a target render at play scale, a materials sheet,
   a tiling terrain kit (earth fill, floor, ceiling and wall edges, corners,
   stairs, platforms, breakable floors), architecture, props by room type,

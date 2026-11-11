@@ -64,12 +64,12 @@ def rules_hero(card):
 MOTION = "\n".join([
     "THE MOTION STANDARD: TOP-TIER AND EXPRESSIVE (this matters most: stiff sheets are rejected)",
     "- These frames play in order at 60 frames per second. The number in brackets before each frame is how many ticks (sixtieths of a second) it shows for.",
-    "- Every frame is a new drawing: no two frames on the sheet are copies, even in a held pose. In a hold something still moves: the breath, the beanie's slouch, the wrap ends, the shorts' hems.",
+    "- Every frame is a new drawing: no two frames on the sheet are copies, even in a held pose. In a hold something still moves: the breath, the beanie's slouch, the shorts' hems.",
     "- In-betweens: each frame sits between its neighbours. Apart from a smear frame, no part of him jumps more than about a quarter of his height from one frame to the next.",
     "- Ease in and out: frames bunch up where a motion starts and stops and spread out in its fast middle.",
     "- Smears: the fastest frame of a punch, kick, flip or snatch is one deliberate painted smear of the moving limb (stretched and curved, part of the drawing), not a blur over the whole body.",
     "- Squash and stretch, cartoon-strength: he is soft and rubbery. Squash on landings and impacts, stretch on take-offs and strikes; a striking limb may stretch to about 1.3 times its length at contact and snap back. Keep his volume the same.",
-    "- Overlap and follow-through: the beanie's slouch, the wrap ends, the drawstring and the shorts' hems lag one or two frames behind his body and overshoot when he stops. The slouch is what makes him read as fluid at game size.",
+    "- Overlap and follow-through: the beanie's slouch and the shorts' hems lag one or two frames behind his body and overshoot when he stops.",
     "- Arcs: the head, hands, feet and the tip of the slouch travel on curves, never in straight lines.",
     "- Lines of action and silhouette: every key pose has one clear curve through the body and reads if filled solid black. He never stands straight in a move.",
     "- Acting: his eyes are his whole face. Change their shape as each frame says (neutral, chill, focused, surprised, happy, hurt, watery, blink), and lead each action with a glance.",
@@ -98,7 +98,7 @@ SHEET_VIEWS = "\n".join([
 
 HERO_LOCK = "\n".join([
     "MATCH HIS DESIGN",
-    "- Image A is canon for his shapes and colours. When the approved model sheet H1 is attached it is canon for his proportions and refinements (the longer slouch, the hand wraps, the drawstring ends); where they differ, H1 wins.",
+    "- Image A is canon for his shapes and colours. When the approved model sheet H1 is attached it is canon for his proportions in the game's side view; where they differ, H1 wins. His hands are bare and his beanie is the length drawn in image A.",
     "- Paint him as a hand-drawn illustration. Do not build him from vector shapes or from repeated copies of one part.",
 ])
 
@@ -466,7 +466,7 @@ def swatches(items):
 
 
 HERO_SWATCHES = [("Charcoal", "#2A2A2C"), ("Charcoal shadow", "#1C1C1F"), ("Beanie", "#EBE5E1"), ("Beanie shadow", "#C4BCB6"),
-                 ("Wraps", "#E3DAD2"), ("Shorts", "#933731"), ("Shorts shadow", "#6E2622"), ("Eyes", "#B8EAF8")]
+                 ("Shorts", "#933731"), ("Shorts shadow", "#6E2622"), ("Eyes", "#B8EAF8")]
 WORLD_SWATCHES = [("Earth", "#07081A"), ("Darks", "#151834"), ("Shadow", "#25254B"), ("Mid stone", "#373869"),
                   ("Lit stone", "#524D88"), ("Haze", "#6B609E"), ("Plum velvet", "#5E4182"), ("Candle", "#E6A8B2"),
                   ("Sealed door", "#BFCD5B"), ("Water", "#566FA5")]
@@ -695,9 +695,9 @@ __NAV__
           <tr><td>A jump that looks cool</td><td>A squash-and-launch, a tight forward flip at the top of a full jump, then hang time with his arms out like wings. A short hop skips the flip. Big drops end in a three-point hero landing and a shoulder brush.</td><td><a href="#H14">H14</a>, <a href="#H15">H15</a></td></tr>
           <tr><td>An idle where he sways and bobs</td><td>Sixteen drawings of him nodding to music only he hears: two sways, each a little different, and one slow blink.</td><td><a href="#H4">H4</a></td></tr>
           <tr><td>After chilling, he pulls out a blunt or a bong</td><td>Both, picked at random after about eight seconds. His beanie is the stash: the blunt comes out of the cuff like a pencil behind an ear, and the bong comes out of the slouch, which bulges around it. Afterwards a lazier, half-lidded idle until you move him. Any input snaps him out at once.</td><td><a href="#H6">H6</a>–<a href="#H11">H11</a>, <a href="#H5">H5</a>, <a href="#F4">F4</a></td></tr>
-          <tr><td>No weapon at the start: a cool 1-2 punch and a kick</td><td>A snappy jab and a heavy cross whose arms stretch like rubber on contact, chained into a spinning back kick where he spots the target over his shoulder. A flying kick in the air. Hand wraps are proposed so his fists read at game size.</td><td><a href="#H16">H16</a>–<a href="#H20">H20</a>, <a href="#F1">F1</a>, <a href="#F2">F2</a></td></tr>
-          <tr><td>Top-tier, AAA animation</td><td>Twelve to sixteen new drawings per move at 60 fps, smears, cartoon squash and stretch, overlap on the slouch, wraps and shorts, five-phase attacks timed so the hit lands 4 to 12 ticks after the press, and a sheet tester to check every result.</td><td><a href="#motion">The standard</a>, <a href="#tester">tester</a></td></tr>
-          <tr><td>Expand on the look</td><td>H0 tests each proposed refinement beside your mockup before anything moves. You pick; H1 locks it.</td><td><a href="#H0">H0</a>, <a href="#H1">H1</a></td></tr>
+          <tr><td>No weapon at the start: a cool 1-2 punch and a kick</td><td>A snappy jab and a heavy cross whose arms stretch like rubber on contact, chained into a spinning back kick where he spots the target over his shoulder. A flying kick in the air. A flare on his fist or foot, tinted his eye cyan, and a spray of knuckle soot on each hit make his bare charcoal hands read against any wall.</td><td><a href="#H16">H16</a>–<a href="#H20">H20</a>, <a href="#F1">F1</a>, <a href="#F2">F2</a>, <a href="#F5">F5</a></td></tr>
+          <tr><td>Top-tier, AAA animation</td><td>Twelve to sixteen new drawings per move at 60 fps, smears, cartoon squash and stretch, overlap on the beanie and the shorts, five-phase attacks timed so the hit lands 4 to 12 ticks after the press, and a sheet tester to check every result.</td><td><a href="#motion">The standard</a>, <a href="#tester">tester</a></td></tr>
+          <tr><td>Expand on the look</td><td>Your mockup stays canon. H0 turns it to the game's side view and tests how he reads against the mansion; two small ideas sit beside it as options. H1 locks him.</td><td><a href="#H0">H0</a>, <a href="#H1">H1</a></td></tr>
           <tr><td>World assets from the mansion mockups</td><td>A target render at play scale, then a tiling terrain kit, architecture, props for every room type in your draft, living details (flames, swaying moss) and parallax layers. Nothing is tied to the blockout, which is still being built.</td><td><a href="#W0">W0</a>–<a href="#W24">W24</a></td></tr>
         </tbody>
       </table></div>
@@ -717,15 +717,17 @@ __NAV__
             <li>Baggy red corduroy shorts and bare feet.</li>
             <li>Big-head proportions: the head and beanie are half his height.</li>
           </ul>
-          <h3>Proposed, for you to judge on H0</h3>
+          <h3>Added for the game, without changing his design</h3>
           <ul class="checks">
-            <li><strong>A longer, softer slouch.</strong> It becomes his cape: it lags and streams behind every move and is what reads as fluid at game size.</li>
-            <li><strong>Off-white hand wraps.</strong> Charcoal fists vanish against the dark walls. Wraps make every punch read and echo the beanie.</li>
-            <li><strong>Drawstring ends</strong> on the shorts, for a small flutter.</li>
-            <li><strong>Limbs about 10% longer</strong>, so the punches and the kick have room to read.</li>
             <li><strong>A three-quarter head in side view</strong>, so both eyes always show. They are his whole face.</li>
             <li><strong>Eight eye shapes</strong> (H2) that every card names: neutral, chill, focused, surprised, happy, hurt, watery, blink.</li>
-            <li><strong>Soot as his signature effect.</strong> His dust, landings, death and respawn are all made of him.</li>
+            <li><strong>Strike flares in his eye colour</strong> (F5): a bright flare on his fist or foot as it lands, so his bare charcoal hands read against any wall.</li>
+            <li><strong>Soot as his signature effect.</strong> His dust, landings, knuckle hits, death and respawn are all made of him.</li>
+          </ul>
+          <h3>Optional, on H0 only</h3>
+          <ul class="checks">
+            <li><strong>Drawstring ends</strong> on the shorts, for a small flutter.</li>
+            <li><strong>Limbs about 10% longer</strong>, to give the punches and the kick more reach on screen.</li>
           </ul>
         </div>
         <figure class="figure"><img src="attach/previews/A-hero-mockup.jpg" alt="Cowl's mockup, front view."><figcaption>Image A, your mockup: canon for his design and colours.</figcaption></figure>
@@ -776,12 +778,12 @@ __TABLE__
       <h2>The motion standard</h2>
       <p>Every animation card copies these rules into its prompt. They are what separates a sprite that moves from one that lives.</p>
       <ol class="steps">
-        <li><strong>Twelve to sixteen drawings a move, every one new.</strong> Even a held pose changes a little each frame: the breath, the slouch, the wraps.</li>
+        <li><strong>Twelve to sixteen drawings a move, every one new.</strong> Even a held pose changes a little each frame: the breath, the slouch, the shorts.</li>
         <li><strong>In-betweens.</strong> Apart from a smear, nothing moves more than a quarter of his height between frames.</li>
         <li><strong>Ease in and out.</strong> Frames bunch up where motion starts and stops, and spread out in its fast middle.</li>
         <li><strong>Smears.</strong> The fastest frame of a punch, kick, flip or snatch is one painted smear of the limb.</li>
         <li><strong>Cartoon squash and stretch.</strong> He is rubbery: a striking limb stretches to 1.3 times its length at contact and snaps back.</li>
-        <li><strong>Overlap.</strong> The slouch, wrap ends, drawstring and shorts lag one or two frames and overshoot.</li>
+        <li><strong>Overlap.</strong> The beanie's slouch and the shorts lag one or two frames and overshoot.</li>
         <li><strong>Lines of action and acting.</strong> One clear curve through every key pose; his eyes change shape with the beat and lead each action with a glance.</li>
         <li><strong>Responsive timing.</strong> The jump launches on the press, the jab lands 4 ticks after it, the cross 5 and the kick 12, and any input ends an idle break. Feel comes first; the drawings fit inside the game's timing.</li>
       </ol>
@@ -798,7 +800,8 @@ __TABLE__
         </ul></div>
         <div class="kv"><h3>Smoke, soot and sparks</h3><ul class="checks">
           <li>Smoke from F4, emitted on the frames each card names: the exhale, the ash tap, the cough.</li>
-          <li>Soot from F3 when he starts, skids and lands; hit sparks from F2 on contact; trails from F1 on the smear and contact frames.</li>
+          <li>On every strike: the flare on his fist or foot (F5), tinted his eye cyan, through the smear and contact frames; the trail (F1); on a hit, the spark (F2) and his knuckle soot (F5).</li>
+          <li>Soot from F3 when he starts, skids and lands.</li>
         </ul></div>
         <div class="kv"><h3>Game feel</h3><ul class="checks">
           <li>Hit-stop on contact (3 to 6 ticks), a camera kick on the cross, the kick and the hero landing.</li>
@@ -917,7 +920,7 @@ __GROUPS__
           <li>Smears only on the fast frames, as part of the limb.</li>
         </ul></div>
         <div class="kv"><h3>Same Cowl</h3><ul class="checks">
-          <li>The same size, colours and details in every cell as H1.</li>
+          <li>The same size, colours and details in every cell as H1: bare hands, the beanie its drawn length.</li>
           <li>Soles on the ground line, body on the centre line, the beanie's top near the pink line.</li>
           <li>Both eyes show; the eye shapes match the card.</li>
           <li>The slouch never freezes and always trails.</li>
@@ -948,7 +951,7 @@ __GROUPS__
       <h2>What happens next</h2>
       <ol class="steps">
         <li><strong>I review each sheet</strong> against its card and log it in <code>docs/art-production/sol-review.md</code>: what passes, what to redraw, and the fix to send.</li>
-        <li><strong>I prepare it for the game:</strong> cut the cells, remove any magenta, line the feet up on the anchor, halve it, and write the frame timings beside it.</li>
+        <li><strong>I prepare it for the game:</strong> cut the cells, remove any magenta, line the feet up on the anchor, halve it, write the frame timings beside it, and mark where the fist or foot is on each strike's smear and contact frames so the flares sit on it.</li>
         <li><strong>It goes into the game</strong> once the space and the camera from your other session are in: the idle and run first, then the jump and the string, then the breaks.</li>
         <li><strong>You play it</strong> and we tune the feel: the run's lean against his speed, the flip against the jump height, the hit-stop on each punch.</li>
         <li><strong>Book 2</strong> can cover the shadow folk from your mockups (the cook, the scholar, the one by the orb) and the knife once Cowl finds it.</li>
