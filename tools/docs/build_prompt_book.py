@@ -32,13 +32,17 @@ DATE = "11 November 2026"
 # ---------------------------------------------------------------------------
 # The shared rules, by kind of card.
 # ---------------------------------------------------------------------------
-PROJECT = ("Project: a 2D side-view Metroidvania set in a gothic mansion buried deep underground, swallowed by black roots, "
+PROJECT = ("Project: a 2D side-view Metroidvania made in Godot, set in a gothic mansion buried deep underground, swallowed by black roots, "
            "lit by candles and filled with indigo haze. The hero is Cowl, a small charcoal shadow creature in an off-white beanie and red shorts. "
-           "These images become game assets, so the technical rules matter as much as the look.")
+           "The bar is top-tier hand-painted 2D game art. These images become game assets, so the technical rules matter as much as the look.")
 
 NO_TEXT = "- No grid lines, frames, borders, labels, numbers, captions, swatches, logos, signatures or watermarks. No text of any kind."
 TRANSPARENT = ("- Background: fully transparent (alpha) PNG. Never paint a checkerboard, paper texture, white or a scene behind the art. "
                "If transparency is impossible, use one flat pure magenta #FF00FF background with no gradient, noise, shadow or glow.")
+
+STYLE_CORE = ("a confident dark ink line that varies a little in weight, painted form shading with two or three soft value steps per material, "
+              "subtle surface texture and restrained highlights. Not flat cartoon cel shading, not a 3D render, not pixel art, not photoreal.")
+PAINTED = "- High-end hand-painted 2D game art in the style of the attached mansion paintings: " + STYLE_CORE
 
 
 def rules_hero(card):
@@ -47,8 +51,9 @@ def rules_hero(card):
         PROJECT,
         "",
         "Look",
-        "- HD 2D cartoon illustration matching attached image A exactly: clean cel shading, crisp ink line work, flat colour with one shadow tone and one small highlight per material, the beanie's ribbed knit always visible. No airbrushed gradients, no 3D-render look, no pixel art.",
-        "- Ink outline, one even weight: " + card["outline"] + ".",
+        PAINTED,
+        "- Cowl's design and colours come from image A; his rendering matches the world's: matte charcoal with a fine grain and soft form shading, heavy knitted wool in the beanie, corduroy in the shorts. He must look like he belongs in the mansion paintings (images B and C when attached).",
+        "- Ink outline, one main weight: " + card["outline"] + ".",
         "- Strict orthographic side view, like a 2D platformer: no perspective, no camera tilt, no floor plane (unless a frame says he turns toward the viewer).",
         "- Even, neutral light. No cast shadows, no ground shadows, no rim light, no glow, no bloom, no light rays: the game adds all light.",
         "- Colour rules: Cowl's off-white, red and pale cyan are his alone. Props are muted and never brighter than his beanie.",
@@ -62,24 +67,25 @@ def rules_hero(card):
 
 
 MOTION = "\n".join([
-    "THE MOTION STANDARD: TOP-TIER AND EXPRESSIVE (this matters most: stiff sheets are rejected)",
+    "THE MOTION STANDARD: TOP-TIER, GROUNDED AND WEIGHTY (this matters most: stiff or cartoony sheets are rejected)",
     "- These frames play in order at 60 frames per second. The number in brackets before each frame is how many ticks (sixtieths of a second) it shows for.",
     "- Every frame is a new drawing: no two frames on the sheet are copies, even in a held pose. In a hold something still moves: the breath, the beanie's slouch, the shorts' hems.",
-    "- In-betweens: each frame sits between its neighbours. Apart from a smear frame, no part of him jumps more than about a quarter of his height from one frame to the next.",
+    "- In-betweens: each frame sits between its neighbours. Apart from a smear frame, no part of him moves more than about a quarter of his height from one frame to the next.",
     "- Ease in and out: frames bunch up where a motion starts and stops and spread out in its fast middle.",
-    "- Smears: the fastest frame of a punch, kick, flip or snatch is one deliberate painted smear of the moving limb (stretched and curved, part of the drawing), not a blur over the whole body.",
-    "- Squash and stretch, cartoon-strength: he is soft and rubbery. Squash on landings and impacts, stretch on take-offs and strikes; a striking limb may stretch to about 1.3 times its length at contact and snap back. Keep his volume the same.",
-    "- Overlap and follow-through: the beanie's slouch and the shorts' hems lag one or two frames behind his body and overshoot when he stops.",
-    "- Arcs: the head, hands, feet and the tip of the slouch travel on curves, never in straight lines.",
+    "- Weight and momentum: he has real mass. Every action starts in the hips and the planted foot and travels up through the body; he leans into speed and braces to stop; landings are absorbed through the knees.",
+    "- Grounded proportions: his limbs keep their length, his hands and feet keep their size and his body keeps its volume in every frame. No rubber stretching, no ballooning, no comic squash; at most a slight compression on a hard landing.",
+    "- Smears: the fastest frame of a punch, kick or flip may show the moving limb as a short motion-blurred streak along its path. Nowhere else.",
+    "- Overlap and follow-through: the beanie's slouch and the shorts' hems lag one or two frames behind his body and settle after he stops. Heavy wool, not a flag.",
+    "- Arcs: the head, hands, feet and the tip of the slouch travel on curves, never in straight lines (except a punch, which travels straight).",
     "- Lines of action and silhouette: every key pose has one clear curve through the body and reads if filled solid black. He never stands straight in a move.",
-    "- Acting: his eyes are his whole face. Change their shape as each frame says (neutral, chill, focused, surprised, happy, hurt, watery, blink), and lead each action with a glance.",
-    "- Attacks have five phases: a short wind-up (the clearest silhouette), a smear on release, contact at full extension, an overshoot past balance, and a recovery.",
+    "- Acting: understated. His eyes are his whole face: they narrow, widen, dim and close as each frame says, and he leads each action with a glance. No cartoon symbols for eyes.",
+    "- Attacks have five phases: a short wind-up (the clearest silhouette), a smear on release, contact at full natural extension, a follow-through, and a recovery.",
     "- Loops: the last frame leads back into the first without a hitch, as if the sheet went round forever.",
 ])
 
 
 def sheet_anim(card):
-    cols, rows, cw, ch = shape(card["canvas"])
+    cols, rows, cw, ch = shape(card)
     return "\n".join([
         "SHEET RULES",
         "- Cells are %d×%d px: %d columns × %d rows. One frame per cell, left to right, top to bottom, in the order listed." % (cw, ch, cols, rows),
@@ -98,8 +104,8 @@ SHEET_VIEWS = "\n".join([
 
 HERO_LOCK = "\n".join([
     "MATCH HIS DESIGN",
-    "- Image A is canon for his shapes and colours. When the approved model sheet H1 is attached it is canon for his proportions in the game's side view; where they differ, H1 wins. His hands are bare and his beanie is the length drawn in image A.",
-    "- Paint him as a hand-drawn illustration. Do not build him from vector shapes or from repeated copies of one part.",
+    "- Image A is canon for his shapes and colours. When the approved model sheet H1 is attached it is canon for his proportions and rendering in the game's side view; where they differ, H1 wins. His hands are bare and his beanie is the length drawn in image A.",
+    "- Paint him by hand. Do not build him from vector shapes or from repeated copies of one part.",
 ])
 
 
@@ -116,7 +122,7 @@ def rules_fx(card):
 
 
 def sheet_fx(card):
-    cols, rows, cw, ch = shape(card["canvas"])
+    cols, rows, cw, ch = shape(card)
     return "\n".join([
         "SHEET RULES",
         "- Cells are %d×%d px: %d columns × %d rows. One frame per cell, left to right, top to bottom, in the order listed." % (cw, ch, cols, rows),
@@ -128,44 +134,52 @@ def sheet_fx(card):
 FX_LOCK = "\n".join([
     "EFFECTS RULES",
     "- Paint every effect in white and pale grey (#FFFFFF to #C8C8D0) unless the request names a colour: the game tints them (violet-grey for soot, lavender for smoke, rose or cyan for hits).",
-    "- Cartoon effect shapes: solid fills with one soft inner shade (#B4B4C0) and clean, hand-drawn edges, matching a high-end hand-drawn 2D cartoon game. Not airbrushed clouds, not photographic smoke, fire or light. No black outline around the effect.",
+    "- Hand-painted and believable, matching high-end hand-painted 2D game effects: soft painted falloff, crisp where the energy is, wispy where it fades. Not cartoon puffs or comic-book stars, not airbrushed clouds, not photographic smoke, fire or light. No black outline around the effect.",
     "- Only the effect: no character, no props, no background.",
 ])
 
 WORLD_PALETTE = [
     "- Palette: deep indigo and violet. Darks #0B0E20 and #151834, shadows #25254B, mid stone #373869 and #454076, lit stone #524D88, haze and highlights #6B609E to #8A80BE. Roots and earth near-black violet #07081A. Velvet and curtains plum #5E4182. Candle wax pale lilac.",
-    "- Reserved colours: never paint red (Cowl's shorts), pale cyan (#B8EAF8, the shadow folk's eyes) or pure white anywhere in the world. Candle flames are flat pale rose (#E6A8B2) shapes. Arcane green (#BFCD5B) only where a request names it. Water is a muted blue (#566FA5).",
-    "- Values: anything behind the playfield stays in the mid violets so Cowl's charcoal body reads in front of it; only the solid earth and the foreground roots go near-black.",
+    "- Reserved colours: never paint red (Cowl's shorts), pale cyan (#B8EAF8, the shadow folk's eyes) or pure white anywhere in the world, unless the request names it. Candle flames are flat pale rose (#E6A8B2) shapes. Arcane green (#BFCD5B) only where a request names it. Water is a muted blue (#566FA5).",
+    "- Values: anything behind the playfield stays in the mid violets so Cowl's charcoal body reads in front of it; only the solid earth and the foreground go near-black.",
 ]
 
+SCALE = ("- Scale: 1 tile = 128 px on these canvases (the game's tile is 64 px; it shows these at half size). "
+         "Cowl stands about 256 px tall at this scale (2 tiles), and a doorway is 4 tiles tall. Size every piece to the tiles the request gives.")
 
-def rules_world(card, scene=False):
+
+def rules_world(card, mode):
+    """mode: scene (a finished screen), piece (transparent pieces), panel (an
+    opaque tiling wall), plate (a repainted plate with feathered edges)."""
     lines = [
         "STYLE AND TECHNICAL RULES (they apply to everything in this request)",
         PROJECT,
         "",
         "Look",
-        "- Match attached images B and C exactly in style: a gothic mansion buried underground, drawn with clean dark ink line work and flat painted shading, three or four tones per material, soft haze between near and far. Not photoreal, not a 3D render, not pixel art.",
+        "- Match attached images B and C exactly in style: a gothic mansion buried underground, painted as high-end hand-painted 2D game art with " + STYLE_CORE,
         "- Ink outline: " + card["outline"] + ".",
     ] + WORLD_PALETTE + [
         "- Strict orthographic side view, like a 2D platformer: no perspective, no vanishing points, no camera tilt, no visible floor plane.",
     ]
-    if scene:
+    if mode in ("scene", "plate"):
         lines += ["- Light: candlelight and haze painted softly, as in images B and C."]
     else:
         lines += ["- Even, cool ambient light. No cast shadows, no glow, no light rays: the game lights the room."]
     lines += ["", "Canvas", "- Exact canvas: " + card["canvas"] + "."]
-    if scene:
+    if mode == "scene":
         lines += ["- A full painting edge to edge; no transparency.", NO_TEXT]
+    elif mode == "panel":
+        lines += ["- A full painting edge to edge; no transparency.", NO_TEXT, SCALE, "- No characters or creatures."]
+    elif mode == "plate":
+        lines += ["- Transparent outside the painting, its edges feathered softly into transparency exactly as the attached plate's are.", NO_TEXT,
+                  "- No characters except the ones the plate already shows."]
     else:
-        lines += [TRANSPARENT, NO_TEXT,
-                  "- Scale: Cowl stands about 240 px tall on these canvases (2 tiles of 128 px in the game's grid); size every piece to him.",
-                  "- No characters or creatures."]
+        lines += [TRANSPARENT, NO_TEXT, SCALE, "- No characters or creatures."]
     return "\n".join(lines)
 
 
 def sheet_world(card):
-    cols, rows, cw, ch = shape(card["canvas"])
+    cols, rows, cw, ch = shape(card)
     if cols * rows > 1:
         return "\n".join([
             "SHEET RULES",
@@ -175,10 +189,16 @@ def sheet_world(card):
     return ""
 
 
+SHEET_PIECES = "\n".join([
+    "SHEET RULES",
+    "- Draw every piece listed, each whole and separate, in the order listed, left to right and top to bottom, at 128 px per tile, each at the exact size given.",
+    "- Leave at least 64 px of clear transparency between pieces and at the canvas edges; nothing overlaps.",
+])
+
 TILE_RULES = "\n".join([
     "TILING RULES",
     "- Seamless where the request says: an edge must continue its opposite edge exactly, with no seam, no change of brightness across it, and no single landmark that would repeat noticeably.",
-    "- Collision in the game is made of rectangles; this art is laid along their edges. Keep every surface line exactly where the request puts it, perfectly straight; the art may hang past it (moss, roots, drips) but never fills open space by more than 64 px.",
+    "- Collision in the game is made of rectangles and straight ramps; this art is laid along their edges. Keep every walking, ceiling and wall line exactly where the request puts it and perfectly straight. Detail may hang past a ceiling line (moss, roots, drips) but nothing rises more than 20 px above a walking line.",
 ])
 
 WORLD_MOTION = "\n".join([
@@ -194,8 +214,8 @@ def rules_layer(card):
         PROJECT,
         "",
         "Look",
-        "- Match attached images B and C exactly in style: clean dark ink line work and flat painted shading, soft haze between near and far. Not photoreal, not a 3D render, not pixel art.",
-        "- Ink outline: thin and lighter with distance (2 px at most at this size), fading into the haze.",
+        "- Match attached images B and C exactly in style: high-end hand-painted 2D game art with " + STYLE_CORE,
+        "- Ink outline: thin and lighter with distance, fading into the haze.",
     ] + WORLD_PALETTE + [
         "- A background layer for parallax scrolling: strict orthographic side view, no perspective floor, nothing in the bottom quarter that looks walkable.",
         "- Seamless left to right: the left edge continues the right edge exactly.",
@@ -210,7 +230,7 @@ def rules_layer(card):
 
 WORLD_LOCK = "\n".join([
     "MATCH THE WORLD",
-    "- Images B and C are canon for the world's style, palette and light. When the approved target render W0 is attached, it is canon for how the world looks at play scale; when the materials sheet W1 is attached, match its materials.",
+    "- Images B and C are canon for the world's style, palette and light. When the approved target render W0 is attached, it is canon for how the world looks at play scale; when the materials sheet W2 is attached, match its materials.",
     "- Paint by hand, as an illustration. Do not build it from vector shapes or repeated copies of one part.",
 ])
 
@@ -225,13 +245,19 @@ def shared(card):
     elif k == "fx":
         parts = [rules_fx(card), sheet_fx(card), FX_LOCK]
     elif k == "target":
-        parts = [rules_world(card, scene=True), cowl, WORLD_LOCK]
+        parts = [rules_world(card, "scene"), cowl, WORLD_LOCK]
     elif k == "world":
-        parts = [rules_world(card), sheet_world(card), WORLD_LOCK]
+        parts = [rules_world(card, "piece"), sheet_world(card), TILE_RULES if card["group"] == "terrain" else "", WORLD_LOCK]
+    elif k == "pieces":
+        parts = [rules_world(card, "piece"), SHEET_PIECES, WORLD_LOCK]
     elif k == "tile":
-        parts = [rules_world(card), TILE_RULES, WORLD_LOCK]
+        parts = [rules_world(card, "piece"), TILE_RULES, WORLD_LOCK]
+    elif k == "wallpanel":
+        parts = [rules_world(card, "panel"), TILE_RULES, WORLD_LOCK]
+    elif k == "plate":
+        parts = [rules_world(card, "plate"), WORLD_LOCK]
     elif k == "world-anim":
-        parts = [rules_world(card), WORLD_MOTION, sheet_world(card), TILE_RULES if card["canvas"] == data.ROWS8 else "", WORLD_LOCK]
+        parts = [rules_world(card, "piece"), WORLD_MOTION, sheet_world(card), WORLD_LOCK]
     elif k == "layer":
         parts = [rules_layer(card), WORLD_LOCK]
     else:
@@ -248,18 +274,22 @@ LAYOUTS = {
     data.SIXTEEN: (4, 4, 512, 512),
     data.TALL8: (4, 2, 512, 1024),
     data.STRIP8: (8, 1, 256, 1024),
-    data.ROWS8: (1, 8, 2048, 128),
     data.BANDS4: (1, 4, 2048, 256),
     data.WALLS4: (4, 1, 256, 2048),
     data.SQUARE: (1, 1, 1024, 1024),
     data.WIDE: (1, 1, 2048, 1024),
-    data.SCREEN: (1, 1, 2048, 1152),
-    data.FRAME4: (1, 1, 2048, 2048),
+    data.TALLWIDE: (1, 1, 2048, 2048),
+    data.SCREEN: (1, 1, 1920, 1080),
+    data.PIECES: (1, 1, 2048, 2048),
+    data.WALL: (1, 1, 2048, 1280),
+    data.WALL_TALL: (1, 1, 1024, 2048),
 }
 
 
-def shape(canvas):
-    return LAYOUTS[canvas]
+def shape(card):
+    if card.get("layout"):
+        return tuple(card["layout"])
+    return LAYOUTS[card["canvas"]]
 
 
 def timed(card):
@@ -284,9 +314,11 @@ def body(card):
 
 
 def sheet_label(card):
-    cols, rows, cw, ch = shape(card["canvas"])
-    if card["canvas"] == data.FRAME4:
-        return "4 pieces"
+    cols, rows, cw, ch = shape(card)
+    if card["kind"] == "pieces":
+        return "%d pieces" % len(card["rows"])
+    if card["kind"] == "wallpanel":
+        return "1 panel"
     if cols * rows == 1:
         return "1 image"
     if card["canvas"] in (data.BANDS4, data.WALLS4):
@@ -306,10 +338,18 @@ def timing(card):
 # ---------------------------------------------------------------------------
 # Checks: every card is well formed before the page is written.
 # ---------------------------------------------------------------------------
+BANNED = [("Naruto", "name the pose, not another franchise"),
+          ("1.3 times", "no rubber stretching: limbs keep their length"),
+          ("balloon", "no comic gags"),
+          ("cartoon-strength", "the standard is grounded, not cartoony"),
+          ("rubbery", "the standard is grounded, not cartoony")]
+
+
 def check_cards():
     problems = []
     seen = set()
     groups = {g[0] for g in data.GROUPS}
+    ids = [c["id"] for c in data.CARDS]
     for c in data.CARDS:
         cid = c["id"]
         if cid in seen:
@@ -317,10 +357,10 @@ def check_cards():
         seen.add(cid)
         if c["group"] not in groups:
             problems.append("%s: unknown group %s" % (cid, c["group"]))
-        if c["canvas"] not in LAYOUTS:
+        if not c.get("layout") and c["canvas"] not in LAYOUTS:
             problems.append("%s: unknown canvas" % cid)
             continue
-        cols, rows, _, _ = shape(c["canvas"])
+        cols, rows, _, _ = shape(c)
         cells = cols * rows
         n = len(c["rows"])
         if c["kind"] in ("anim", "fx", "world-anim"):
@@ -338,25 +378,25 @@ def check_cards():
                                     % (cid, said.group(1), said.group(2), n, total))
         elif c["kind"] in ("model", "world") and cells > 1 and n != cells:
             problems.append("%s: %d views for %d cells" % (cid, n, cells))
-        elif c["kind"] == "world" and c["canvas"] == data.FRAME4 and n != 4:
-            problems.append("%s: %d pieces for 4" % (cid, n))
+        elif c["kind"] == "pieces" and not n:
+            problems.append("%s: a pieces card lists no pieces" % cid)
         elif c["kind"] == "tile" and c["canvas"] in (data.BANDS4, data.WALLS4) and n != 4:
             problems.append("%s: %d strips for 4" % (cid, n))
         for a in c["attach"]:
             if a not in data.NAMES:
                 problems.append("%s: attachment %s has no name" % (cid, a))
-            elif re.fullmatch(r"[HWF]\d+", a) and a not in {x["id"] for x in data.CARDS}:
-                problems.append("%s: attaches %s, which is not a card" % (cid, a))
+            elif re.fullmatch(r"[HWF]\d+", a):
+                if a not in ids:
+                    problems.append("%s: attaches %s, which is not a card" % (cid, a))
+                elif ids.index(a) > ids.index(cid):
+                    problems.append("%s attaches %s, which comes later in the book" % (cid, a))
         text = shared(c) + "\n\n" + body(c)
         if len(text) > 12000:
             problems.append("%s: the copied prompt is %d characters (keep it under 12000)" % (cid, len(text)))
-        if "Naruto" in text:
-            problems.append("%s: name the pose, not another franchise" % cid)
-    ids = [c["id"] for c in data.CARDS]
-    for c in data.CARDS:
-        for a in c["attach"]:
-            if a in ids and ids.index(a) > ids.index(c["id"]) and c["id"] != "W0":
-                problems.append("%s attaches %s, which comes later in the book" % (c["id"], a))
+        for word, why in BANNED:
+            # The shared rules name what they forbid; only the cards' own words are checked.
+            if word.lower() in (body(c) + " " + c["about"] + " " + c["title"]).lower():
+                problems.append("%s: says %r (%s)" % (cid, word, why))
     for p in data.PACK:
         for path in (p[1], p[2]):
             if not os.path.exists(os.path.join(ATTACH_ROOT, path)):
@@ -383,7 +423,7 @@ def cards_json(texts):
         text = shared(c)
         if text not in texts:
             texts.append(text)
-        cols, rows, cw, ch = shape(c["canvas"])
+        cols, rows, cw, ch = shape(c)
         item = {
             "id": c["id"], "group": c["group"], "kind": c["kind"], "title": c["title"],
             "about": c["about"], "file": c["file"], "canvas": c["canvas"], "game": c["game"],
@@ -401,9 +441,12 @@ SHARED_EXAMPLES = [
     ("Cowl's animation cards", "H12"),
     ("Cowl's reference sheets", "H1"),
     ("Effects", "F1"),
-    ("World pieces", "W10"),
-    ("Tiling pieces", "W3"),
-    ("Background layers", "W21"),
+    ("Target renders (repainting a game screen)", "W0"),
+    ("Tiling terrain", "W8"),
+    ("Back walls", "W18"),
+    ("Pieces at tile scale", "W26"),
+    ("Parallax layers", "W3"),
+    ("Plate repaints", "W40"),
 ]
 
 
@@ -441,7 +484,7 @@ def nav_html():
     return "\n".join(parts)
 
 
-START_NAV = [("direction", "Your direction"), ("cowl", "Cowl's look"), ("world", "The buried mansion"),
+START_NAV = [("direction", "Your direction"), ("cowl", "Cowl's look"), ("world", "The world in the game"),
              ("cards-table", "The cards"), ("motion", "The motion standard"), ("game", "What the game adds"),
              ("contract", "The asset contract"), ("workflow", "How to use this book"), ("pack", "Images to attach"),
              ("shared", "The shared rules"), ("tester", "Sheet tester")]
@@ -681,8 +724,8 @@ __NAV__
       </div>
       <span class="eyebrow">Book 1 · art production · GPT-6 SOL</span>
       <h1>Cowl and the Buried Mansion</h1>
-      <p class="lede">Every animation and world asset for the first playable, as copy-ready prompts for GPT-6 SOL. Cowl leans into a ninja run, flips at the top of his jump, vibes in his idle until he sneaks a smoke, and fights bare-handed with a stretchy 1-2 and a spinning kick. The mansion comes as a kit that fits whatever shape the space ends up.</p>
-      <div class="meta"><span>__N__ prompts</span><span>__NH__ for Cowl · __NF__ effects · __NW__ world</span><span>512-px cells, halved in game</span><span>60 ticks a second</span><span>__DATE__</span></div>
+      <p class="lede">Every world asset the game needs to look like your mockups, sized to the level as built, and Cowl's animations to a grounded, top-tier standard. Copy-ready prompts for GPT-6 SOL: the parallax, the floors, walls, ceilings and stairs, every piece of furniture you climb, the doors and machines, the room plates at full resolution, and Cowl's run, jump, idle, smoke breaks and bare-handed fighting.</p>
+      <div class="meta"><span>__N__ prompts</span><span>__NW__ world · __NH__ for Cowl · __NF__ effects</span><span>128 px per tile, shown at the game's 64</span><span>60 ticks a second</span><span>__DATE__</span></div>
     </header>
 
     <section id="direction">
@@ -691,17 +734,17 @@ __NAV__
       <div class="table-wrap"><table class="direction">
         <thead><tr><th>You said</th><th>What this book does</th><th>Cards</th></tr></thead>
         <tbody>
-          <tr><td>Lean forward when he runs, like that famous ninja run</td><td>Torso about 45° forward and held, his big head leading past his knees, both arms swept straight back, the slouch streaming like a flag. A start, a skid stop where the slouch flops over his eyes, and a turn.</td><td><a href="#H12">H12</a>, <a href="#H13">H13</a></td></tr>
-          <tr><td>A jump that looks cool</td><td>A squash-and-launch, a tight forward flip at the top of a full jump, then hang time with his arms out like wings. A short hop skips the flip. Big drops end in a three-point hero landing and a shoulder brush.</td><td><a href="#H14">H14</a>, <a href="#H15">H15</a></td></tr>
+          <tr><td>The world assets for the game: the parallax, the staircases, the floor tiles, everything like in the mockups</td><td>Every piece the game's art pass still draws as flat ink, at the exact size the level uses: three parallax layers and the flooded vaults, floor tops, ceilings with hanging moss, wall faces, corners, doorways and floor holes, the grand stair kit and its iron railings, piers, vault ribs, windows, a back wall for every kind of room, every piece of furniture you climb at its collision size, the doors, lifts, levers and root locks, candelabra, moss and wear, and the nine room plates repainted at twice the size. It starts with SOL repainting two real screenshots of the game, so the look is locked on the level itself.</td><td><a href="#W0">W0</a>–<a href="#W47">W47</a></td></tr>
+          <tr><td>Too cartoony, not AAA top tier</td><td>The standard is now grounded and weighty: real body mechanics, limbs that keep their length, no comic gags, and Cowl painted with the same form shading and texture as the mansion paintings. The checks reject rubbery sheets.</td><td><a href="#motion">The standard</a></td></tr>
+          <tr><td>Lean forward when he runs, like that famous ninja run</td><td>Torso about 45° forward and held, his head leading past his knees, both arms swept straight back, real weight in every footfall. A start, a braking skid and a turn.</td><td><a href="#H12">H12</a>, <a href="#H13">H13</a></td></tr>
+          <tr><td>A jump that looks cool</td><td>An explosive take-off, a tight athletic forward flip at the top of a full jump, then he opens out and hangs at the apex. A short hop skips the flip. Big drops end in a three-point landing that absorbs the fall.</td><td><a href="#H14">H14</a>, <a href="#H15">H15</a></td></tr>
           <tr><td>An idle where he sways and bobs</td><td>Sixteen drawings of him nodding to music only he hears: two sways, each a little different, and one slow blink.</td><td><a href="#H4">H4</a></td></tr>
-          <tr><td>After chilling, he pulls out a blunt or a bong</td><td>Both, picked at random after about eight seconds. His beanie is the stash: the blunt comes out of the cuff like a pencil behind an ear, and the bong comes out of the slouch, which bulges around it. Afterwards a lazier, half-lidded idle until you move him. Any input snaps him out at once.</td><td><a href="#H6">H6</a>–<a href="#H11">H11</a>, <a href="#H5">H5</a>, <a href="#F4">F4</a></td></tr>
-          <tr><td>No weapon at the start: a cool 1-2 punch and a kick</td><td>A snappy jab and a heavy cross whose arms stretch like rubber on contact, chained into a spinning back kick where he spots the target over his shoulder. A flying kick in the air. A flare on his fist or foot, tinted his eye cyan, and a spray of knuckle soot on each hit make his bare charcoal hands read against any wall.</td><td><a href="#H16">H16</a>–<a href="#H20">H20</a>, <a href="#F1">F1</a>, <a href="#F2">F2</a>, <a href="#F5">F5</a></td></tr>
-          <tr><td>Top-tier, AAA animation</td><td>Twelve to sixteen new drawings per move at 60 fps, smears, cartoon squash and stretch, overlap on the beanie and the shorts, five-phase attacks timed so the hit lands 4 to 12 ticks after the press, and a sheet tester to check every result.</td><td><a href="#motion">The standard</a>, <a href="#tester">tester</a></td></tr>
-          <tr><td>Expand on the look</td><td>Your mockup stays canon. H0 turns it to the game's side view and tests how he reads against the mansion; two small ideas sit beside it as options. H1 locks him.</td><td><a href="#H0">H0</a>, <a href="#H1">H1</a></td></tr>
-          <tr><td>World assets from the mansion mockups</td><td>A target render at play scale, then a tiling terrain kit, architecture, props for every room type in your draft, living details (flames, swaying moss) and parallax layers. Nothing is tied to the blockout, which is still being built.</td><td><a href="#W0">W0</a>–<a href="#W24">W24</a></td></tr>
+          <tr><td>After chilling, he pulls out a blunt or a bong</td><td>Both, picked at random after about eight seconds, played calm and unhurried. The blunt comes out of his beanie's cuff; the small bong from inside its slouch, and he crouches to use it. Afterwards a slower, half-lidded idle until you move him, and any input brings him straight back.</td><td><a href="#H6">H6</a>–<a href="#H11">H11</a>, <a href="#H5">H5</a>, <a href="#F4">F4</a></td></tr>
+          <tr><td>No weapon at the start: a cool 1-2 punch and a kick</td><td>A sharp jab and a cross with his whole body behind it, chained into a spinning back kick where he spots the target over his shoulder, and a flying kick in the air. A flare on his fist or foot in his eye colour, and knuckle soot on each hit, make his bare charcoal hands read against any wall.</td><td><a href="#H16">H16</a>–<a href="#H20">H20</a>, <a href="#F1">F1</a>, <a href="#F2">F2</a>, <a href="#F5">F5</a></td></tr>
+          <tr><td>Expand on the look</td><td>Your mockup stays canon. H0 turns it to the game's side view, paints it to sit in the mansion, and tests how he reads against its walls.</td><td><a href="#H0">H0</a>, <a href="#H1">H1</a></td></tr>
         </tbody>
       </table></div>
-      <p class="note">The smoke breaks show drug use on screen. Expect a "Use of Drugs" descriptor from the age-rating boards and on store pages, which usually means a teen-or-older rating. If you want a lower rating later, the same animations work with a mug of something in the props' place.</p>
+      <p class="note">The smoke breaks show drug use on screen. Expect a "Use of Drugs" descriptor from the age-rating boards and on store pages, which usually means a teen-or-older rating.</p>
     </section>
 
     <section id="cowl">
@@ -713,21 +756,17 @@ __NAV__
           <ul class="checks">
             <li>The soft charcoal body with no mouth, nose or ears.</li>
             <li>Two glowing pale cyan slit eyes, set wide.</li>
-            <li>The oversized off-white slouchy beanie, cuff pulled low.</li>
-            <li>Baggy red corduroy shorts and bare feet.</li>
+            <li>The oversized off-white slouchy beanie, cuff pulled low, at its drawn length.</li>
+            <li>Baggy red corduroy shorts, bare hands and feet.</li>
             <li>Big-head proportions: the head and beanie are half his height.</li>
           </ul>
           <h3>Added for the game, without changing his design</h3>
           <ul class="checks">
+            <li><strong>Painted like the world.</strong> Matte charcoal with a fine grain and soft form shading, heavy knitted wool, corduroy: the same rendering as the mansion paintings, so he belongs in them.</li>
             <li><strong>A three-quarter head in side view</strong>, so both eyes always show. They are his whole face.</li>
-            <li><strong>Eight eye shapes</strong> (H2) that every card names: neutral, chill, focused, surprised, happy, hurt, watery, blink.</li>
-            <li><strong>Strike flares in his eye colour</strong> (F5): a bright flare on his fist or foot as it lands, so his bare charcoal hands read against any wall.</li>
-            <li><strong>Soot as his signature effect.</strong> His dust, landings, knuckle hits, death and respawn are all made of him.</li>
-          </ul>
-          <h3>Optional, on H0 only</h3>
-          <ul class="checks">
-            <li><strong>Drawstring ends</strong> on the shorts, for a small flutter.</li>
-            <li><strong>Limbs about 10% longer</strong>, to give the punches and the kick more reach on screen.</li>
+            <li><strong>Eight eye states</strong> (H2): the same two slits narrowing, widening, dimming and closing. No cartoon symbols.</li>
+            <li><strong>Strike flares in his eye colour</strong> (F5), so his bare fists read against any wall.</li>
+            <li><strong>Soot as his signature.</strong> His dust, landings, knuckle hits, death and return are all made of him.</li>
           </ul>
         </div>
         <figure class="figure"><img src="attach/previews/A-hero-mockup.jpg" alt="Cowl's mockup, front view."><figcaption>Image A, your mockup: canon for his design and colours.</figcaption></figure>
@@ -739,22 +778,35 @@ __HERO_SWATCHES__
 
     <section id="world">
       <span class="eyebrow">Start</span>
-      <h2>The buried mansion</h2>
-      <p>Your two paintings set the world: a gothic mansion swallowed by the earth, its rooms cut out of black, root-threaded soil, lit by rose candlelight in indigo haze. The space itself is still being blocked out in your other session (rooms carved from solid mass, floors joined by stairs, a tower at each end). So this book draws a kit that fits any shape, at Cowl's scale, and sorts the props by the room types in your draft.</p>
+      <h2>The world in the game</h2>
+      <p>The game your other session built lays its art over the collision in layers (<code>game/level/level_art.gd</code>). Today most of it is flat ink and lines drawn in code, set around nine plates cut from your mockups. This table is every layer, what it draws now, and the cards that replace it. The camera shows about 30 × 17 tiles of 64 px, zooming out to 0.68 in the grand hall.</p>
+      <div class="table-wrap"><table>
+        <thead><tr><th>Layer, far to near</th><th>What the game draws now</th><th>Replaced by</th></tr></thead>
+        <tbody>
+          <tr><td>Parallax, at 0.10, 0.24 and 0.46 of the camera</td><td>Three code-drawn arcades, faded</td><td><a href="#W3">W3</a>, <a href="#W4">W4</a>, <a href="#W5">W5</a>; the undercroft <a href="#W6">W6</a></td></tr>
+          <tr><td>Back walls, by room mood</td><td>A flat gradient with lines for courses, pipes, beams, panels or glazing</td><td><a href="#W18">W18</a>–<a href="#W25">W25</a></td></tr>
+          <tr><td>Windows and shelves on the back walls</td><td>Code-drawn lancets every 7 tiles; rectangles for books</td><td><a href="#W17">W17</a>, <a href="#W20">W20</a></td></tr>
+          <tr><td>Painted plates</td><td>Nine cuts from your mockups at their original size</td><td><a href="#W40">W40</a>–<a href="#W47">W47</a> (the green door: <a href="#W33">W33</a>)</td></tr>
+          <tr><td>Piers</td><td>Code-drawn shafts in the hall, undercroft, library and towers</td><td><a href="#W15">W15</a></td></tr>
+          <tr><td>Railings and candlesticks</td><td>Thin ink rails along stairs and galleries; ink candelabra</td><td><a href="#W14">W14</a>, <a href="#W35">W35</a>, <a href="#W36">W36</a></td></tr>
+          <tr><td>The solid mass</td><td>Flat ink with a lit line on floors and a faint one on walls; stair treads as a line</td><td><a href="#W7">W7</a>–<a href="#W13">W13</a></td></tr>
+          <tr><td>Furniture you climb</td><td>Flat ink blocks</td><td><a href="#W26">W26</a>–<a href="#W29">W29</a></td></tr>
+          <tr><td>Vault shoulders and ribs</td><td>Ink quarter-arches in room corners, pendants on wide ceilings</td><td><a href="#W16">W16</a></td></tr>
+          <tr><td>Doors, lifts, levers, locks, pickups</td><td>Ink shapes in each script in <code>game/world/</code></td><td><a href="#W30">W30</a>–<a href="#W34">W34</a></td></tr>
+          <tr><td>Hanging moss, in front of Cowl</td><td>Ink drips under every ceiling</td><td><a href="#W9">W9</a>, <a href="#W37">W37</a>, <a href="#W38">W38</a></td></tr>
+          <tr><td>Haze, dust and vignette</td><td>Code: a gradient and particles</td><td>Stays code (it already matches)</td></tr>
+        </tbody>
+      </table></div>
       <div class="cols">
         <div class="kv"><h3>Three rules for every world card</h3><ul class="checks">
-          <li><strong>Values:</strong> the walls behind the playfield stay mid-violet so Cowl's charcoal body reads in front; only the earth and the foreground roots go near-black. Your mockups already do this.</li>
-          <li><strong>Reserved colours:</strong> red, pale cyan and pure white belong to Cowl, so the world never uses them. Arcane green appears only on the sealed door.</li>
-          <li><strong>Scale:</strong> every piece is drawn with Cowl at 240 px tall, so the kit fits together whatever tile size the game settles on.</li>
+          <li><strong>The collision is the layout.</strong> Every floor, wall and ceiling line sits exactly where the level puts it, perfectly straight. Art hangs past a ceiling but never rises above a floor.</li>
+          <li><strong>Values:</strong> the walls behind the playfield stay mid-violet so Cowl's charcoal body reads in front; only the earth and the foreground go near-black.</li>
+          <li><strong>Reserved colours:</strong> red, pale cyan and pure white belong to Cowl. Arcane green only on the sealed doors; a thin cyan trace only in the lab.</li>
         </ul></div>
-        <div class="kv"><h3>Room types from your draft</h3><ul class="checks">
-          <li>Cowl's bedroom, the parents' and guest rooms</li>
-          <li>The grand entrance hall and the western hallway</li>
-          <li>The library and the father's study</li>
-          <li>The kitchen, dining room and pantry</li>
-          <li>The living room and the conservatory</li>
-          <li>The attic; the undercroft, storage, workshop and boiler room</li>
-          <li>The laboratory antechamber and the two towers</li>
+        <div class="kv"><h3>The space is still moving</h3><ul class="checks">
+          <li>The tiling pieces (floors, ceilings, walls, stairs, railings, back walls) fit any shape the blockout takes.</li>
+          <li>The furniture pieces are drawn to their current collision boxes. If a box changes size, the piece can be stretched a little or redrawn from its card.</li>
+          <li>The two target renders repaint screenshots of the level as built today.</li>
         </ul></div>
       </div>
       <ul class="swatches" aria-label="The world's colours">
@@ -776,16 +828,16 @@ __TABLE__
     <section id="motion">
       <span class="eyebrow">Start</span>
       <h2>The motion standard</h2>
-      <p>Every animation card copies these rules into its prompt. They are what separates a sprite that moves from one that lives.</p>
+      <p>Every animation card copies these rules into its prompt. The bar is the best hand-drawn 2D games: weight you can feel, motion that starts in the hips, and nothing exaggerated for a laugh.</p>
       <ol class="steps">
         <li><strong>Twelve to sixteen drawings a move, every one new.</strong> Even a held pose changes a little each frame: the breath, the slouch, the shorts.</li>
-        <li><strong>In-betweens.</strong> Apart from a smear, nothing moves more than a quarter of his height between frames.</li>
-        <li><strong>Ease in and out.</strong> Frames bunch up where motion starts and stops, and spread out in its fast middle.</li>
-        <li><strong>Smears.</strong> The fastest frame of a punch, kick, flip or snatch is one painted smear of the limb.</li>
-        <li><strong>Cartoon squash and stretch.</strong> He is rubbery: a striking limb stretches to 1.3 times its length at contact and snaps back.</li>
-        <li><strong>Overlap.</strong> The beanie's slouch and the shorts lag one or two frames and overshoot.</li>
-        <li><strong>Lines of action and acting.</strong> One clear curve through every key pose; his eyes change shape with the beat and lead each action with a glance.</li>
-        <li><strong>Responsive timing.</strong> The jump launches on the press, the jab lands 4 ticks after it, the cross 5 and the kick 12, and any input ends an idle break. Feel comes first; the drawings fit inside the game's timing.</li>
+        <li><strong>In-betweens and easing.</strong> Nothing moves more than a quarter of his height between frames except on a smear; frames bunch up where motion starts and stops.</li>
+        <li><strong>Weight and momentum.</strong> Actions start in the hips and the planted foot; he leans into speed, braces to stop and absorbs landings through his knees.</li>
+        <li><strong>Grounded proportions.</strong> Limbs keep their length, hands and feet their size, the body its volume. No rubber stretching, no ballooning.</li>
+        <li><strong>Real technique.</strong> The jab and cross are thrown like a boxer's, the kicks like a martial artist's: the power reads through the turn of the hips and shoulders.</li>
+        <li><strong>Overlap.</strong> The beanie's slouch and the shorts trail a beat behind and settle: heavy wool, not a flag.</li>
+        <li><strong>Understated acting.</strong> His eyes narrow, widen, dim and close; he leads each action with a glance.</li>
+        <li><strong>Responsive timing.</strong> The jump leaves on the press, the jab lands 4 ticks after it, the cross 5 and the kick 12, and any input ends an idle break.</li>
       </ol>
     </section>
 
@@ -795,21 +847,20 @@ __TABLE__
       <p>Keep these out of the drawings. Painted glow cannot flicker or change colour; the game's can.</p>
       <div class="cols">
         <div class="kv"><h3>Light</h3><ul class="checks">
-          <li>The bloom on Cowl's eyes, the candles' warm pools of light, the ember's glow on the blunt.</li>
-          <li>The sealed door's green glow and the lab's liquids.</li>
+          <li>The warm pools of light round every candle, the cold light of father's lamps, the glow on Cowl's eyes and the ember on the blunt.</li>
+          <li>The green glow round the sealed doors; the haze, dust and vignette over the whole screen.</li>
         </ul></div>
         <div class="kv"><h3>Smoke, soot and sparks</h3><ul class="checks">
-          <li>Smoke from F4, emitted on the frames each card names: the exhale, the ash tap, the cough.</li>
-          <li>On every strike: the flare on his fist or foot (F5), tinted his eye cyan, through the smear and contact frames; the trail (F1); on a hit, the spark (F2) and his knuckle soot (F5).</li>
-          <li>Soot from F3 when he starts, skids and lands.</li>
+          <li>On every strike: the flare on his fist or foot (F5), tinted his eye cyan; the trail (F1); on a hit, the spark (F2) and his knuckle soot (F5).</li>
+          <li>Smoke from F4 on the frames each card names; soot from F3 when he starts, skids and lands.</li>
         </ul></div>
         <div class="kv"><h3>Game feel</h3><ul class="checks">
-          <li>Hit-stop on contact (3 to 6 ticks), a camera kick on the cross, the kick and the hero landing.</li>
-          <li>When the breaks play (after about 8 seconds still) and which (blunt or bong at random). Any input plays the snap-out's first three drawings, then hands over.</li>
+          <li>Hit-stop on contact (3 to 6 ticks), a camera kick on the cross, the kick and the heavy landing.</li>
+          <li>When the smoke breaks play (after about 8 seconds still) and which. Any input plays the snap-out's first three drawings, then hands over.</li>
         </ul></div>
-        <div class="kv"><h3>Movement</h3><ul class="checks">
-          <li>The game moves Cowl through the room and flips him to face left; drawings stay in place, facing right.</li>
-          <li>It scales the run to his ground speed and skips the flip on a short hop.</li>
+        <div class="kv"><h3>Movement and placement</h3><ul class="checks">
+          <li>The game moves Cowl and flips him to face left; drawings stay in place, facing right.</li>
+          <li>It tiles the terrain along the collision, stretches pier shafts and walls to fit, and sways the moss.</li>
         </ul></div>
       </div>
     </section>
@@ -817,45 +868,45 @@ __TABLE__
     <section id="contract">
       <span class="eyebrow">Start</span>
       <h2>The asset contract</h2>
-      <p>The rules every sheet follows so the game can use it without hand-fixing. The game-side numbers are provisional until the space and the camera are final; the master sizes are not, since everything is drawn to Cowl's scale.</p>
+      <p>The rules every image follows so the game can use it without hand-fixing. They match the game as built: 64-px tiles, a 1920 × 1080 view, Cowl about 2 tiles tall.</p>
       <div class="table-wrap"><table>
         <thead><tr><th>What</th><th>Rule</th></tr></thead>
         <tbody>
+          <tr><td>World scale</td><td>128 px per tile on every world master; the game shows them at half size on its 64-px tiles, so they stay sharp on large screens and when the camera zooms in.</td></tr>
+          <tr><td>Collision lines</td><td>Floor tops 64 px below a band's top, ceilings 64 px above a band's bottom, walls 64 px in from a strip's open side. Stairs climb 1 tile per 2 (one fallen flight at 45°). All perfectly straight.</td></tr>
+          <tr><td>Furniture</td><td>Each piece fills its collision box exactly, its top flat and walkable.</td></tr>
           <tr><td>Character cells</td><td>512 × 512 px masters, 4 columns wide; halved to 256 px in the game.</td></tr>
-          <tr><td>Cowl's size</td><td>About 240 px tall to the top of the beanie in the master (about 120 px in the game, roughly 1.9 tiles).</td></tr>
-          <tr><td>Anchor</td><td>Between his feet at (256, 400) in each master cell, (128, 200) in the game. His soles rest on that line; airborne frames keep his centre near (256, 300).</td></tr>
-          <tr><td>Facing</td><td>Everything is drawn facing right; the game flips.</td></tr>
-          <tr><td>Timing</td><td>60 ticks a second; each frame's ticks are on its card.</td></tr>
-          <tr><td>Background</td><td>Transparent PNG. If SOL cannot, flat pure magenta <code>#FF00FF</code> (nothing in the game uses it).</td></tr>
-          <tr><td>World scale</td><td>Drawn with Cowl at 240 px: 1 tile = 128 px on the masters, 64 px in the game (provisional).</td></tr>
-          <tr><td>Tiling pieces</td><td>Surface lines exactly where the card puts them (64 px into a band or strip), seamless where it says.</td></tr>
-          <tr><td>Files</td><td>Save under the card's file name. Masters go in <code>art/source/hero/</code>, <code>art/source/fx/</code> and <code>art/source/world/</code>; split sheets end in <code>_a</code> and <code>_b</code>.</td></tr>
+          <tr><td>Cowl's size</td><td>About 256 px tall to the top of the beanie in a master, about 128 px (2 tiles) in the game; his collision body is 40 × 100 px.</td></tr>
+          <tr><td>Anchor</td><td>Between his feet at (256, 400) in each master cell. Airborne frames keep his centre near (256, 300).</td></tr>
+          <tr><td>Facing and timing</td><td>Everything is drawn facing right; the game flips. 60 ticks a second; each frame's ticks are on its card.</td></tr>
+          <tr><td>Background</td><td>Transparent PNG, except the parallax, back walls and target renders. If SOL cannot do transparency, flat pure magenta <code>#FF00FF</code>.</td></tr>
+          <tr><td>Files</td><td>Save under the card's file name. Masters go in <code>assets/source/world/</code>, <code>assets/source/cowl/</code> and <code>assets/source/fx/</code>; repainted plates replace <code>assets/plates/</code>. Split sheets end in <code>_a</code> and <code>_b</code>.</td></tr>
         </tbody>
       </table></div>
-      <p class="note">Two ways to animate Cowl: these frame-by-frame sheets, or the cut-out rig your other session is building, where moves are keyed on body parts. Both can work together. Frames suit the acting beats (the smoke breaks, the kick, the flip); the rig suits moves that need blending or tuning. H25 gives the rig clean side-view parts drawn by SOL.</p>
+      <p class="note">The game animates Cowl today with a cut-out rig built from your front-view mockup, moved by code (<code>game/player/cowl_rig.gd</code>). These sheets can replace it move by move with drawn frames, and H25 gives the rig clean side-view parts in the meantime. The game has his knife swings and dodge already; the bare-handed 1-2 and kick need adding to the controller before H16 to H20 can go in.</p>
     </section>
 
     <section id="workflow">
       <span class="eyebrow">Start</span>
       <h2>How to use this book</h2>
       <div class="pilot">
-        <strong>Start with H0, then H1, H2 and H3. Then the pilots: H4, H12, H14 and H16. For the world, W0 first.</strong>
-        <p>H0 lets you choose the look; H1 to H3 lock it, and every animation attaches them. The four pilots are the idle, the run, the jump and the jab: they are on screen the most, and if they come back right, the rest follows from them. In the world, the target render decides the look before any kit piece is drawn.</p>
+        <strong>For the world: W0, then W1 and W2. Then the parallax and the terrain. For Cowl: H0 to H3, then the pilots H4, H12, H14 and H16.</strong>
+        <p>W0 repaints a real screen of the game, so the look is decided on the level itself before any kit piece is drawn; every world card attaches it. W1 does the same for the grand hall and its stairs. The parallax and terrain change the most on screen. For Cowl, H0 to H3 lock him, and the idle, run, jump and jab are on screen the most.</p>
       </div>
       <ol class="steps">
-        <li><strong>Attach the images the card lists.</strong> A to C are in <code>docs/art-production/attach/</code>; "approved" sheets are the ones you already made and passed.</li>
+        <li><strong>Attach the images the card lists.</strong> A to E and the plates are in <code>docs/art-production/attach/</code>; "approved" sheets are the ones you already made and passed.</li>
         <li><strong>Press Copy and paste the prompt into SOL.</strong> The copy includes the shared rules for its kind (shown below) unless you untick the box at the top.</li>
-        <li><strong>Check the result</strong> in the <a href="#tester">sheet tester</a> and against <a href="#checks">the checklist</a>. If it jumps, freezes or drifts, send SOL the fix from <a href="#fixes">If SOL falls short</a>.</li>
+        <li><strong>Check the result</strong> in the <a href="#tester">sheet tester</a> and against <a href="#checks">the checklist</a>. If something is off, send SOL the fix from <a href="#fixes">If SOL falls short</a>.</li>
         <li><strong>Save it under the card's file name and bring it to me.</strong> I review it, cut it, line it up and get it into the game.</li>
         <li><strong>Tick it done.</strong> Ticks are saved in this browser only.</li>
       </ol>
-      <p class="note">Twelve-frame sheets are 2048 × 1536 px and sixteen-frame sheets 2048 × 2048 px. If SOL cannot make a size, each card says how to split it.</p>
+      <p class="note">If SOL cannot make a canvas size, each card says how to split it, and the wall panels can come back at 2048 × 1024.</p>
     </section>
 
     <section id="pack">
       <span class="eyebrow">Start</span>
       <h2>Images to attach</h2>
-      <p>Your three mockups, renamed by letter. Attach the full-size files from <code>docs/art-production/attach/</code>, not the previews on this page.</p>
+      <p>Your three mockups, two screenshots of the game for SOL to repaint, and the nine plates the game uses now. Attach the full-size files from <code>docs/art-production/attach/</code>, not the previews on this page.</p>
       <div class="pack" id="pack-list"></div>
     </section>
 
@@ -869,7 +920,7 @@ __TABLE__
     <section id="tester">
       <span class="eyebrow">Start</span>
       <h2>Sheet tester</h2>
-      <p>Drop a sheet from SOL here, pick its card, and it plays at the exact game timing with the ground line, the centre line and the beanie-top line drawn in. Your file stays in this browser. Until you load one, it plays a demo sheet the page draws itself.</p>
+      <p>Drop a sheet from SOL here, pick its card, and it plays at the exact game timing with the ground line, the centre line and the beanie-top line drawn in. For a tiling piece, turn on "Tile 2 × 2" to look for seams. Your file stays in this browser. Until you load one, it plays a demo sheet the page draws itself.</p>
       <div class="tester">
         <div class="stage">
           <div class="stage-box" id="stage-box"><canvas id="tester-canvas" width="512" height="512" aria-label="Sheet preview"></canvas></div>
@@ -913,28 +964,28 @@ __GROUPS__
       <span class="eyebrow">Finish</span>
       <h2>Check every result</h2>
       <div class="cols">
+        <div class="kv"><h3>World pieces</h3><ul class="checks">
+          <li>Repaints keep the screenshot's or plate's layout to the pixel.</li>
+          <li>Tiling pieces show no seam with "Tile 2 × 2" on.</li>
+          <li>Floor, ceiling and wall lines straight and where the card puts them; nothing rises above a floor.</li>
+          <li>At 128 px per tile: a doorway 4 tiles (512 px) tall, furniture at its box size.</li>
+          <li>On the palette: no red, pale cyan or pure white; mid violets behind the playfield.</li>
+        </ul></div>
         <div class="kv"><h3>Flip through it</h3><ul class="checks">
           <li>Play it in the tester at 1× and ¼×. Nothing jumps, pops or freezes.</li>
           <li>As many drawings as the card lists, and no two the same.</li>
           <li>Loops run from the last frame back to the first without a hitch.</li>
-          <li>Smears only on the fast frames, as part of the limb.</li>
+          <li>Smears only on the fast frames, as a motion blur of the limb.</li>
+        </ul></div>
+        <div class="kv"><h3>Grounded, not cartoony</h3><ul class="checks">
+          <li>Limbs keep their length; hands and feet keep their size; no ballooning or rubber stretch.</li>
+          <li>Weight shows: planted feet, hips and shoulders turning, landings absorbed.</li>
+          <li>The eyes are the same two slits throughout, never symbols.</li>
         </ul></div>
         <div class="kv"><h3>Same Cowl</h3><ul class="checks">
           <li>The same size, colours and details in every cell as H1: bare hands, the beanie its drawn length.</li>
           <li>Soles on the ground line, body on the centre line, the beanie's top near the pink line.</li>
-          <li>Both eyes show; the eye shapes match the card.</li>
-          <li>The slouch never freezes and always trails.</li>
-        </ul></div>
-        <div class="kv"><h3>Nothing the game adds</h3><ul class="checks">
           <li>No glow, flame, smoke, soot, sparks or speed lines in his frames.</li>
-          <li>The blunt's ember is a flat orange dot; the bong's chamber smoke is the only smoke drawn.</li>
-          <li>Effects are pale on transparency, nothing else in the cells.</li>
-        </ul></div>
-        <div class="kv"><h3>World pieces</h3><ul class="checks">
-          <li>Tiling pieces show no seam with "Tile 2 × 2" on.</li>
-          <li>Surface lines straight and where the card puts them.</li>
-          <li>On the palette: no red, pale cyan or pure white; mid violets behind the playfield.</li>
-          <li>Drawn to Cowl's scale (a door about 1.7 times his height).</li>
         </ul></div>
       </div>
     </section>
@@ -942,7 +993,7 @@ __GROUPS__
     <section id="fixes">
       <span class="eyebrow">Finish</span>
       <h2>If SOL falls short</h2>
-      <p>Send the fix as a follow-up in the same SOL conversation, with the sheet attached.</p>
+      <p>Send the fix as a follow-up in the same SOL conversation, with the image attached.</p>
       <div class="cards" id="fix-list"></div>
     </section>
 
@@ -950,11 +1001,11 @@ __GROUPS__
       <span class="eyebrow">Finish</span>
       <h2>What happens next</h2>
       <ol class="steps">
-        <li><strong>I review each sheet</strong> against its card and log it in <code>docs/art-production/sol-review.md</code>: what passes, what to redraw, and the fix to send.</li>
-        <li><strong>I prepare it for the game:</strong> cut the cells, remove any magenta, line the feet up on the anchor, halve it, write the frame timings beside it, and mark where the fist or foot is on each strike's smear and contact frames so the flares sit on it.</li>
-        <li><strong>It goes into the game</strong> once the space and the camera from your other session are in: the idle and run first, then the jump and the string, then the breaks.</li>
-        <li><strong>You play it</strong> and we tune the feel: the run's lean against his speed, the flip against the jump height, the hit-stop on each punch.</li>
-        <li><strong>Book 2</strong> can cover the shadow folk from your mockups (the cook, the scholar, the one by the orb) and the knife once Cowl finds it.</li>
+        <li><strong>I review each image</strong> against its card and log it in <code>docs/art-production/sol-review.md</code>: what passes, what to redo, and the fix to send.</li>
+        <li><strong>I prepare it for the game:</strong> cut the pieces, remove any magenta, line the edges up with the collision, halve it, and write its placement data.</li>
+        <li><strong>It goes into the art pass</strong> (<code>game/level/level_art.gd</code>): the parallax and back walls first, then the terrain skin, the stairs and railings, the furniture and the machines, so each step is a visible change you can play. Each code-drawn layer stays as the fallback until its art is in.</li>
+        <li><strong>Cowl's sheets</strong> go in after the bare-handed attacks are added to the controller, move by move, replacing the code-driven rig where a drawn sheet is better.</li>
+        <li><strong>Book 2</strong> can cover the creatures (today ink silhouettes), the frozen family as figures of their own, and Cowl's knife swings and dodge.</li>
       </ol>
     </section>
   </main>
@@ -1029,7 +1080,7 @@ SCRIPT = r"""
     if (item) {
       return el("a", { class: "thumb", href: "#pack", title: NAMES[key] }, [
         el("img", { src: item[2], alt: "", loading: "lazy" }),
-        el("span", {}, [el("b", { text: item[0] + " " }), item[3]])
+        el("span", {}, [el("b", { text: (item[0].indexOf("P:") === 0 ? "P" : item[0]) + " " }), item[3].replace(/^Plate: /, "")])
       ]);
     }
     var target = /^[HWF]\d+$/.test(key) ? "#" + key : "#H0";
@@ -1076,7 +1127,7 @@ SCRIPT = r"""
   PACK.forEach(function (p) {
     document.getElementById("pack-list").appendChild(el("div", { class: "ref" }, [
       el("a", { href: p[1] }, [el("img", { src: p[2], alt: p[3], loading: "lazy" })]),
-      el("div", {}, [el("strong", { text: p[0] + ". " + p[3] }), el("span", { text: p[4] }), el("span", {}, [el("code", { text: "docs/art-production/" + p[1] })])])
+      el("div", {}, [el("strong", { text: (p[0].indexOf("P:") === 0 ? "" : p[0] + ". ") + p[3] }), el("span", { text: p[4] }), el("span", {}, [el("code", { text: "docs/art-production/" + p[1] })])])
     ]));
   });
 
