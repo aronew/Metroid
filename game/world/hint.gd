@@ -39,7 +39,7 @@ func zone_prompt(cowl: Cowl) -> String:
 		"asleep":
 			return prompt if cowl.state == Cowl.State.CUTSCENE and cowl.wake_progress <= 0.0 else ""
 		"knife":
-			return prompt if Game.has_knife and not Game.get_flag("swung") else ""
+			return prompt if Game.has_knife and not Game.get_flag("knifed") else ""
 	return "" if cowl.state == Cowl.State.CUTSCENE else prompt
 
 

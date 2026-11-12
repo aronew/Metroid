@@ -1,6 +1,6 @@
 MANSION WALK REPORT (real controller, default preset)
 
-BEFORE THE KNIFE  (740 standing spots; 740 with a cautious player)
+BEFORE THE KNIFE  (945 standing spots; 938 with a cautious player)
   ok    reaches Cowl's bedroom (cautious player)
   ok    reaches upstairs hallway (cautious player)
   ok    reaches grand entrance hall (cautious player)
@@ -24,11 +24,11 @@ BEFORE THE KNIFE  (740 standing spots; 740 with a cautious player)
   ok    west tower high ledge is out of reach (kept for a later ability)
   ok    east tower high ledge is out of reach (kept for a later ability)
   ok    undercroft high ledge is out of reach (kept for a later ability)
-  note  pantry cannot be left without the knife, which is in it (50 spots)
+  note  pantry cannot be left without the knife, which is in it (58 spots)
   ok    no traps: every reachable spot can get back to the bedroom
-  floor stood on: Cowl's bedroom 100%, upstairs hallway 100%, grand entrance hall 56%, sister's room 77%, kitchen 100%, dining room 100%, living room 100%, pantry 100%
+  floor stood on: Cowl's bedroom 100%, upstairs hallway 100%, grand entrance hall 56%, sister's room 100%, kitchen 100%, dining room 100%, living room 100%, pantry 100%
 
-WITH THE KNIFE  (1721 standing spots; 1727 with a cautious player)
+WITH THE KNIFE  (2150 standing spots; 2127 with a cautious player)
   ok    reaches Cowl's bedroom (cautious player)
   ok    reaches upstairs hallway (cautious player)
   ok    reaches grand entrance hall (cautious player)

@@ -41,13 +41,13 @@ func _ready() -> void:
 func take_hit(info: Dictionary) -> bool:
 	if _cut:
 		return false
-	if not Game.has_knife:
+	if not info.get("blade", false):
 		# Fists and feet only shake them. The knife is what cuts.
 		_shake = 1.0
 		Sfx.play(&"locked")
 		if not Game.get_flag("roots_hint"):
 			Game.set_flag("roots_hint")
-			Game.say("The roots give, and spring back. They need cutting.", 3.5)
+			Game.say("The roots give, and spring back. They need cutting." if not Game.has_knife else "Fists only shake them. Use the knife  [L].", 3.5)
 		return true
 	_cut = true
 	collision_layer = 0

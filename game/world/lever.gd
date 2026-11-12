@@ -43,7 +43,7 @@ func _find_lift() -> void:
 func take_hit(info: Dictionary) -> bool:
 	if not bound:
 		return false
-	if not Game.has_knife:
+	if not info.get("blade", false):
 		Sfx.play(&"locked")
 		return true
 	bound = false
@@ -61,7 +61,7 @@ func interact_prompt(cowl: Cowl) -> String:
 	if cowl.global_position.distance_to(global_position) > 110.0:
 		return ""
 	if bound:
-		return "Bound in roots. They will not tear by hand." if not Game.has_knife else "Bound in roots  —  cut them"
+		return "Bound in roots. They will not tear by hand." if not Game.has_knife else "Bound in roots  —  cut them with the knife  [L]"
 	return "Pull the lever  [E]"
 
 

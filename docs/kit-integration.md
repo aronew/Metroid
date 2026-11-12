@@ -1,5 +1,19 @@
 # The environment kit in the game
 
+**12 November: the art pass was cut back.** The game now draws only:
+
+- the collision mass in black;
+- the floor tops, ceilings, wall faces and corners (W08-W11);
+- the stairs (W13);
+- ledges (the gallery floor strip);
+- the parallax arcades (W03-W05), the nearer two faded so nothing behind the
+  play reads as solid.
+
+The room plates, wreckage, room walls, windows, door frames, columns,
+railings, candelabra, moss and decals are no longer drawn. Their cut pieces
+are still in `assets/kit` if they are wanted again. The tables below record
+the first pass.
+
 Three archives arrived on 11 November 2026. Together they hold every file
 their manifests list:
 

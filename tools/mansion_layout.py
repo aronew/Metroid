@@ -14,7 +14,6 @@ a wall. Required jumps here are rise <= 3 and gap <= 4.
 
 Run:  python3 tools/mansion_layout.py
 """
-import json
 import os
 from levelkit import Level
 
@@ -33,53 +32,15 @@ def door(x, floor, h=4, w=2):
     L.prop("frame", x, floor, w=w, h=h)
 
 
-# ------------------------------------------------------------------ dressing
-KIT = json.load(open(os.path.join(HERE, "..", "assets", "kit", "kit.json")))
-# Widths the room plates were first placed at (tiles x 64). The repainted
-# plates keep the same composition, so drawing them at the same width keeps
-# the family where the interaction points already are.
-PLATE_W = {"bedroom": 766, "living": 1016, "kitchen": 970, "study": 1079, "dining": 888,
-           "storage": 800, "flooded": 1025, "bedroom2": 500}
-FIT_REPORT = []
+def ledge(x, y, w, note=""):
+    """A one-way ledge Cowl can jump up through: a shelf, a beam, a canopy.
+    Every one is a piece of the house, named for what it is."""
+    L.oneway(x, y, w, kind="ledge", note=note)
 
 
-def plate(name, x, floor, scale=1.0, flip=False):
-    L.prop("plate", x, floor, key=name, width=round(PLATE_W[name] * scale / 64.0, 3), flip=flip)
-
-
-def fit_scale(aw, ah, top, w, h):
-    """Scales (sx, sy) that put the art's top on the mass's top, as close to
-    1.06x the mass's width as the limits allow: width 0.9-1.3x the mass,
-    vertical stretch 0.8-1.25x the horizontal."""
-    W, H = w * 64.0, h * 64.0
-    want = 1.06 * W / aw
-    sy = H / max(ah - top, 1.0)
-    lo, hi = max(sy / 1.25, 0.9 * W / aw), min(sy / 0.8, 1.3 * W / aw)
-    if lo <= hi:
-        return min(max(want, lo), hi), sy
-    # cannot match the top: get as close as the limits allow
-    s = min(max(want, 0.9 * W / aw), 1.3 * W / aw)
-    return s, min(max(sy, 0.8 * s), 1.25 * s)
-
-
-def dress(mass, piece, flip=False):
-    """Fit a wreckage piece over a mass: as wide as the mass (a touch more),
-    standing on the mass's floor, its silhouette's median top on the mass's
-    top. The vertical stretch is held within 0.8-1.25 of the horizontal, so
-    the art is never visibly squashed; what that leaves is reported."""
-    x, y, w, h = mass
-    k = KIT["wreck/" + piece]
-    aw, ah = k["size"]
-    top = k["top"]
-    s, sy = fit_scale(aw, ah, top, w, h)
-    art_w, art_h = aw * s / 64.0, ah * sy / 64.0
-    ax = x + w / 2.0 - art_w / 2.0
-    ay = y + h - art_h
-    off = (ay + top * sy / 64.0) - y          # + means the art's top is below the collision's
-    FIT_REPORT.append((piece, mass, round(off * 64.0, 1)))
-    L.prop("wreck", ax, ay + art_h, key=piece, rect=[round(ax, 3), round(ay, 3), round(art_w, 3), round(art_h, 3)],
-           mass=list(mass), flip=flip)
-
+def note(x, y, text, w=3):
+    """Something to read, left where the climb ends: the reward for going up."""
+    L.entity("hint", x, y, w=w, h=3, text=text, interact=True, paper="note")
 
 
 def vine(x, floor, h=4, name=""):
@@ -100,14 +61,14 @@ vine(18.5, F2, name="V1 bedroom west door")
 # --- Cowl's bedroom: everything slid east when the house tilted. ------------
 L.carve(20, 19, 28, 9)
 L.fill(33, 26, 5, 2)                                # toppled wardrobe (rise 2)
-dress((33, 26, 5, 2), "wardrobe_toppled")
 L.fill(41, 25, 7, 3)                                # the heap against the east wall
-dress((41, 25, 7, 3), "heap")
 L.carve(48, 21, 2, 4, "breach")                     # the way out is over the heap
+ledge(21, 25, 4, "the bed's canopy")
+ledge(27, 22, 4, "a bookshelf on the wall")
+note(28, 22, "Behind the books, a drawing in his own hand: the house, and a circle hanging over it.")
 L.room("Cowl's bedroom", 20, 19, 28, 9, mood="bedroom")
 L.spawn = (24.3, F2)
 L.entity("checkpoint", 24.3, F2, kind="bed", w=5, h=2)
-plate("bedroom", 20.3, F2)
 L.entity("hint", 21, F2, w=9, h=5, text="", when="asleep", prompt="Press any key")
 L.entity("hint", 28, F2, w=5, h=5, text="", prompt="Jump  [Space]   hold to jump higher")
 L.entity("hint", 60, F2, w=5, h=5, text="", prompt="Strike  [J]   press again to string jab, cross and kick")
@@ -115,8 +76,12 @@ L.entity("hint", 60, F2, w=5, h=5, text="", prompt="Strike  [J]   press again to
 # --- Upstairs hallway: the floor has fallen into the dining room. -----------
 L.carve(50, 19, 36, 9)
 L.fill(50, 25, 5, 3)                                # fallen cabinet under the breach
-dress((50, 25, 5, 3), "cabinet_tipped")
 L.carve(66, F2, 4, 3, "hole")                       # the collapse (4 wide: jump it or fall)
+ledge(57, 25, 4, "a picture rail, fallen to one nail")
+ledge(63, 23, 3, "a door torn off and wedged across")
+ledge(68, 25, 4, "joists over the collapse")
+ledge(75, 22, 3, "a high shelf")
+ledge(80, 24, 3, "a console table on the wall")
 L.carve(86, 21, 2, 7, "arch")                       # arch onto the gallery
 L.room("upstairs hallway", 50, 19, 36, 9, mood="hall_upper")
 
@@ -135,6 +100,11 @@ L.fill(136, F2, 12, 2)                              # east gallery
 L.stair(93, F1, 106, 34.5, note="fallen flight, up")
 L.stair(106, 34.5, 112.5, F1, note="fallen flight, down")
 L.fill(126, ATT, 22, 2)                             # roof truss: the high way east
+ledge(104, 25, 3, "a balcony bracket")
+ledge(108, 22, 3, "a chandelier, hung low")
+note(108.5, 22, "Up here the dust is undisturbed. Below, the hall: years of it, and no footprints but yours.")
+L.fill(89, 38, 3, 3)                                # a statue's plinth by the dining-room door
+ledge(143, 37, 4, "the porter's shelf by the front door")
 door(86, F1)                                        # dining room
 door(148, F1)                                       # living room
 door(148, F2)                                       # sister's room
@@ -148,28 +118,29 @@ L.entity("front_door", 141.2, F1, w=6, h=8.5)
 # --- East upper floor --------------------------------------------------------
 L.carve(150, 19, 26, 9)                             # sister's room
 L.fill(159, 25, 6, 3)                               # her bed, on its side
-dress((159, 25, 6, 3), "bed_on_side")
 L.fill(170, 22, 6, 6)                               # wardrobe against the east wall
-dress((170, 22, 6, 6), "wardrobe")
 L.carve(171, ATT, 4, 3, "hatch")                    # attic hatch: a way down, not up
+ledge(152, 25, 4, "a shelf over the door")
+ledge(157, 22, 3, "a hanging mobile, stars and moons")
+ledge(165, 22, 4, "the top of her bookcase")
 L.room("sister's room", 150, 19, 26, 9, mood="bedroom")
-plate("bedroom2", 150.6, F2, scale=1.5)
 door(176, F2)
 vine(176.5, F2, name="V4 sister's room to library gallery")
 
 L.carve(178, 19, 28, F1 - 19)                       # the library, two storeys
 L.fill(178, F2, 9, 2)                               # west gallery
-L.fill(197, F2, 9, 2)                               # east gallery
-L.oneway(190.5, 27.5, 3, kind="lamp")               # hanging lamp: the crossing
-L.fill(182, 39, 5, 2)                               # reading table
-dress((182, 39, 5, 2), "reading_table")
-L.fill(189, 35, 6, 6)                               # fallen bookcase
-dress((189, 35, 6, 6), "bookcase_leaning")
-L.fill(195, 38, 4, 3)                               # the books it spilled: the way back over
-dress((195, 38, 4, 3), "bookshelf_toppled")
+L.fill(199, F2, 7, 2)                               # east gallery
+# The library stair: one flight from the west gallery down toward the floor.
+# It stops three tiles short, over a heap of fallen books, so the floor runs
+# on beneath the whole flight and the room stays one room.
+L.stair(187, F2, 196, 37, thick=1.5, note="library stair")
+L.fill(197, 39, 3, 2)                               # the books that fell from the shelves: a step
+ledge(191, 25, 3, "a hanging lamp")                 # the crossing between galleries:
+ledge(195.5, 25.5, 3, "a hanging lamp")             # lamps on chains
+L.fill(181, 39, 4, 2)                               # reading table
 L.room("library", 178, 19, 28, F1 - 19, mood="library")
 L.zone(178, 19, 28, F1 - 19 + 1, zoom=0.8)
-L.entity("hint", 190, 35, w=4, h=3, text="A ledger, swollen with damp. Most of it is in a code of his own.\nOne line is not: \"density is a choice the sphere makes for you.\"", interact=True, paper="note")
+L.entity("hint", 195.5, 25.5, w=3, h=3, text="A ledger, swollen with damp. Most of it is in a code of his own.\nOne line is not: \"density is a choice the sphere makes for you.\"", interact=True, paper="note")
 door(176, F1)
 vine(176.5, F1, name="V3 living room to library")
 door(206, F1)
@@ -177,9 +148,10 @@ door(206, F2)
 
 L.carve(208, 19, 26, 9)                             # parents' bedroom
 L.fill(214, 26, 8, 2)                               # the big bed
-dress((214, 26, 8, 2), "canopy_bed")
+ledge(215, 23, 6, "the bed's canopy")
+ledge(224, 22, 3, "a picture ledge")
+ledge(229, 24, 3, "a shelf by the door")
 L.room("parents' bedroom", 208, 19, 26, 9, mood="bedroom")
-plate("bedroom2", 221.5, F2, scale=1.55, flip=True)
 door(234, F2)
 
 L.carve(236, 5, 10, F1 - 5)                         # east tower
@@ -193,9 +165,10 @@ door(234, F1)
 # --- Attic (east): reached by riding the chandelier -------------------------
 L.carve(150, 9, 84, 7)
 L.fill(186, 13, 6, 3)                               # trunks
-dress((186, 13, 6, 3), "trunks")
 L.fill(210, 14, 8, 2)
-dress((210, 14, 8, 2), "long_bench")
+ledge(166, 13, 4, "a rafter")
+ledge(176, 12.5, 3, "a rafter")
+ledge(200, 12.5, 4, "a rafter")
 L.carve(234, 12, 2, 4, "to tower")
 L.fill(236, ATT, 3, 2)                              # sill inside the tower
 L.room("attic", 150, 9, 84, 7, mood="attic")
@@ -206,11 +179,10 @@ L.entity("hint", 160, ATT, w=6, h=4, text="Boxes of winter coats. Four of everyt
 # ============================================================ MAIN FLOOR (41)
 L.carve(8, 31, 26, 10)                              # conservatory
 L.fill(14, 39, 3, 2)                                # planter
-dress((14, 39, 3, 2), "urn_planter")
 L.fill(18, 38, 6, 3)                                # the root that came through the glass
-dress((18, 38, 6, 3), "root_window")
 L.fill(26, 39, 4, 2)                                # planter
-dress((26, 39, 4, 2), "trough_planter")
+ledge(19, 35, 4, "a branch of the root")
+ledge(25, 34, 3, "a hanging basket")
 L.room("conservatory", 8, 31, 26, 10, tint=(60, 160, 90), mood="conservatory")
 L.entity("biome_door", 8.4, F1, w=3.6, h=6.3, name="overgrown door")
 door(34, F1)
@@ -219,34 +191,37 @@ vine(34.5, F1, name="V6 kitchen to conservatory")
 L.carve(36, 31, 24, 10)                             # kitchen
 L.carve(44, F1, 5, 3, "hole")                       # the floor gave way under the butcher's block
 L.carve(52, F1, 4, 3, "lift shaft")
+ledge(38, 38, 3, "a shelf of jars")
+ledge(43, 35, 5, "the pot rack, over the hole")
 L.room("kitchen", 36, 31, 24, 10, mood="kitchen")
-plate("kitchen", 36.3, F1)
-L.entity("family", 42.7, F1, who="mother", painted=True)
+L.entity("family", 42.7, F1, who="mother")
 L.entity("lift", 52, F1, w=4, top=F1, bottom=B1, start="top", kind="dumbwaiter", name="dumbwaiter")
 L.entity("lever", 57, F1, lift="dumbwaiter", bound=True, name="V2 dumbwaiter (kitchen)")
 door(60, F1)
 
 L.carve(62, 31, 24, 10)                             # dining room
 L.fill(65, 39, 6, 2)                                # fallen ceiling, under the hole
-dress((65, 39, 6, 2), "broken_beams")
+ledge(73, 38.5, 8, "the dining table")
+ledge(76, 35.5, 3, "the chandelier")
 L.room("dining room", 62, 31, 24, 10, mood="dining")
-plate("dining", 71.2, F1)
-L.entity("family", 77.3, F1, who="sibling", painted=True)
+L.entity("family", 77.3, F1, who="sibling")
 L.entity("hint", 81, F1, w=3, h=3, text="A place card: COWL. The chair is pushed in. Dust on the plate, thick as felt.", interact=True)
 
 L.carve(150, 31, 26, 10)                            # living room
 L.fill(165, 38, 4, 3)                               # toppled bookshelf
-dress((165, 38, 4, 3), "bookshelf_toppled", flip=True)
-plate("living", 150.4, F1)
 L.fill(170, 35, 6, 2)                               # mantel shelf over the east door
+ledge(155, 38, 3, "a sideboard")
+ledge(160, 35, 3, "a picture ledge")
 L.room("living room", 150, 31, 26, 10, mood="living")
 L.entity("hint", 172, 35, w=3, h=3, text="The family portrait. Four figures. Someone has drawn a small circle above the house.", interact=True)
 
 L.carve(208, 31, 26, 10)                            # father's study
 L.carve(229, F1, 4, B2 - F1, "lift shaft")
+ledge(210, 37, 4, "a library step")
+ledge(214, 34, 4, "the top of the shelves")
+note(214.5, 34, "Pinned above the shelves: a sketch of a sphere, and in his hand, NOT FOR THE HOUSE.")
 L.room("father's study", 208, 31, 26, 10, mood="study")
-plate("study", 209, F1)
-L.entity("family", 217, F1, who="father", painted=True)
+L.entity("family", 217, F1, who="father")
 L.entity("bookcase_door", 228, F1, w=1, h=10, name="study bookcase")
 L.entity("lift", 229, B2, w=4, top=F1, bottom=B2, start="bottom", kind="cage", name="study lift")
 L.entity("hint", 219, F1, w=6, h=4, text="His notes stop mid-word. The ink has had years to fade.", interact=True, paper="note")
@@ -254,34 +229,34 @@ L.entity("hint", 219, F1, w=6, h=4, text="His notes stop mid-word. The ink has h
 # ============================================================== BASEMENT (54)
 L.carve(36, 44, 24, 10)                             # pantry and cold room
 L.fill(43, 52, 7, 2)                                # what fell from the kitchen
-dress((43, 52, 7, 2), "table_clutter")
+ledge(37, 50, 3, "a cold shelf")
 L.room("pantry", 36, 44, 24, 10, mood="pantry")
 L.entity("knife", 39.5, B1)
 L.entity("lever", 57.5, B1, lift="dumbwaiter", bound=True, name="V2b dumbwaiter (pantry)")
-L.entity("hint", 37, B1, w=6, h=4, text="", when="knife", prompt="Strike the roots to cut them  [J]")
+L.entity("hint", 37, B1, w=6, h=4, text="", when="knife", prompt="The knife  [L]   cuts roots, and hits harder than a fist")
 door(60, B1)
 vine(60.5, B1, name="V5 pantry to storage")
 
 L.carve(62, 44, 24, 10)                             # storage
 L.fill(68, 51, 5, 3)                                # crates
-dress((68, 51, 5, 3), "crates")
 L.fill(77, 48, 6, 6)                                # barrel rack
-dress((77, 48, 6, 6), "barrel_rack")
 L.fill(83, 51, 3, 3)                                # a keg on its far side: the way back over
-dress((83, 51, 3, 3), "barrel")
+ledge(64, 49, 3, "a shelf of preserves")
+ledge(72, 47.5, 3, "a beam over the crates")
 L.room("storage rooms", 62, 44, 24, 10, mood="storage")
-plate("storage", 62.2, B1)
 L.entity("crawler", 65, B1)
 L.entity("crawler", 80, 48)
 L.carve(86, 48, 2, 6, "arch")
 
 L.carve(88, 44, 60, 10)                             # the undercroft, under the hall
 L.fill(98, 51, 5, 3)                                # fallen vault stone
-dress((98, 51, 5, 3), "vault_stone")
 L.carve(116, B1, 4, 2, "trench")                    # stalagmites
+ledge(106, 50, 3, "a fallen rib of the vault")
+ledge(111, 47.5, 3, "a vault rib")
+ledge(117, 49.5, 3, "a beam across the stalagmites")
+ledge(123, 50.5, 3, "a broken rib")
 L.fill(140, 48, 8, 2)                               # high ledge and its door: a later ability
 L.room("undercroft", 88, 44, 60, 10, mood="undercroft")
-plate("flooded", 121.5, B1)
 L.zone(88, 44, 60, 11, zoom=0.85)
 L.entity("spikes", 116, B1 + 2, w=4, h=1)
 L.entity("crawler", 108, B1)
@@ -293,9 +268,9 @@ vine(148.5, B1, name="V7 undercroft to workshop")
 
 L.carve(150, 44, 26, 10)                            # workshop
 L.fill(156, 51, 6, 3)                               # workbench
-dress((156, 51, 6, 3), "workbench")
 L.fill(166, 49, 5, 5)                               # the engine block
-dress((166, 49, 5, 5), "engine")
+ledge(151, 50, 3, "a tool shelf")
+ledge(162, 47.5, 3, "the beam of a chain hoist")
 L.room("workshop", 150, 44, 26, 10, mood="workshop")
 L.entity("crack", 160, B1, w=4, h=1, name="cracked floor")
 L.entity("garage_door", 170, B1, w=5, h=5)
@@ -305,10 +280,8 @@ door(176, B1)
 
 L.carve(178, 44, 28, 10)                            # boiler room
 L.fill(182, 51, 6, 3)                               # coal bunker
-dress((182, 51, 6, 3), "coal_bunker")
 L.oneway(189.5, 48.5, 3.5, kind="pipe")             # the one pipe you need
 L.fill(194, 47, 8, 7)                               # the boiler
-dress((194, 47, 8, 7), "boiler")
 L.carve(203, B1, 3, 3, "hidden shaft")              # behind the boiler: the way down
 L.room("boiler room", 178, 44, 28, 10, mood="boiler")
 L.entity("false_wall", 202, B1, w=4, h=10, name="pipes hiding the gap")
@@ -316,22 +289,13 @@ L.entity("crawler", 188, B1)
 
 # ============================================================ LAB LEVEL (66)
 L.carve(190, 57, 44, 9)
+ledge(198, 62, 4, "a gantry")
+ledge(205, 60, 4, "a gantry")
+ledge(213, 62, 3, "a gantry")
 L.room("laboratory antechamber", 190, 57, 44, 9, tint=(60, 200, 220), mood="lab")
 L.entity("lab_door", 190, B2, w=3, h=7)
 L.entity("lever", 227, B2, lift="study lift", name="study lift call (lab)")
 L.entity("checkpoint", 214, B2, kind="rest", w=2, h=2)
-
-# -------------------------------------------------------------- candlelight
-# Pools of warm light, as in the mockups: never even, always something dark between.
-for (cx, cy) in [(58, F2), (80, F2), (92, F2), (144, F2), (116, 34), (90.5, F1), (122, F1), (145, F1),
-                 (181, F2), (203, F2), (184, F1), (203, F1), (239, F2), (240, F1), (212, F2),
-                 (160, ATT), (196, ATT), (228, ATT), (15, F2), (30, F1), (12, F1),
-                 (58, F1), (64, F1), (173, F1),
-                 (38, B1), (50, B1), (84, B1), (92, B1), (106, B1), (138, B1), (152, B1), (174, B1),
-                 (180, B1), (192, B1)]:
-    L.prop("candle", cx, cy)
-for cx in (198, 210, 222):
-    L.prop("lamp", cx, B2)
 
 # ------------------------------------------------------------------ outputs
 if __name__ == "__main__":
@@ -342,8 +306,5 @@ if __name__ == "__main__":
     # Play-scale windows: what one screen shows at four moments, Cowl to scale.
     for name, cx, cy in [("bedroom", 34, 24), ("hallway-hole", 68, 25), ("hall-mezzanine", 118, 31), ("boiler", 194, 49)]:
         L.draw_window(os.path.join(DOCS, "mansion-3-screen-%s.png" % name), cx, cy, scale=40)
-    print("wreckage fit (px; + means the art's top sits below the collision top):")
-    for piece, mass, off in FIT_REPORT:
-        print("  %-18s %-20s %+6.1f" % (piece, mass, off))
     for k, v in L.measure().items():
         print("%-32s %s" % (k, v))

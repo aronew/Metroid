@@ -28,12 +28,19 @@ const CHILL_FOR := 14.0
 const FLIP_ON_JUMP := true
 const BED_FEET := Vector2(-24.0, -104.0)        # where his feet are, lying in the bed
 
-const STRIKE_CLIP := {&"jab": "jab", &"cross": "cross", &"kick": "kick", &"air": "air_kick"}
+## Knife swings play stand-in frames (the fist strikes) until the knife's own
+## sheets arrive: add their clips to tools/build_cowl_sprites.py and point
+## these three entries at them.
+const STRIKE_CLIP := {&"jab": "jab", &"cross": "cross", &"kick": "kick", &"air": "air_kick",
+	&"knife1": "cross", &"knife2": "jab", &"knife_air": "air_kick"}
 const STRIKE_FX := {
 	&"jab": ["trail_jab", "flare_jab", "flash_light"],
 	&"cross": ["trail_cross", "flare_cross", "flash_heavy"],
 	&"kick": ["trail_kick", "flare_kick", "flash_finisher"],
 	&"air": ["trail_air", "flare_cross", "flash_heavy"],
+	&"knife1": ["trail_kick", "flare_cross", "flash_heavy"],
+	&"knife2": ["trail_kick", "flare_kick", "flash_finisher"],
+	&"knife_air": ["trail_kick", "flare_cross", "flash_heavy"],
 }
 const STRIKE_TINT := Color(0.78, 0.9, 1.0)
 const SMOKE_TINT := Color(0.86, 0.84, 0.95, 0.85)

@@ -170,6 +170,50 @@ bookcase, dying and returning): `docs/slice-test-report.txt`.
 measure the controller and prove the routes; they cannot play it. Movement
 tuning, camera feel, swing timing and encounter difficulty need a person.
 
+## Platforming pass (12 November)
+
+The first build had long flat floors and almost nothing to climb. Each room
+now has an upper line built from its own furniture and structure, one-way
+ledges you jump up through and stand on:
+
+- **Bedroom:** the bed's canopy, a bookshelf, a drawing at the top.
+- **Hallway:** a fallen picture rail, a wedged door, joists over the
+  collapse, a high shelf, a console table.
+- **Grand hall:** a balcony bracket, a low chandelier (a note at the top), a
+  statue's plinth, the porter's shelf.
+- **Library:** a flying stair from the floor up to the west gallery, and
+  hanging lamps between the galleries. The stair stops above a heap of
+  fallen books, so the floor runs on beneath it.
+- **Other rooms:**
+  - shelves and canopies in the bedrooms;
+  - rafters in the attic;
+  - a root branch and a hanging basket in the conservatory;
+  - the pot rack in the kitchen;
+  - the table and chandelier in the dining room;
+  - a sideboard and a picture ledge in the living room;
+  - a library step and the shelf tops in the study (a note);
+  - shelves and beams in the cellars;
+  - vault ribs over the undercroft's stalagmites;
+  - a gantry in the laboratory.
+
+Ledges carry 17% of the standing room (up from 1%). That is more than the
+blockout method's one-eighth guide, by choice: this house is meant to be
+climbed through.
+
+What was deliberately left alone:
+
+- the two tower shafts (for a later climbing ability);
+- anything within reach of the undercroft's high door;
+- anything under the kitchen hole, so the knife is still how you leave the
+  pantry;
+- anything that would reach the chandelier's lift or the attic hatch from
+  below.
+
+The walk check was re-run after the change. The first attempt split the
+library floor under the new stair and stranded the east wing; it was fixed
+and re-walked. Every room is reached by the cautious player, every gate
+holds, and nothing reachable is a trap.
+
 ## 7. Open questions for review
 
 1. **The proposed abilities** in section 2. The tower shafts, the high door

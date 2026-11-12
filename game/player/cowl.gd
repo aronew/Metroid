@@ -57,6 +57,24 @@ const ATTACKS := {
 		"lunge": 0.0, "damage": 1, "knock": Vector2(6.0, -2.5),
 		"box": Rect2(6, -100, 90, 96), "ground": false,
 	},
+	# The butcher knife, on its own button once found: slower, longer, harder,
+	# and the only thing that cuts roots. Provisional timings until its swing
+	# sheets arrive; the animator plays stand-in frames meanwhile.
+	&"knife1": {
+		"startup": 5.0 / 60.0, "active": 5.0 / 60.0, "recovery": 12.0 / 60.0, "chain": 12.0 / 60.0,
+		"lunge": 2.6, "damage": 2, "knock": Vector2(6.5, -2.5),
+		"box": Rect2(4, -112, 122, 104), "ground": true, "next": &"knife2", "window": 0.45, "blade": true,
+	},
+	&"knife2": {
+		"startup": 7.0 / 60.0, "active": 6.0 / 60.0, "recovery": 16.0 / 60.0, "chain": 29.0 / 60.0,
+		"lunge": 3.4, "damage": 3, "knock": Vector2(10.0, -4.5),
+		"box": Rect2(0, -124, 136, 124), "ground": true, "finisher": true, "blade": true,
+	},
+	&"knife_air": {
+		"startup": 4.0 / 60.0, "active": 7.0 / 60.0, "recovery": 9.0 / 60.0, "chain": 16.0 / 60.0,
+		"lunge": 0.0, "damage": 2, "knock": Vector2(6.0, -2.5),
+		"box": Rect2(0, -118, 126, 124), "ground": false, "blade": true,
+	},
 }
 
 @export var config: MovementConfig
@@ -83,6 +101,7 @@ var _coyote := 0.0
 var _jump_buffer := 0.0
 var _dodge_buffer := 0.0
 var _attack_buffer := 0.0
+var _knife_next := false        # the buffered attack is a knife swing
 var _jumping := false          # rising from a jump that has not been cut
 var _was_on_floor := false
 var _drop_through := 0.0
@@ -113,6 +132,7 @@ class InputState:
 	var jump_pressed := false
 	var dodge_pressed := false
 	var attack_pressed := false
+	var knife_pressed := false
 	var any_pressed := false
 
 ## When set, replaces the keyboard and gamepad.
@@ -171,7 +191,8 @@ func _poll_device() -> InputState:
 	i.jump_pressed = Input.is_action_just_pressed(&"jump")
 	i.dodge_pressed = Input.is_action_just_pressed(&"dodge")
 	i.attack_pressed = Input.is_action_just_pressed(&"attack")
-	i.any_pressed = i.jump_pressed or i.dodge_pressed or i.attack_pressed \
+	i.knife_pressed = Input.is_action_just_pressed(&"knife")
+	i.any_pressed = i.jump_pressed or i.dodge_pressed or i.attack_pressed or i.knife_pressed \
 		or Input.is_action_just_pressed(&"move_left") or Input.is_action_just_pressed(&"move_right") \
 		or Input.is_action_just_pressed(&"interact") or Input.is_action_just_pressed(&"look_up")
 	return i
@@ -194,6 +215,10 @@ func _read_input() -> void:
 		_dodge_buffer = 0.12
 	if i.attack_pressed:
 		_attack_buffer = 0.16
+		_knife_next = false
+	if i.knife_pressed and Game.has_knife:
+		_attack_buffer = 0.16
+		_knife_next = true
 
 
 func _tick_timers(delta: float) -> void:
@@ -524,10 +549,12 @@ func _update_attack(delta: float, on_floor: bool) -> void:
 		return
 	var kind: StringName
 	if not on_floor:
-		kind = &"air"
+		kind = &"knife_air" if _knife_next else &"air"
 	else:
-		kind = &"jab"
+		kind = &"knife1" if _knife_next else &"jab"
+		# Continue a string only with the same hand: fists after fists, blade after blade.
 		if ATTACKS.has(_last_attack) and ATTACKS[_last_attack].has("next") \
+				and ATTACKS[_last_attack].get("blade", false) == _knife_next \
 				and _combo_time < float(ATTACKS[_last_attack]["chain"]) + float(ATTACKS[_last_attack]["window"]):
 			kind = ATTACKS[_last_attack]["next"]
 	_start_attack(kind, on_floor)
@@ -550,7 +577,7 @@ func _start_attack(kind: StringName, on_floor: bool) -> void:
 	if on_floor and lunge > 0.0:
 		velocity.x = facing * maxf(absf(velocity.x) * 0.5, lunge * TILE)
 	attack_started.emit(kind)
-	Sfx.play(&"swing_heavy" if kind == &"kick" else &"swing")
+	Sfx.play(&"swing_heavy" if ATTACKS[kind].get("finisher", false) or ATTACKS[kind].get("blade", false) else &"swing")
 
 
 func _cancel_attack() -> void:
@@ -593,13 +620,14 @@ func _swing_hits(a: Dictionary) -> void:
 			"source": self,
 			"at": at,
 			"kind": attack_kind,
+			"blade": ATTACKS[attack_kind].get("blade", false),
 		}
 		if target.call(&"take_hit", info):
 			connected = true
 			attack_connected.emit(attack_kind, at)
 	if connected:
 		var finisher: bool = a.get("finisher", false)
-		Game.hitstop(0.11 if finisher else (0.07 if attack_kind == &"cross" else 0.055))
+		Game.hitstop(0.11 if finisher else (0.07 if attack_kind in [&"cross", &"knife1", &"knife_air"] else 0.055))
 		Game.shake(0.4 if finisher else 0.18)
 		# The blow pushes back on the body that threw it.
 		velocity.x -= facing * (2.6 if is_on_floor() else 1.6) * TILE

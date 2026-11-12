@@ -25,6 +25,7 @@ func frames(n: int) -> void:
 		await get_tree().physics_frame
 		inp.jump_pressed = false
 		inp.attack_pressed = false
+		inp.knife_pressed = false
 		inp.dodge_pressed = false
 		inp.any_pressed = false
 
@@ -59,6 +60,12 @@ func swing() -> void:
 	inp.attack_pressed = true
 	await frames(1)
 	await frames(24)
+
+
+func cut() -> void:
+	inp.knife_pressed = true
+	await frames(1)
+	await frames(30)
 
 
 func _run() -> void:
@@ -107,8 +114,13 @@ func _run() -> void:
 	var vine := named("vine", "V5")
 	await swing()
 	Engine.time_scale = 1.0
+	await frames(10)
+	check(is_instance_valid(vine) and not vine.get(&"_cut"), "even with the knife found, a fist does not cut roots")
+	await put(59.6, 54.0, 1)
+	await cut()
+	Engine.time_scale = 1.0
 	await frames(50)
-	check(not is_instance_valid(vine) or vine.get(&"_cut"), "with the knife, one strike cuts the roots on the pantry door")
+	check(not is_instance_valid(vine) or vine.get(&"_cut"), "one knife swing cuts the roots on the pantry door")
 	inp.move = 1.0
 	await frames(50)
 	inp.move = 0.0
@@ -116,14 +128,22 @@ func _run() -> void:
 
 	# --- a creature --------------------------------------------------------
 	var crawler := entity("crawler") as Node2D
-	await put(crawler.global_position.x / T - 1.6, 54.0, 1)
+	# Hold its charge for this part: the test is about the blow, not the dodge.
+	for k: StringName in [&"_charging", &"_telegraph"]:
+		crawler.set(k, 0.0)
+	crawler.set(&"_cooldown", 5.0)
+	await put(crawler.global_position.x / T - 1.1, 54.0, 1)
+	# A teleport leaves last frame's contacts for one step; place him again.
+	await put(crawler.global_position.x / T - 1.1, 54.0, 1)
 	var hp_before := cowl.health
 	await swing()
 	Engine.time_scale = 1.0
 	check(crawler.get(&"health") < 2, "a strike wounds a crawler")
 	for i in 4:
 		if is_instance_valid(crawler) and not crawler.get(&"_dead"):
-			await put(crawler.global_position.x / T - 1.4, crawler.global_position.y / T, 1)
+			crawler.set(&"_charging", 0.0)
+			crawler.set(&"_cooldown", 5.0)
+			await put(crawler.global_position.x / T - 1.1, crawler.global_position.y / T, 1)
 			await swing()
 			Engine.time_scale = 1.0
 	check(not is_instance_valid(crawler) or crawler.get(&"_dead"), "and a second blow kills it")
@@ -143,7 +163,7 @@ func _run() -> void:
 	var lift := named("lift", "dumbwaiter") as Lift
 	await put(56.6, 54.0, 1)
 	var lever := named("lever", "V2b")
-	await swing()
+	await cut()
 	Engine.time_scale = 1.0
 	await frames(20)
 	check(not lift.locked, "cutting the lever's roots frees the mechanism")

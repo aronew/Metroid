@@ -64,7 +64,10 @@ func load_level(which: String) -> void:
 	camera.follow(cowl)
 
 	hud.bind(cowl, self)
-	cowl.attack_started.connect(func(_k: StringName) -> void: Game.set_flag("swung"))
+	cowl.attack_started.connect(func(k: StringName) -> void:
+		Game.set_flag("swung")
+		if String(k).begins_with("knife"):
+			Game.set_flag("knifed"))
 	if not Game.player_died.is_connected(_on_player_died):
 		Game.player_died.connect(_on_player_died)
 

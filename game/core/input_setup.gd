@@ -9,6 +9,7 @@ const KEYS := {
 	"look_down": [KEY_S, KEY_DOWN],
 	"jump": [KEY_SPACE, KEY_Z],
 	"attack": [KEY_J, KEY_X],
+	"knife": [KEY_L, KEY_V],
 	"dodge": [KEY_SHIFT, KEY_K, KEY_C],
 	"interact": [KEY_E, KEY_ENTER],
 	"pause": [KEY_ESCAPE],
@@ -22,7 +23,8 @@ const KEYS := {
 const PAD_BUTTONS := {
 	"jump": [JOY_BUTTON_A],
 	"attack": [JOY_BUTTON_X],
-	"dodge": [JOY_BUTTON_B, JOY_BUTTON_RIGHT_SHOULDER],
+	"dodge": [JOY_BUTTON_B],
+	"knife": [JOY_BUTTON_RIGHT_SHOULDER],
 	"interact": [JOY_BUTTON_Y],
 	"pause": [JOY_BUTTON_START],
 	"move_left": [JOY_BUTTON_DPAD_LEFT],

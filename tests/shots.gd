@@ -43,6 +43,7 @@ func _physics_process(_delta: float) -> void:
 			_inp.jump_pressed = _frame == int(_cur.get("jump_at", -1))
 			_inp.attack_pressed = _frame == int(_cur.get("attack_at", -1)) or _frame == int(_cur.get("attack2_at", -1))
 			_inp.dodge_pressed = _frame == int(_cur.get("dodge_at", -1))
+			_inp.knife_pressed = _frame == int(_cur.get("knife_at", -1))
 			_inp.any_pressed = _frame == int(_cur.get("wake_at", -1))
 			if _frame == int(_cur.get("stop_at", -1)):
 				_inp.move = 0.0
@@ -85,5 +86,9 @@ func _physics_process(_delta: float) -> void:
 		var rig: Node = cowl.get_node("Rig")
 		for k: String in _cur["rig_set"]:
 			rig.set(k, _cur["rig_set"][k])
+	if _cur.has("edges"):
+		var art: Node = main.get("art")
+		if art != null:
+			(art.get("_edges") as Node2D).visible = bool(_cur["edges"])
 	if _cur.has("zoom"):
 		main.get("camera").set("base_zoom", float(_cur["zoom"]))

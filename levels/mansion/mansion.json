@@ -207,9 +207,9 @@
    2
   ],
   [
-   197,
+   199,
    28,
-   43,
+   41,
    2
   ],
   [
@@ -297,12 +297,6 @@
    2
   ],
   [
-   189,
-   35,
-   6,
-   3
-  ],
-  [
    246,
    13,
    10,
@@ -315,15 +309,15 @@
    10
   ],
   [
-   189,
-   38,
-   10,
-   3
-  ],
-  [
    165,
    38,
    4,
+   3
+  ],
+  [
+   89,
+   38,
+   3,
    3
   ],
   [
@@ -331,6 +325,12 @@
    38,
    6,
    3
+  ],
+  [
+   181,
+   39,
+   4,
+   2
   ],
   [
    26,
@@ -345,9 +345,9 @@
    2
   ],
   [
-   182,
+   197,
    39,
-   5,
+   3,
    2
   ],
   [
@@ -669,15 +669,316 @@
     41
    ],
    "thick": null
+  },
+  {
+   "pts": [
+    [
+     187,
+     28
+    ],
+    [
+     196,
+     37
+    ],
+    [
+     196,
+     38.5
+    ],
+    [
+     187,
+     29.5
+    ]
+   ],
+   "note": "library stair",
+   "line": [
+    187,
+    28,
+    196,
+    37
+   ],
+   "thick": 1.5
   }
  ],
  "oneways": [
   {
-   "x": 190.5,
-   "y": 27.5,
+   "x": 21,
+   "y": 25,
+   "w": 4,
+   "kind": "ledge",
+   "note": "the bed's canopy"
+  },
+  {
+   "x": 27,
+   "y": 22,
+   "w": 4,
+   "kind": "ledge",
+   "note": "a bookshelf on the wall"
+  },
+  {
+   "x": 57,
+   "y": 25,
+   "w": 4,
+   "kind": "ledge",
+   "note": "a picture rail, fallen to one nail"
+  },
+  {
+   "x": 63,
+   "y": 23,
    "w": 3,
-   "kind": "lamp",
-   "note": ""
+   "kind": "ledge",
+   "note": "a door torn off and wedged across"
+  },
+  {
+   "x": 68,
+   "y": 25,
+   "w": 4,
+   "kind": "ledge",
+   "note": "joists over the collapse"
+  },
+  {
+   "x": 75,
+   "y": 22,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a high shelf"
+  },
+  {
+   "x": 80,
+   "y": 24,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a console table on the wall"
+  },
+  {
+   "x": 104,
+   "y": 25,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a balcony bracket"
+  },
+  {
+   "x": 108,
+   "y": 22,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a chandelier, hung low"
+  },
+  {
+   "x": 143,
+   "y": 37,
+   "w": 4,
+   "kind": "ledge",
+   "note": "the porter's shelf by the front door"
+  },
+  {
+   "x": 152,
+   "y": 25,
+   "w": 4,
+   "kind": "ledge",
+   "note": "a shelf over the door"
+  },
+  {
+   "x": 157,
+   "y": 22,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a hanging mobile, stars and moons"
+  },
+  {
+   "x": 165,
+   "y": 22,
+   "w": 4,
+   "kind": "ledge",
+   "note": "the top of her bookcase"
+  },
+  {
+   "x": 191,
+   "y": 25,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a hanging lamp"
+  },
+  {
+   "x": 195.5,
+   "y": 25.5,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a hanging lamp"
+  },
+  {
+   "x": 215,
+   "y": 23,
+   "w": 6,
+   "kind": "ledge",
+   "note": "the bed's canopy"
+  },
+  {
+   "x": 224,
+   "y": 22,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a picture ledge"
+  },
+  {
+   "x": 229,
+   "y": 24,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a shelf by the door"
+  },
+  {
+   "x": 166,
+   "y": 13,
+   "w": 4,
+   "kind": "ledge",
+   "note": "a rafter"
+  },
+  {
+   "x": 176,
+   "y": 12.5,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a rafter"
+  },
+  {
+   "x": 200,
+   "y": 12.5,
+   "w": 4,
+   "kind": "ledge",
+   "note": "a rafter"
+  },
+  {
+   "x": 19,
+   "y": 35,
+   "w": 4,
+   "kind": "ledge",
+   "note": "a branch of the root"
+  },
+  {
+   "x": 25,
+   "y": 34,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a hanging basket"
+  },
+  {
+   "x": 38,
+   "y": 38,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a shelf of jars"
+  },
+  {
+   "x": 43,
+   "y": 35,
+   "w": 5,
+   "kind": "ledge",
+   "note": "the pot rack, over the hole"
+  },
+  {
+   "x": 73,
+   "y": 38.5,
+   "w": 8,
+   "kind": "ledge",
+   "note": "the dining table"
+  },
+  {
+   "x": 76,
+   "y": 35.5,
+   "w": 3,
+   "kind": "ledge",
+   "note": "the chandelier"
+  },
+  {
+   "x": 155,
+   "y": 38,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a sideboard"
+  },
+  {
+   "x": 160,
+   "y": 35,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a picture ledge"
+  },
+  {
+   "x": 210,
+   "y": 37,
+   "w": 4,
+   "kind": "ledge",
+   "note": "a library step"
+  },
+  {
+   "x": 214,
+   "y": 34,
+   "w": 4,
+   "kind": "ledge",
+   "note": "the top of the shelves"
+  },
+  {
+   "x": 37,
+   "y": 50,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a cold shelf"
+  },
+  {
+   "x": 64,
+   "y": 49,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a shelf of preserves"
+  },
+  {
+   "x": 72,
+   "y": 47.5,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a beam over the crates"
+  },
+  {
+   "x": 106,
+   "y": 50,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a fallen rib of the vault"
+  },
+  {
+   "x": 111,
+   "y": 47.5,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a vault rib"
+  },
+  {
+   "x": 117,
+   "y": 49.5,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a beam across the stalagmites"
+  },
+  {
+   "x": 123,
+   "y": 50.5,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a broken rib"
+  },
+  {
+   "x": 151,
+   "y": 50,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a tool shelf"
+  },
+  {
+   "x": 162,
+   "y": 47.5,
+   "w": 3,
+   "kind": "ledge",
+   "note": "the beam of a chain hoist"
   },
   {
    "x": 189.5,
@@ -685,6 +986,27 @@
    "w": 3.5,
    "kind": "pipe",
    "note": ""
+  },
+  {
+   "x": 198,
+   "y": 62,
+   "w": 4,
+   "kind": "ledge",
+   "note": "a gantry"
+  },
+  {
+   "x": 205,
+   "y": 60,
+   "w": 4,
+   "kind": "ledge",
+   "note": "a gantry"
+  },
+  {
+   "x": 213,
+   "y": 62,
+   "w": 3,
+   "kind": "ledge",
+   "note": "a gantry"
   }
  ],
  "rooms": [
@@ -916,6 +1238,16 @@
    "name": "V1 bedroom west door"
   },
   {
+   "type": "hint",
+   "x": 28,
+   "y": 22,
+   "w": 3,
+   "h": 3,
+   "text": "Behind the books, a drawing in his own hand: the house, and a circle hanging over it.",
+   "interact": true,
+   "paper": "note"
+  },
+  {
    "type": "checkpoint",
    "x": 24.3,
    "y": 28,
@@ -950,6 +1282,16 @@
    "h": 5,
    "text": "",
    "prompt": "Strike  [J]   press again to string jab, cross and kick"
+  },
+  {
+   "type": "hint",
+   "x": 108.5,
+   "y": 22,
+   "w": 3,
+   "h": 3,
+   "text": "Up here the dust is undisturbed. Below, the hall: years of it, and no footprints but yours.",
+   "interact": true,
+   "paper": "note"
   },
   {
    "type": "lift",
@@ -1004,9 +1346,9 @@
   },
   {
    "type": "hint",
-   "x": 190,
-   "y": 35,
-   "w": 4,
+   "x": 195.5,
+   "y": 25.5,
+   "w": 3,
    "h": 3,
    "text": "A ledger, swollen with damp. Most of it is in a code of his own.\nOne line is not: \"density is a choice the sphere makes for you.\"",
    "interact": true,
@@ -1066,8 +1408,7 @@
    "type": "family",
    "x": 42.7,
    "y": 41,
-   "who": "mother",
-   "painted": true
+   "who": "mother"
   },
   {
    "type": "lift",
@@ -1092,8 +1433,7 @@
    "type": "family",
    "x": 77.3,
    "y": 41,
-   "who": "sibling",
-   "painted": true
+   "who": "sibling"
   },
   {
    "type": "hint",
@@ -1114,11 +1454,20 @@
    "interact": true
   },
   {
+   "type": "hint",
+   "x": 214.5,
+   "y": 34,
+   "w": 3,
+   "h": 3,
+   "text": "Pinned above the shelves: a sketch of a sphere, and in his hand, NOT FOR THE HOUSE.",
+   "interact": true,
+   "paper": "note"
+  },
+  {
    "type": "family",
    "x": 217,
    "y": 41,
-   "who": "father",
-   "painted": true
+   "who": "father"
   },
   {
    "type": "bookcase_door",
@@ -1170,7 +1519,7 @@
    "h": 4,
    "text": "",
    "when": "knife",
-   "prompt": "Strike the roots to cut them  [J]"
+   "prompt": "The knife  [L]   cuts roots, and hits harder than a fist"
   },
   {
    "type": "vine",
@@ -1301,71 +1650,6 @@
    "h": 4
   },
   {
-   "sprite": "wreck",
-   "x": 32.85,
-   "y": 28.0,
-   "key": "wardrobe_toppled",
-   "rect": [
-    32.85,
-    25.739,
-    5.3,
-    2.261
-   ],
-   "mass": [
-    33,
-    26,
-    5,
-    2
-   ],
-   "flip": false
-  },
-  {
-   "sprite": "wreck",
-   "x": 40.774033149171274,
-   "y": 28.0,
-   "key": "heap",
-   "rect": [
-    40.774,
-    23.591,
-    7.452,
-    4.409
-   ],
-   "mass": [
-    41,
-    25,
-    7,
-    3
-   ],
-   "flip": false
-  },
-  {
-   "sprite": "plate",
-   "x": 20.3,
-   "y": 28,
-   "key": "bedroom",
-   "width": 11.969,
-   "flip": false
-  },
-  {
-   "sprite": "wreck",
-   "x": 49.68260869565218,
-   "y": 28.0,
-   "key": "cabinet_tipped",
-   "rect": [
-    49.683,
-    24.739,
-    5.635,
-    3.261
-   ],
-   "mass": [
-    50,
-    25,
-    5,
-    3
-   ],
-   "flip": false
-  },
-  {
    "sprite": "frame",
    "x": 86,
    "y": 41,
@@ -1387,114 +1671,11 @@
    "h": 4
   },
   {
-   "sprite": "wreck",
-   "x": 158.82,
-   "y": 28.0,
-   "key": "bed_on_side",
-   "rect": [
-    158.82,
-    24.069,
-    6.36,
-    3.931
-   ],
-   "mass": [
-    159,
-    25,
-    6,
-    3
-   ],
-   "flip": false
-  },
-  {
-   "sprite": "wreck",
-   "x": 169.9744318181818,
-   "y": 28.0,
-   "key": "wardrobe",
-   "rect": [
-    169.974,
-    20.977,
-    6.051,
-    7.023
-   ],
-   "mass": [
-    170,
-    22,
-    6,
-    6
-   ],
-   "flip": false
-  },
-  {
-   "sprite": "plate",
-   "x": 150.6,
-   "y": 28,
-   "key": "bedroom2",
-   "width": 11.719,
-   "flip": false
-  },
-  {
    "sprite": "frame",
    "x": 176,
    "y": 28,
    "w": 2,
    "h": 4
-  },
-  {
-   "sprite": "wreck",
-   "x": 181.85,
-   "y": 41.0,
-   "key": "reading_table",
-   "rect": [
-    181.85,
-    38.745,
-    5.3,
-    2.255
-   ],
-   "mass": [
-    182,
-    39,
-    5,
-    2
-   ],
-   "flip": false
-  },
-  {
-   "sprite": "wreck",
-   "x": 188.82,
-   "y": 41.0,
-   "key": "bookcase_leaning",
-   "rect": [
-    188.82,
-    33.861,
-    6.36,
-    7.139
-   ],
-   "mass": [
-    189,
-    35,
-    6,
-    6
-   ],
-   "flip": false
-  },
-  {
-   "sprite": "wreck",
-   "x": 194.43255813953488,
-   "y": 41.0,
-   "key": "bookshelf_toppled",
-   "rect": [
-    194.433,
-    37.372,
-    5.135,
-    3.628
-   ],
-   "mass": [
-    195,
-    38,
-    4,
-    3
-   ],
-   "flip": false
   },
   {
    "sprite": "frame",
@@ -1518,33 +1699,6 @@
    "h": 4
   },
   {
-   "sprite": "wreck",
-   "x": 213.76,
-   "y": 28.0,
-   "key": "canopy_bed",
-   "rect": [
-    213.76,
-    25.011,
-    8.48,
-    2.989
-   ],
-   "mass": [
-    214,
-    26,
-    8,
-    2
-   ],
-   "flip": false
-  },
-  {
-   "sprite": "plate",
-   "x": 221.5,
-   "y": 28,
-   "key": "bedroom2",
-   "width": 12.109,
-   "flip": true
-  },
-  {
    "sprite": "frame",
    "x": 234,
    "y": 28,
@@ -1557,101 +1711,6 @@
    "y": 41,
    "w": 2,
    "h": 4
-  },
-  {
-   "sprite": "wreck",
-   "x": 185.15384615384616,
-   "y": 16.0,
-   "key": "trunks",
-   "rect": [
-    185.154,
-    11.462,
-    7.692,
-    4.538
-   ],
-   "mass": [
-    186,
-    13,
-    6,
-    3
-   ],
-   "flip": false
-  },
-  {
-   "sprite": "wreck",
-   "x": 209.76,
-   "y": 16.0,
-   "key": "long_bench",
-   "rect": [
-    209.76,
-    13.91,
-    8.48,
-    2.09
-   ],
-   "mass": [
-    210,
-    14,
-    8,
-    2
-   ],
-   "flip": false
-  },
-  {
-   "sprite": "wreck",
-   "x": 13.91,
-   "y": 41.0,
-   "key": "urn_planter",
-   "rect": [
-    13.91,
-    38.109,
-    3.18,
-    2.891
-   ],
-   "mass": [
-    14,
-    39,
-    3,
-    2
-   ],
-   "flip": false
-  },
-  {
-   "sprite": "wreck",
-   "x": 17.82,
-   "y": 41.0,
-   "key": "root_window",
-   "rect": [
-    17.82,
-    36.817,
-    6.36,
-    4.183
-   ],
-   "mass": [
-    18,
-    38,
-    6,
-    3
-   ],
-   "flip": false
-  },
-  {
-   "sprite": "wreck",
-   "x": 25.88,
-   "y": 41.0,
-   "key": "trough_planter",
-   "rect": [
-    25.88,
-    38.634,
-    4.24,
-    2.366
-   ],
-   "mass": [
-    26,
-    39,
-    4,
-    2
-   ],
-   "flip": false
   },
   {
    "sprite": "frame",
@@ -1661,14 +1720,6 @@
    "h": 4
   },
   {
-   "sprite": "plate",
-   "x": 36.3,
-   "y": 41,
-   "key": "kitchen",
-   "width": 15.156,
-   "flip": false
-  },
-  {
    "sprite": "frame",
    "x": 60,
    "y": 41,
@@ -1676,184 +1727,11 @@
    "h": 4
   },
   {
-   "sprite": "wreck",
-   "x": 64.48,
-   "y": 41.0,
-   "key": "broken_beams",
-   "rect": [
-    64.48,
-    38.2,
-    7.04,
-    2.8
-   ],
-   "mass": [
-    65,
-    39,
-    6,
-    2
-   ],
-   "flip": false
-  },
-  {
-   "sprite": "plate",
-   "x": 71.2,
-   "y": 41,
-   "key": "dining",
-   "width": 13.875,
-   "flip": false
-  },
-  {
-   "sprite": "wreck",
-   "x": 164.43255813953488,
-   "y": 41.0,
-   "key": "bookshelf_toppled",
-   "rect": [
-    164.433,
-    37.372,
-    5.135,
-    3.628
-   ],
-   "mass": [
-    165,
-    38,
-    4,
-    3
-   ],
-   "flip": true
-  },
-  {
-   "sprite": "plate",
-   "x": 150.4,
-   "y": 41,
-   "key": "living",
-   "width": 15.875,
-   "flip": false
-  },
-  {
-   "sprite": "plate",
-   "x": 209,
-   "y": 41,
-   "key": "study",
-   "width": 16.859,
-   "flip": false
-  },
-  {
-   "sprite": "wreck",
-   "x": 42.79,
-   "y": 54.0,
-   "key": "table_clutter",
-   "rect": [
-    42.79,
-    51.079,
-    7.42,
-    2.921
-   ],
-   "mass": [
-    43,
-    52,
-    7,
-    2
-   ],
-   "flip": false
-  },
-  {
    "sprite": "frame",
    "x": 60,
    "y": 54,
    "w": 2,
    "h": 4
-  },
-  {
-   "sprite": "wreck",
-   "x": 67.85,
-   "y": 54.0,
-   "key": "crates",
-   "rect": [
-    67.85,
-    50.949,
-    5.3,
-    3.051
-   ],
-   "mass": [
-    68,
-    51,
-    5,
-    3
-   ],
-   "flip": false
-  },
-  {
-   "sprite": "wreck",
-   "x": 76.82,
-   "y": 54.0,
-   "key": "barrel_rack",
-   "rect": [
-    76.82,
-    47.771,
-    6.36,
-    6.229
-   ],
-   "mass": [
-    77,
-    48,
-    6,
-    6
-   ],
-   "flip": false
-  },
-  {
-   "sprite": "wreck",
-   "x": 82.78275862068965,
-   "y": 54.0,
-   "key": "barrel",
-   "rect": [
-    82.783,
-    50.845,
-    3.434,
-    3.155
-   ],
-   "mass": [
-    83,
-    51,
-    3,
-    3
-   ],
-   "flip": false
-  },
-  {
-   "sprite": "plate",
-   "x": 62.2,
-   "y": 54,
-   "key": "storage",
-   "width": 12.5,
-   "flip": false
-  },
-  {
-   "sprite": "wreck",
-   "x": 97.32206896551725,
-   "y": 54.0,
-   "key": "vault_stone",
-   "rect": [
-    97.322,
-    50.855,
-    6.356,
-    3.145
-   ],
-   "mass": [
-    98,
-    51,
-    5,
-    3
-   ],
-   "flip": false
-  },
-  {
-   "sprite": "plate",
-   "x": 121.5,
-   "y": 54,
-   "key": "flooded",
-   "width": 16.016,
-   "flip": false
   },
   {
    "sprite": "frame",
@@ -1863,272 +1741,11 @@
    "h": 4
   },
   {
-   "sprite": "wreck",
-   "x": 155.82,
-   "y": 54.0,
-   "key": "workbench",
-   "rect": [
-    155.82,
-    50.318,
-    6.36,
-    3.682
-   ],
-   "mass": [
-    156,
-    51,
-    6,
-    3
-   ],
-   "flip": false
-  },
-  {
-   "sprite": "wreck",
-   "x": 165.85,
-   "y": 54.0,
-   "key": "engine",
-   "rect": [
-    165.85,
-    48.467,
-    5.3,
-    5.533
-   ],
-   "mass": [
-    166,
-    49,
-    5,
-    5
-   ],
-   "flip": false
-  },
-  {
    "sprite": "frame",
    "x": 176,
    "y": 54,
    "w": 2,
    "h": 4
-  },
-  {
-   "sprite": "wreck",
-   "x": 181.82,
-   "y": 54.0,
-   "key": "coal_bunker",
-   "rect": [
-    181.82,
-    50.593,
-    6.36,
-    3.407
-   ],
-   "mass": [
-    182,
-    51,
-    6,
-    3
-   ],
-   "flip": false
-  },
-  {
-   "sprite": "wreck",
-   "x": 193.76,
-   "y": 54.0,
-   "key": "boiler",
-   "rect": [
-    193.76,
-    45.803,
-    8.48,
-    8.197
-   ],
-   "mass": [
-    194,
-    47,
-    8,
-    7
-   ],
-   "flip": false
-  },
-  {
-   "sprite": "candle",
-   "x": 58,
-   "y": 28
-  },
-  {
-   "sprite": "candle",
-   "x": 80,
-   "y": 28
-  },
-  {
-   "sprite": "candle",
-   "x": 92,
-   "y": 28
-  },
-  {
-   "sprite": "candle",
-   "x": 144,
-   "y": 28
-  },
-  {
-   "sprite": "candle",
-   "x": 116,
-   "y": 34
-  },
-  {
-   "sprite": "candle",
-   "x": 90.5,
-   "y": 41
-  },
-  {
-   "sprite": "candle",
-   "x": 122,
-   "y": 41
-  },
-  {
-   "sprite": "candle",
-   "x": 145,
-   "y": 41
-  },
-  {
-   "sprite": "candle",
-   "x": 181,
-   "y": 28
-  },
-  {
-   "sprite": "candle",
-   "x": 203,
-   "y": 28
-  },
-  {
-   "sprite": "candle",
-   "x": 184,
-   "y": 41
-  },
-  {
-   "sprite": "candle",
-   "x": 203,
-   "y": 41
-  },
-  {
-   "sprite": "candle",
-   "x": 239,
-   "y": 28
-  },
-  {
-   "sprite": "candle",
-   "x": 240,
-   "y": 41
-  },
-  {
-   "sprite": "candle",
-   "x": 212,
-   "y": 28
-  },
-  {
-   "sprite": "candle",
-   "x": 160,
-   "y": 16
-  },
-  {
-   "sprite": "candle",
-   "x": 196,
-   "y": 16
-  },
-  {
-   "sprite": "candle",
-   "x": 228,
-   "y": 16
-  },
-  {
-   "sprite": "candle",
-   "x": 15,
-   "y": 28
-  },
-  {
-   "sprite": "candle",
-   "x": 30,
-   "y": 41
-  },
-  {
-   "sprite": "candle",
-   "x": 12,
-   "y": 41
-  },
-  {
-   "sprite": "candle",
-   "x": 58,
-   "y": 41
-  },
-  {
-   "sprite": "candle",
-   "x": 64,
-   "y": 41
-  },
-  {
-   "sprite": "candle",
-   "x": 173,
-   "y": 41
-  },
-  {
-   "sprite": "candle",
-   "x": 38,
-   "y": 54
-  },
-  {
-   "sprite": "candle",
-   "x": 50,
-   "y": 54
-  },
-  {
-   "sprite": "candle",
-   "x": 84,
-   "y": 54
-  },
-  {
-   "sprite": "candle",
-   "x": 92,
-   "y": 54
-  },
-  {
-   "sprite": "candle",
-   "x": 106,
-   "y": 54
-  },
-  {
-   "sprite": "candle",
-   "x": 138,
-   "y": 54
-  },
-  {
-   "sprite": "candle",
-   "x": 152,
-   "y": 54
-  },
-  {
-   "sprite": "candle",
-   "x": 174,
-   "y": 54
-  },
-  {
-   "sprite": "candle",
-   "x": 180,
-   "y": 54
-  },
-  {
-   "sprite": "candle",
-   "x": 192,
-   "y": 54
-  },
-  {
-   "sprite": "lamp",
-   "x": 198,
-   "y": 66
-  },
-  {
-   "sprite": "lamp",
-   "x": 210,
-   "y": 66
-  },
-  {
-   "sprite": "lamp",
-   "x": 222,
-   "y": 66
   }
  ],
  "labels": []
