@@ -41,6 +41,14 @@ func _ready() -> void:
 func take_hit(info: Dictionary) -> bool:
 	if _cut:
 		return false
+	if not Game.has_knife:
+		# Fists and feet only shake them. The knife is what cuts.
+		_shake = 1.0
+		Sfx.play(&"locked")
+		if not Game.get_flag("roots_hint"):
+			Game.set_flag("roots_hint")
+			Game.say("The roots give, and spring back. They need cutting.", 3.5)
+		return true
 	_cut = true
 	collision_layer = 0
 	_hurt.collision_layer = 0
@@ -53,6 +61,7 @@ func take_hit(info: Dictionary) -> bool:
 
 func _process(delta: float) -> void:
 	_sway += delta
+	_shake = maxf(_shake - delta * 3.0, 0.0)
 	if _cut:
 		_fall += delta
 	queue_redraw()
@@ -71,7 +80,7 @@ func _draw() -> void:
 	var floor_px: float = Kit.meta("roots/barrier_a")["floor"]
 	var s := h / (floor_px * 0.53)
 	var size := t.get_size() * s
-	var sway := 0.0 if _cut else sin(_sway * 0.8 + global_position.x) * 0.012
+	var sway := 0.0 if _cut else sin(_sway * 0.8 + global_position.x) * 0.012 + sin(_sway * 40.0) * 0.03 * _shake
 	draw_set_transform(Vector2(w * 0.5, 0), sway, Vector2.ONE)
 	draw_texture_rect(t, Rect2(-size.x * 0.5, -floor_px * s, size.x, size.y), false)
 	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)

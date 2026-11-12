@@ -943,6 +943,15 @@
    "prompt": "Jump  [Space]   hold to jump higher"
   },
   {
+   "type": "hint",
+   "x": 60,
+   "y": 28,
+   "w": 5,
+   "h": 5,
+   "text": "",
+   "prompt": "Strike  [J]   press again to string jab, cross and kick"
+  },
+  {
    "type": "lift",
    "x": 117,
    "y": 34,
@@ -1161,7 +1170,7 @@
    "h": 4,
    "text": "",
    "when": "knife",
-   "prompt": "Swing  [J]     hold Up to swing overhead"
+   "prompt": "Strike the roots to cut them  [J]"
   },
   {
    "type": "vine",

@@ -30,28 +30,32 @@ const LAYER_ONEWAY := 2
 const LAYER_ENEMY_HURTBOX := 32
 const LAYER_HAZARD := 64
 
-## Knife swings. Times in seconds; boxes are in pixels relative to the feet,
-## facing right. `chain` is the earliest moment the next swing may start.
+## Strikes, timed from the animation sheets (H16-H19, 60 ticks a second):
+## startup = the frames before contact, active = the contact frames,
+## recovery = the rest. Boxes are px from the feet, facing right, sized from
+## each contact frame's reach (assets/cowl/cowl_anim.json) plus a little
+## forgiveness. `chain` is the earliest moment the next strike may start.
+## Jab, cross and spin back kick are a string; the air kick is in the air.
 const ATTACKS := {
-	&"slash1": {
-		"startup": 0.06, "active": 0.09, "recovery": 0.17, "chain": 0.2,
-		"lunge": 2.4, "damage": 1, "knock": Vector2(5.5, -2.0),
-		"box": Rect2(6, -104, 132, 108), "ground": true,
+	&"jab": {
+		"startup": 3.0 / 60.0, "active": 3.0 / 60.0, "recovery": 11.0 / 60.0, "chain": 8.0 / 60.0,
+		"lunge": 2.2, "damage": 1, "knock": Vector2(4.5, -1.5),
+		"box": Rect2(6, -96, 74, 62), "ground": true, "next": &"cross", "window": 0.42,
 	},
-	&"slash2": {
-		"startup": 0.09, "active": 0.1, "recovery": 0.26, "chain": 0.34,
-		"lunge": 3.4, "damage": 2, "knock": Vector2(9.0, -4.5),
-		"box": Rect2(0, -150, 150, 160), "ground": true,
+	&"cross": {
+		"startup": 4.0 / 60.0, "active": 3.0 / 60.0, "recovery": 11.0 / 60.0, "chain": 9.0 / 60.0,
+		"lunge": 3.2, "damage": 1, "knock": Vector2(6.5, -2.5),
+		"box": Rect2(6, -98, 82, 66), "ground": true, "next": &"kick", "window": 0.45,
 	},
-	&"up": {
-		"startup": 0.06, "active": 0.1, "recovery": 0.18, "chain": 0.24,
-		"lunge": 0.0, "damage": 1, "knock": Vector2(1.5, -8.0),
-		"box": Rect2(-62, -214, 124, 136), "ground": false,
+	&"kick": {
+		"startup": 10.0 / 60.0, "active": 6.0 / 60.0, "recovery": 13.0 / 60.0, "chain": 29.0 / 60.0,
+		"lunge": 1.0, "damage": 2, "knock": Vector2(10.0, -4.5),
+		"box": Rect2(8, -84, 96, 70), "ground": true, "finisher": true,
 	},
 	&"air": {
-		"startup": 0.05, "active": 0.11, "recovery": 0.14, "chain": 0.22,
+		"startup": 2.0 / 60.0, "active": 9.0 / 60.0, "recovery": 7.0 / 60.0, "chain": 14.0 / 60.0,
 		"lunge": 0.0, "damage": 1, "knock": Vector2(6.0, -2.5),
-		"box": Rect2(0, -122, 138, 140), "ground": false,
+		"box": Rect2(6, -100, 90, 96), "ground": false,
 	},
 }
 
@@ -227,7 +231,7 @@ func _state_normal(delta: float) -> void:
 	if mag > 0.0 and _land_lock <= 0.0:
 		var top := config.run_px() if mag >= config.walk_threshold else config.walk_px()
 		target = signf(move_input) * top
-	if on_floor and swing_locked and ATTACKS[attack_kind]["ground"]:
+	if on_floor and swing_locked and ATTACKS.has(attack_kind) and ATTACKS[attack_kind]["ground"]:
 		target *= config.attack_move_mult
 	var time_to: float
 	if target == 0.0:
@@ -493,7 +497,7 @@ func is_invulnerable() -> bool:
 	return false
 
 
-# ====================================================================== knife
+# ==================================================================== strikes
 func _attack_phase() -> StringName:
 	if attack_time < 0.0:
 		return &""
@@ -514,19 +518,18 @@ func _update_attack(delta: float, on_floor: bool) -> void:
 		if attack_time >= a["startup"] + a["active"] + a["recovery"]:
 			attack_time = -1.0
 			attack_kind = &""
-	if _attack_buffer <= 0.0 or not Game.has_knife:
+	if _attack_buffer <= 0.0:
 		return
 	if attack_time >= 0.0 and attack_time < ATTACKS[attack_kind]["chain"]:
 		return
 	var kind: StringName
-	if look_input < -0.5:
-		kind = &"up"
-	elif not on_floor:
+	if not on_floor:
 		kind = &"air"
-	elif _last_attack == &"slash1" and _combo_time < 0.55:
-		kind = &"slash2"
 	else:
-		kind = &"slash1"
+		kind = &"jab"
+		if ATTACKS.has(_last_attack) and ATTACKS[_last_attack].has("next") \
+				and _combo_time < float(ATTACKS[_last_attack]["chain"]) + float(ATTACKS[_last_attack]["window"]):
+			kind = ATTACKS[_last_attack]["next"]
 	_start_attack(kind, on_floor)
 
 
@@ -547,7 +550,7 @@ func _start_attack(kind: StringName, on_floor: bool) -> void:
 	if on_floor and lunge > 0.0:
 		velocity.x = facing * maxf(absf(velocity.x) * 0.5, lunge * TILE)
 	attack_started.emit(kind)
-	Sfx.play(&"swing_heavy" if kind == &"slash2" else &"swing")
+	Sfx.play(&"swing_heavy" if kind == &"kick" else &"swing")
 
 
 func _cancel_attack() -> void:
@@ -595,12 +598,11 @@ func _swing_hits(a: Dictionary) -> void:
 			connected = true
 			attack_connected.emit(attack_kind, at)
 	if connected:
-		var heavy := attack_kind == &"slash2"
-		Game.hitstop(0.085 if heavy else 0.06)
-		Game.shake(0.3 if heavy else 0.18)
-		# The blow pushes back on the hand that made it.
-		if attack_kind != &"up":
-			velocity.x -= facing * (2.6 if is_on_floor() else 1.6) * TILE
+		var finisher: bool = a.get("finisher", false)
+		Game.hitstop(0.11 if finisher else (0.07 if attack_kind == &"cross" else 0.055))
+		Game.shake(0.4 if finisher else 0.18)
+		# The blow pushes back on the body that threw it.
+		velocity.x -= facing * (2.6 if is_on_floor() else 1.6) * TILE
 
 
 # ===================================================================== damage

@@ -110,6 +110,7 @@ L.entity("checkpoint", 24.3, F2, kind="bed", w=5, h=2)
 plate("bedroom", 20.3, F2)
 L.entity("hint", 21, F2, w=9, h=5, text="", when="asleep", prompt="Press any key")
 L.entity("hint", 28, F2, w=5, h=5, text="", prompt="Jump  [Space]   hold to jump higher")
+L.entity("hint", 60, F2, w=5, h=5, text="", prompt="Strike  [J]   press again to string jab, cross and kick")
 
 # --- Upstairs hallway: the floor has fallen into the dining room. -----------
 L.carve(50, 19, 36, 9)
@@ -257,7 +258,7 @@ dress((43, 52, 7, 2), "table_clutter")
 L.room("pantry", 36, 44, 24, 10, mood="pantry")
 L.entity("knife", 39.5, B1)
 L.entity("lever", 57.5, B1, lift="dumbwaiter", bound=True, name="V2b dumbwaiter (pantry)")
-L.entity("hint", 37, B1, w=6, h=4, text="", when="knife", prompt="Swing  [J]     hold Up to swing overhead")
+L.entity("hint", 37, B1, w=6, h=4, text="", when="knife", prompt="Strike the roots to cut them  [J]")
 door(60, B1)
 vine(60.5, B1, name="V5 pantry to storage")
 

@@ -43,6 +43,9 @@ func _find_lift() -> void:
 func take_hit(info: Dictionary) -> bool:
 	if not bound:
 		return false
+	if not Game.has_knife:
+		Sfx.play(&"locked")
+		return true
 	bound = false
 	_cut_fx = 1.0
 	_hurt.collision_layer = 0

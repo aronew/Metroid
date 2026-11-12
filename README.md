@@ -1,7 +1,7 @@
 # Cowl
 
 A 2D Metroidvania. This repository holds the first vertical slice: Cowl as a
-playable character, his movement and butcher-knife combat, and the mansion he
+playable character, his movement and hand-to-hand combat, and the mansion he
 wakes up in. Built in **Godot 4.6** (GL Compatibility renderer).
 
 ## Run it
@@ -29,7 +29,7 @@ godot --path . -- --level=lab
 | Jump (hold for height) | Space or Z | A |
 | Drop through a thin ledge | Down + Jump | Down + A |
 | Dodge | Shift, K or C | B, RB or RT |
-| Swing the knife | J or X (hold Up to swing overhead) | X |
+| Strike (press again: jab, cross, spin back kick; in the air: flying kick) | J or X | X |
 | Look / use | E or Enter | Y |
 | Peek up / down | hold W / S while standing | hold stick up / down |
 
@@ -38,11 +38,18 @@ the mansion and the lab, **F3** show collision, **F4** fly, **F5** give the knif
 
 ## What is in the slice
 
-- **Cowl**, built from the approved character mockup. The rig is the original
-  pixels cut into parts (`tools/build_cowl_parts.py`); nothing was redrawn.
-  Idle, walk, run, turn, jump, rise, fall, land, dodge, three knife swings,
-  air swing, hurt, death and waking are animated procedurally from the
-  controller's state, so the body always follows the physics.
+- **Cowl**, from the supplied animation sheets (H4-H20), cut and registered
+  by `tools/build_cowl_sprites.py`, drawn frame by frame. Clips: idle, chilled
+  idle, start, run, skid stop, turn, jump (with a forward flip on a full
+  jump), fall, landing and heavy landing, jab, cross, spin back kick, air
+  kick, the stance transitions, and two smoke breaks he takes if left
+  standing (blunt or bong, with snap-ready recoveries). Strike trails, impact
+  flashes, flares, soot and smoke come from the effect sheets (H12, H21-H23).
+  The animator (`game/player/cowl_rig.gd`) reads the controller every physics
+  tick, so the contact frame is on screen exactly while the hitbox is live.
+- **Combat** is hand to hand: jab, cross and spin back kick as a string, and
+  a flying kick. The butcher knife, found in the pantry, is what cuts the
+  roots that block doors and bind levers.
 - **The controller** (`game/player/cowl.gd`). Every number lives in one
   resource, `MovementConfig`, with three presets to compare in the lab.
 - **The mansion**: 20 named spaces on five levels, from the attic to the sealed
@@ -84,7 +91,8 @@ dresses the same data.
 ## Checks you can run
 
 ```bash
-python3 tools/build_kit.py          # cut the kit (then tools/build_knife.py for Cowl's knife)
+python3 tools/build_kit.py          # cut the environment kit
+python3 tools/build_cowl_sprites.py # cut Cowl's frames and effects
 python3 tools/mansion_layout.py     # rebuild the level data and the blockout drawings
 python3 tools/validate.py           # walk the mansion with the real controller (about 3 minutes)
 godot --headless --path . res://tests/feel_test.tscn    # measure the controller
@@ -98,11 +106,12 @@ lock-and-key plan and what the checks found.
 
 Stated plainly, so nothing here is mistaken for finished art:
 
-- **Cowl's animation** is a cut-out rig from the single front-facing
-  mockup. Side-view parts or frame animation would lift it most; see
-  `docs/kit-integration.md`.
-- **Creatures** (crawler, drifter) are ink silhouettes with lit eyes. No
-  creature art has been supplied yet.
-- **Hit effects and dust** are drawn in code.
+- **Dodge, hurt and death** have no drawn frames yet; they reuse run, fall
+  and heavy-landing frames with code motion. **Waking** reuses idle frames
+  laid on the bed.
+- **Creatures** (crawler, drifter) are ink silhouettes with lit eyes.
 - **Sound** is synthesised (`tools/build_sfx.py`). There is no music.
 - **Text** in the house is first-draft writing.
+
+See `docs/character-integration.md` for what each character sheet is used
+for, what was changed and what is still needed.
