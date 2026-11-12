@@ -28,7 +28,7 @@ BEFORE THE KNIFE  (740 standing spots; 740 with a cautious player)
   ok    no traps: every reachable spot can get back to the bedroom
   floor stood on: Cowl's bedroom 100%, upstairs hallway 100%, grand entrance hall 56%, sister's room 77%, kitchen 100%, dining room 100%, living room 100%, pantry 100%
 
-WITH THE KNIFE  (1720 standing spots; 1728 with a cautious player)
+WITH THE KNIFE  (1721 standing spots; 1727 with a cautious player)
   ok    reaches Cowl's bedroom (cautious player)
   ok    reaches upstairs hallway (cautious player)
   ok    reaches grand entrance hall (cautious player)

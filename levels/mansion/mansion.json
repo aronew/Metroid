@@ -315,27 +315,21 @@
    10
   ],
   [
-   18,
-   37,
-   6,
-   4
-  ],
-  [
    189,
    38,
    10,
    3
   ],
   [
-   182,
+   165,
    38,
    4,
    3
   ],
   [
-   165,
+   18,
    38,
-   4,
+   6,
    3
   ],
   [
@@ -348,6 +342,12 @@
    14,
    39,
    3,
+   2
+  ],
+  [
+   182,
+   39,
+   5,
    2
   ],
   [
@@ -1000,7 +1000,8 @@
    "w": 4,
    "h": 3,
    "text": "A ledger, swollen with damp. Most of it is in a code of his own.\nOne line is not: \"density is a choice the sphere makes for you.\"",
-   "interact": true
+   "interact": true,
+   "paper": "note"
   },
   {
    "type": "vine",
@@ -1033,7 +1034,8 @@
    "w": 6,
    "h": 4,
    "text": "Boxes of winter coats. Four of everything.",
-   "interact": true
+   "interact": true,
+   "paper": "letter"
   },
   {
    "type": "biome_door",
@@ -1135,7 +1137,8 @@
    "w": 6,
    "h": 4,
    "text": "His notes stop mid-word. The ink has had years to fade.",
-   "interact": true
+   "interact": true,
+   "paper": "note"
   },
   {
    "type": "knife",
@@ -1282,106 +1285,656 @@
  ],
  "props": [
   {
-   "sprite": "plate:bedroom",
+   "sprite": "frame",
+   "x": 18,
+   "y": 28,
+   "w": 2,
+   "h": 4
+  },
+  {
+   "sprite": "wreck",
+   "x": 32.85,
+   "y": 28.0,
+   "key": "wardrobe_toppled",
+   "rect": [
+    32.85,
+    25.739,
+    5.3,
+    2.261
+   ],
+   "mass": [
+    33,
+    26,
+    5,
+    2
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "wreck",
+   "x": 40.774033149171274,
+   "y": 28.0,
+   "key": "heap",
+   "rect": [
+    40.774,
+    23.591,
+    7.452,
+    4.409
+   ],
+   "mass": [
+    41,
+    25,
+    7,
+    3
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "plate",
    "x": 20.3,
    "y": 28,
-   "candles": [
-    [
-     680,
-     269
-    ]
-   ]
+   "key": "bedroom",
+   "width": 11.969,
+   "flip": false
   },
   {
-   "sprite": "plate:bedroom2",
+   "sprite": "wreck",
+   "x": 49.68260869565218,
+   "y": 28.0,
+   "key": "cabinet_tipped",
+   "rect": [
+    49.683,
+    24.739,
+    5.635,
+    3.261
+   ],
+   "mass": [
+    50,
+    25,
+    5,
+    3
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "frame",
+   "x": 86,
+   "y": 41,
+   "w": 2,
+   "h": 4
+  },
+  {
+   "sprite": "frame",
+   "x": 148,
+   "y": 41,
+   "w": 2,
+   "h": 4
+  },
+  {
+   "sprite": "frame",
+   "x": 148,
+   "y": 28,
+   "w": 2,
+   "h": 4
+  },
+  {
+   "sprite": "wreck",
+   "x": 158.82,
+   "y": 28.0,
+   "key": "bed_on_side",
+   "rect": [
+    158.82,
+    24.069,
+    6.36,
+    3.931
+   ],
+   "mass": [
+    159,
+    25,
+    6,
+    3
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "wreck",
+   "x": 169.9744318181818,
+   "y": 28.0,
+   "key": "wardrobe",
+   "rect": [
+    169.974,
+    20.977,
+    6.051,
+    7.023
+   ],
+   "mass": [
+    170,
+    22,
+    6,
+    6
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "plate",
    "x": 150.6,
    "y": 28,
-   "scale": 1.5,
-   "candles": [
-    [
-     113,
-     78
-    ],
-    [
-     432,
-     78
-    ]
-   ]
+   "key": "bedroom2",
+   "width": 11.719,
+   "flip": false
   },
   {
-   "sprite": "plate:bedroom2",
+   "sprite": "frame",
+   "x": 176,
+   "y": 28,
+   "w": 2,
+   "h": 4
+  },
+  {
+   "sprite": "wreck",
+   "x": 181.85,
+   "y": 41.0,
+   "key": "reading_table",
+   "rect": [
+    181.85,
+    38.745,
+    5.3,
+    2.255
+   ],
+   "mass": [
+    182,
+    39,
+    5,
+    2
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "wreck",
+   "x": 188.82,
+   "y": 41.0,
+   "key": "bookcase_leaning",
+   "rect": [
+    188.82,
+    33.861,
+    6.36,
+    7.139
+   ],
+   "mass": [
+    189,
+    35,
+    6,
+    6
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "wreck",
+   "x": 194.43255813953488,
+   "y": 41.0,
+   "key": "bookshelf_toppled",
+   "rect": [
+    194.433,
+    37.372,
+    5.135,
+    3.628
+   ],
+   "mass": [
+    195,
+    38,
+    4,
+    3
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "frame",
+   "x": 176,
+   "y": 41,
+   "w": 2,
+   "h": 4
+  },
+  {
+   "sprite": "frame",
+   "x": 206,
+   "y": 41,
+   "w": 2,
+   "h": 4
+  },
+  {
+   "sprite": "frame",
+   "x": 206,
+   "y": 28,
+   "w": 2,
+   "h": 4
+  },
+  {
+   "sprite": "wreck",
+   "x": 213.76,
+   "y": 28.0,
+   "key": "canopy_bed",
+   "rect": [
+    213.76,
+    25.011,
+    8.48,
+    2.989
+   ],
+   "mass": [
+    214,
+    26,
+    8,
+    2
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "plate",
    "x": 221.5,
    "y": 28,
-   "scale": 1.55,
-   "flip": true,
-   "candles": [
-    [
-     113,
-     78
-    ],
-    [
-     432,
-     78
-    ]
-   ]
+   "key": "bedroom2",
+   "width": 12.109,
+   "flip": true
   },
   {
-   "sprite": "plate:kitchen",
+   "sprite": "frame",
+   "x": 234,
+   "y": 28,
+   "w": 2,
+   "h": 4
+  },
+  {
+   "sprite": "frame",
+   "x": 234,
+   "y": 41,
+   "w": 2,
+   "h": 4
+  },
+  {
+   "sprite": "wreck",
+   "x": 185.15384615384616,
+   "y": 16.0,
+   "key": "trunks",
+   "rect": [
+    185.154,
+    11.462,
+    7.692,
+    4.538
+   ],
+   "mass": [
+    186,
+    13,
+    6,
+    3
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "wreck",
+   "x": 209.76,
+   "y": 16.0,
+   "key": "long_bench",
+   "rect": [
+    209.76,
+    13.91,
+    8.48,
+    2.09
+   ],
+   "mass": [
+    210,
+    14,
+    8,
+    2
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "wreck",
+   "x": 13.91,
+   "y": 41.0,
+   "key": "urn_planter",
+   "rect": [
+    13.91,
+    38.109,
+    3.18,
+    2.891
+   ],
+   "mass": [
+    14,
+    39,
+    3,
+    2
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "wreck",
+   "x": 17.82,
+   "y": 41.0,
+   "key": "root_window",
+   "rect": [
+    17.82,
+    36.817,
+    6.36,
+    4.183
+   ],
+   "mass": [
+    18,
+    38,
+    6,
+    3
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "wreck",
+   "x": 25.88,
+   "y": 41.0,
+   "key": "trough_planter",
+   "rect": [
+    25.88,
+    38.634,
+    4.24,
+    2.366
+   ],
+   "mass": [
+    26,
+    39,
+    4,
+    2
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "frame",
+   "x": 34,
+   "y": 41,
+   "w": 2,
+   "h": 4
+  },
+  {
+   "sprite": "plate",
    "x": 36.3,
    "y": 41,
-   "candles": [
-    [
-     785,
-     230
-    ]
-   ]
+   "key": "kitchen",
+   "width": 15.156,
+   "flip": false
   },
   {
-   "sprite": "plate:dining",
+   "sprite": "frame",
+   "x": 60,
+   "y": 41,
+   "w": 2,
+   "h": 4
+  },
+  {
+   "sprite": "wreck",
+   "x": 64.48,
+   "y": 41.0,
+   "key": "broken_beams",
+   "rect": [
+    64.48,
+    38.2,
+    7.04,
+    2.8
+   ],
+   "mass": [
+    65,
+    39,
+    6,
+    2
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "plate",
    "x": 71.2,
    "y": 41,
-   "candles": [
-    [
-     484,
-     129
-    ]
-   ]
+   "key": "dining",
+   "width": 13.875,
+   "flip": false
   },
   {
-   "sprite": "plate:living",
+   "sprite": "wreck",
+   "x": 164.43255813953488,
+   "y": 41.0,
+   "key": "bookshelf_toppled",
+   "rect": [
+    164.433,
+    37.372,
+    5.135,
+    3.628
+   ],
+   "mass": [
+    165,
+    38,
+    4,
+    3
+   ],
+   "flip": true
+  },
+  {
+   "sprite": "plate",
    "x": 150.4,
    "y": 41,
-   "candles": [
-    [
-     83,
-     411
-    ],
-    [
-     966,
-     365
-    ]
-   ]
+   "key": "living",
+   "width": 15.875,
+   "flip": false
   },
   {
-   "sprite": "plate:study",
+   "sprite": "plate",
    "x": 209,
    "y": 41,
-   "candles": [
-    [
-     343,
-     215
-    ]
-   ]
+   "key": "study",
+   "width": 16.859,
+   "flip": false
   },
   {
-   "sprite": "plate:storage",
+   "sprite": "wreck",
+   "x": 42.79,
+   "y": 54.0,
+   "key": "table_clutter",
+   "rect": [
+    42.79,
+    51.079,
+    7.42,
+    2.921
+   ],
+   "mass": [
+    43,
+    52,
+    7,
+    2
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "frame",
+   "x": 60,
+   "y": 54,
+   "w": 2,
+   "h": 4
+  },
+  {
+   "sprite": "wreck",
+   "x": 67.85,
+   "y": 54.0,
+   "key": "crates",
+   "rect": [
+    67.85,
+    50.949,
+    5.3,
+    3.051
+   ],
+   "mass": [
+    68,
+    51,
+    5,
+    3
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "wreck",
+   "x": 76.82,
+   "y": 54.0,
+   "key": "barrel_rack",
+   "rect": [
+    76.82,
+    47.771,
+    6.36,
+    6.229
+   ],
+   "mass": [
+    77,
+    48,
+    6,
+    6
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "wreck",
+   "x": 82.78275862068965,
+   "y": 54.0,
+   "key": "barrel",
+   "rect": [
+    82.783,
+    50.845,
+    3.434,
+    3.155
+   ],
+   "mass": [
+    83,
+    51,
+    3,
+    3
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "plate",
    "x": 62.2,
-   "y": 54
+   "y": 54,
+   "key": "storage",
+   "width": 12.5,
+   "flip": false
   },
   {
-   "sprite": "plate:flooded",
+   "sprite": "wreck",
+   "x": 97.32206896551725,
+   "y": 54.0,
+   "key": "vault_stone",
+   "rect": [
+    97.322,
+    50.855,
+    6.356,
+    3.145
+   ],
+   "mass": [
+    98,
+    51,
+    5,
+    3
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "plate",
    "x": 121.5,
-   "y": 54
+   "y": 54,
+   "key": "flooded",
+   "width": 16.016,
+   "flip": false
+  },
+  {
+   "sprite": "frame",
+   "x": 148,
+   "y": 54,
+   "w": 2,
+   "h": 4
+  },
+  {
+   "sprite": "wreck",
+   "x": 155.82,
+   "y": 54.0,
+   "key": "workbench",
+   "rect": [
+    155.82,
+    50.318,
+    6.36,
+    3.682
+   ],
+   "mass": [
+    156,
+    51,
+    6,
+    3
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "wreck",
+   "x": 165.85,
+   "y": 54.0,
+   "key": "engine",
+   "rect": [
+    165.85,
+    48.467,
+    5.3,
+    5.533
+   ],
+   "mass": [
+    166,
+    49,
+    5,
+    5
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "frame",
+   "x": 176,
+   "y": 54,
+   "w": 2,
+   "h": 4
+  },
+  {
+   "sprite": "wreck",
+   "x": 181.82,
+   "y": 54.0,
+   "key": "coal_bunker",
+   "rect": [
+    181.82,
+    50.593,
+    6.36,
+    3.407
+   ],
+   "mass": [
+    182,
+    51,
+    6,
+    3
+   ],
+   "flip": false
+  },
+  {
+   "sprite": "wreck",
+   "x": 193.76,
+   "y": 54.0,
+   "key": "boiler",
+   "rect": [
+    193.76,
+    45.803,
+    8.48,
+    8.197
+   ],
+   "mass": [
+    194,
+    47,
+    8,
+    7
+   ],
+   "flip": false
   },
   {
    "sprite": "candle",

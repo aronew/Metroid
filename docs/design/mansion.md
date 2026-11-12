@@ -152,6 +152,12 @@ ledge forgiveness). Latest result: `docs/mansion-walk-report.txt`.
   the library's fallen bookcase each had no way back over from the far side.
   Both got a second mass on that side.
 
+When the environment kit arrived, four masses were adjusted so the art fits
+them: the library's reading table (3 tiles high to 2), the conservatory's
+root (4 to 3), and the art over the library's book step and the living
+room's shelf. The mansion was walked again with no change in what is reached
+or held (`docs/kit-integration.md`).
+
 Measured composition: 84 collision rectangles for the whole house, 6 ramps,
 2 one-way pieces (under 1% of the standing room), 76% of floor in flat runs
 of 8 tiles or more, longest floor 85 tiles.

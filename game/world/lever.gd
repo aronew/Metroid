@@ -84,21 +84,29 @@ func _process(delta: float) -> void:
 	queue_redraw()
 
 
+## Kit art (W30, W31): a lever wrapped in roots until it is cut free; then
+## the iron lever, thrown when pulled. The chandelier's lever is its winch.
 func _draw() -> void:
-	draw_rect(Rect2(-16, -8, 32, 8), Pal.INK)
-	draw_rect(Rect2(-10, -40, 20, 34), Pal.INK)
-	var ang := lerpf(-0.6, 0.6, _thrown)
-	var tip := Vector2(0, -34) + Vector2(0, -52).rotated(ang)
-	draw_line(Vector2(0, -34), tip, Pal.INK_SOFT, 7.0, true)
-	draw_circle(tip, 9.0, Pal.LAVENDER if not bound else Pal.HAZE)
+	var key: String
+	var height := 100.0
 	if bound:
-		var rng := RandomNumberGenerator.new()
-		rng.seed = int(global_position.x)
-		for i in 6:
-			var pts := PackedVector2Array()
-			var x0 := rng.randf_range(-40.0, 40.0)
-			for k in 9:
-				var f := k / 8.0
-				pts.append(Vector2(x0 + sin(f * 5.0 + i + _t * 0.6) * 22.0, -118.0 + f * 122.0))
-			draw_polyline(pts, Pal.INK_SOFT, rng.randf_range(6.0, 13.0), true)
-			draw_polyline(pts, Pal.LEAF, 1.5, true)
+		key = "roots/lever_bound_crop"
+		height = 118.0
+	elif _lift != null and _lift.kind == "chandelier":
+		key = "machines/winch"
+		height = 112.0
+	else:
+		key = "machines/lever_down" if _thrown > 0.5 or (_lift != null and _at_lift()) else "machines/lever_up"
+	var t := Kit.tex(key)
+	if t == null:
+		return
+	var s := height / t.get_height()
+	var size := t.get_size() * s
+	draw_texture_rect(t, Rect2(-size.x * 0.5, -size.y + 2.0, size.x, size.y), false)
+	if _cut_fx > 0.0:
+		draw_circle(Vector2(0, -50), 60.0 * (1.0 - _cut_fx) + 10.0, Color(0.6, 0.95, 0.75, 0.25 * _cut_fx))
+
+
+func _at_lift() -> bool:
+	var here_is_top := absf(global_position.y - _lift.top_y) < absf(global_position.y - _lift.bottom_y)
+	return _lift.at_top == here_is_top and not _lift.moving

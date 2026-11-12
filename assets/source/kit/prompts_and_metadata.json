@@ -1,0 +1,182 @@
+[
+  {
+    "id": "W30_Root_Barriers",
+    "path": "/workspace/scratch/2d82d04aeb04/generated_images/exec-6a24e4cd-4286-43c3-9e95-18d7b76848f1.png",
+    "requested": "2048x2048",
+    "prompt": "Use case: stylized-concept. Finished hand-painted 2D Godot Metroidvania game art. Match attached buried-mansion canon: confident slightly varied 3\u20134px dark ink #07081A, slender organic Gothic details, painted forms with 2\u20133 soft value steps and restrained highlights. Soft washes, NOT sculpted bevels, realistic materials, gritty texture, flat cel art, pixel art, vector or 3D. Indigo/violet palette #0B0E20 #151834 #25254B #373869 #454076 #524D88 #6B609E #8A80BE; plum velvet #5E4182, roots #07081A. Strict orthographic SIDE ELEVATION no perspective, no vanishing point, no visible floor plane. Cool even ambient lighting; no cast shadows, glow or light rays. No red, purewhite, cyan unless explicitly requested below. 128px per tile. Transparent PNG background, actual alpha, NO scene, backdrop, fog rectangle, checkerboard, paper, grid, frame, border, text, numbers, logos, signatures. Each object complete and separate; no characters. Reference images are STYLE ONLY, do not reproduce rooms. Thin skeletal ink and quiet smooth painted shadows, readable silhouette.\nExact canvas2048x2048. 4columns2rows of512x1024 cells, invisible grid.8 assets in reading order.16pxcellpadding. In each tallcell doorway128wide512high centered with bottom localy960; roots extend128px to either side and above opening, no actual architectural doorway frame. Dark twisted roots #0B0E20\u2013#1B1F3A bluegreenleaves#1F4E52\u2013#3E7C78.1 thick woven root barrier leaves.2 different rootweave.3 older thicker barrier slight moss.4 same first barrier sliced clean diagonally across middle halves starting apart.5 its halves falling apart leaves scattering.6 only stubs at top andfloor emptymiddle.7 wider256px doorwayrootbarrier.8 ironlever shortpedestal192pxtall wrappedtight rootsleaves. Only roots except lever in8.",
+    "actual": "1254x1254",
+    "mode": "RGBA",
+    "transparent_pixels": 685470,
+    "partial_alpha_pixels": 886658
+  },
+  {
+    "id": "W31_Machines",
+    "path": "/workspace/scratch/2d82d04aeb04/generated_images/exec-8fcb51b7-eab1-47dc-a059-e72d7124e3db.png",
+    "requested": "2048x2048",
+    "prompt": "Use case: stylized-concept. Finished hand-painted 2D Godot Metroidvania game art. Match attached buried-mansion canon: confident slightly varied 3\u20134px dark ink #07081A, slender organic Gothic details, painted forms with 2\u20133 soft value steps and restrained highlights. Soft washes, NOT sculpted bevels, realistic materials, gritty texture, flat cel art, pixel art, vector or 3D. Indigo/violet palette #0B0E20 #151834 #25254B #373869 #454076 #524D88 #6B609E #8A80BE; plum velvet #5E4182, roots #07081A. Strict orthographic SIDE ELEVATION no perspective, no vanishing point, no visible floor plane. Cool even ambient lighting; no cast shadows, glow or light rays. No red, purewhite, cyan unless explicitly requested below. 128px per tile. Transparent PNG background, actual alpha, NO scene, backdrop, fog rectangle, checkerboard, paper, grid, frame, border, text, numbers, logos, signatures. Each object complete and separate; no characters. Reference images are STYLE ONLY, do not reproduce rooms. Thin skeletal ink and quiet smooth painted shadows, readable silhouette.\nExact2048x2048 transparent separatepieces minimum64pxgaps andedges. Nine pieces readingorder at128px/tile.1 wooden dumbwaiter512wide frame300high floorflat straight standingline ropesup.2 wroughtiron chandelierlift640wide broadLOWERring flatstraight walkableedge candlesUNLIT centerchainup.3 wallwinch irondrumcrankchain192tall.4 cageplatform512wide ironbars300high flattopofFLOOR standingline upperframe.5 leverup192tall onironpedestal.6 identicalleverdown.7 heavychain straight512long seamless topbottom.8 libraryhanginglampplatform384wide flatstraightTOP 2chains cagedglasstubebelow unlit.9 horizontalboilerpipe448long2wallbrackets flatstraightupperstandingline. Sparse elegant Gothic silhouettes no perspective.",
+    "actual": "1254x1254",
+    "mode": "RGBA",
+    "transparent_pixels": 1141706,
+    "partial_alpha_pixels": 429467
+  },
+  {
+    "id": "W32_Sealed_Doors",
+    "path": "/workspace/scratch/2d82d04aeb04/generated_images/exec-1aa58850-977d-44bc-bc03-e33e46bf4d37.png",
+    "requested": "2048x2048",
+    "prompt": "Use case: stylized-concept. Finished hand-painted 2D Godot Metroidvania game art. Match attached buried-mansion canon: confident slightly varied 3\u20134px dark ink #07081A, slender organic Gothic details, painted forms with 2\u20133 soft value steps and restrained highlights. Soft washes, NOT sculpted bevels, realistic materials, gritty texture, flat cel art, pixel art, vector or 3D. Indigo/violet palette #0B0E20 #151834 #25254B #373869 #454076 #524D88 #6B609E #8A80BE; plum velvet #5E4182, roots #07081A. Strict orthographic SIDE ELEVATION no perspective, no vanishing point, no visible floor plane. Cool even ambient lighting; no cast shadows, glow or light rays. No red, purewhite, cyan unless explicitly requested below. 128px per tile. Transparent PNG background, actual alpha, NO scene, backdrop, fog rectangle, checkerboard, paper, grid, frame, border, text, numbers, logos, signatures. Each object complete and separate; no characters. Reference images are STYLE ONLY, do not reproduce rooms. Thin skeletal ink and quiet smooth painted shadows, readable silhouette.\nExact2048x2048 transparent 3separatepieces64pxmargins. Lefttoright order1frontdoor768x1088 greatdoublewooddoors carvedGothicframe armthickroots earthpackedaroundframe; 2garagecorrugatedironshutter640x640 brickopening buckledinward underweight;3 labvault384wide896high tallplatemetalhousing withroundrivetedvaultdoor coldtealgray nohandle centerSMOOTH EMPTY smallsocket twohandsinsize. Faceonwall elevations ownfloorlines. Arrange widths768+640+384 gaps64 edges64 fits2048; objects no extra outerwall beyond dimensions.",
+    "actual": "1774x887",
+    "mode": "RGBA",
+    "transparent_pixels": 668966,
+    "partial_alpha_pixels": 903312
+  },
+  {
+    "id": "W33_Secret_Pieces",
+    "path": "/workspace/scratch/2d82d04aeb04/generated_images/exec-0d6b52ad-c7c6-4504-96bc-9ef9a7d7db12.png",
+    "requested": "2048x2048",
+    "prompt": "Use case: stylized-concept. Finished hand-painted 2D Godot Metroidvania game art. Match attached buried-mansion canon: confident slightly varied 3\u20134px dark ink #07081A, slender organic Gothic details, painted forms with 2\u20133 soft value steps and restrained highlights. Soft washes, NOT sculpted bevels, realistic materials, gritty texture, flat cel art, pixel art, vector or 3D. Indigo/violet palette #0B0E20 #151834 #25254B #373869 #454076 #524D88 #6B609E #8A80BE; plum velvet #5E4182, roots #07081A. Strict orthographic SIDE ELEVATION no perspective, no vanishing point, no visible floor plane. Cool even ambient lighting; no cast shadows, glow or light rays. No red, purewhite, cyan unless explicitly requested below. 128px per tile. Transparent PNG background, actual alpha, NO scene, backdrop, fog rectangle, checkerboard, paper, grid, frame, border, text, numbers, logos, signatures. Each object complete and separate; no characters. Reference images are STYLE ONLY, do not reproduce rooms. Thin skeletal ink and quiet smooth painted shadows, readable silhouette.\nExact2048x2048 transparent 5wholepieces64gaps edges.1 greenarched door460x806 vinesframe flatthin#BFCD5B showingedgesandunderdoor NOglow.2 same smalltwin294x499.3 verynarrow bookcasedoor128wide1280tall booksfaintedgeseam.4 verticalironpipewall512wide1280tall closepipes bracketsvalve hidinggap.5 crackedflagstonefloor512wide128high flatstraightwalkingtop deepcracks. Keepallscale exact; fit tall1280bookcaseandpipesidebyside withdoorsleft, floorsbottom, readingorder.",
+    "actual": "1774x887",
+    "mode": "RGBA",
+    "transparent_pixels": 928382,
+    "partial_alpha_pixels": 643599
+  },
+  {
+    "id": "W34_Interactables",
+    "path": "/workspace/scratch/2d82d04aeb04/generated_images/exec-87ff424b-2129-45ef-8270-ef49ba3a656a.png",
+    "requested": "2048x2048",
+    "prompt": "Use case: stylized-concept. Finished hand-painted 2D Godot Metroidvania game art. Match attached buried-mansion canon: confident slightly varied 3\u20134px dark ink #07081A, slender organic Gothic details, painted forms with 2\u20133 soft value steps and restrained highlights. Soft washes, NOT sculpted bevels, realistic materials, gritty texture, flat cel art, pixel art, vector or 3D. Indigo/violet palette #0B0E20 #151834 #25254B #373869 #454076 #524D88 #6B609E #8A80BE; plum velvet #5E4182, roots #07081A. Strict orthographic SIDE ELEVATION no perspective, no vanishing point, no visible floor plane. Cool even ambient lighting; no cast shadows, glow or light rays. No red, purewhite, cyan unless explicitly requested below. 128px per tile. Transparent PNG background, actual alpha, NO scene, backdrop, fog rectangle, checkerboard, paper, grid, frame, border, text, numbers, logos, signatures. Each object complete and separate; no characters. Reference images are STYLE ONLY, do not reproduce rooms. Thin skeletal ink and quiet smooth painted shadows, readable silhouette.\nExact2048x2048 transparent7separatepieces64pxgaps/edges.128px/tile.1 unlitrestcandle190pxtall onslenderironstand.2 SAMEcandle lit SMALLFLAT paleROSE#E6A8B2 flame NOhalo.3 thickscarredbutcherblock104pxwide broadcleaverbladeburiedtop.4 butcherknifealone154pxlong broadsteelbladeedgeDOWN darkwoodhandle.5 tornnotepagelyingfloor blank NOwriting.6 foldedletter blank NOwriting.7 darkwetlimestonestalagmites512wide128maxheight inshallowtrench. All sideelevation nofloorplane.",
+    "actual": "1774x887",
+    "mode": "RGBA",
+    "transparent_pixels": 1249960,
+    "partial_alpha_pixels": 322105
+  },
+  {
+    "id": "W35_Candles_And_Lamps",
+    "path": "/workspace/scratch/2d82d04aeb04/generated_images/exec-5c242d3c-e108-43f3-9886-bc312d6257d0.png",
+    "requested": "2048x2048",
+    "prompt": "Use case: stylized-concept. Finished hand-painted 2D Godot Metroidvania game art. Match attached buried-mansion canon: confident slightly varied 3\u20134px dark ink #07081A, slender organic Gothic details, painted forms with 2\u20133 soft value steps and restrained highlights. Soft washes, NOT sculpted bevels, realistic materials, gritty texture, flat cel art, pixel art, vector or 3D. Indigo/violet palette #0B0E20 #151834 #25254B #373869 #454076 #524D88 #6B609E #8A80BE; plum velvet #5E4182, roots #07081A. Strict orthographic SIDE ELEVATION no perspective, no vanishing point, no visible floor plane. Cool even ambient lighting; no cast shadows, glow or light rays. No red, purewhite, cyan unless explicitly requested below. 128px per tile. Transparent PNG background, actual alpha, NO scene, backdrop, fog rectangle, checkerboard, paper, grid, frame, border, text, numbers, logos, signatures. Each object complete and separate; no characters. Reference images are STYLE ONLY, do not reproduce rooms. Thin skeletal ink and quiet smooth painted shadows, readable silhouette.\nExact2048x2048 transparent8separatepieces readingorder64gaps edges.1 threebranchfloorwroughtironcandelabrum300tall.2 fivebranchstandingcandelabrumgrandertaller.3 wallsconcedoublecandles.4 clusterstubsonfloorsaucer pooledwax.5 singlecandle tarnishedholder onSMALLtable.6 Father'slamp cagedglasstubeonwallbracket coldpalecyan#B8EAF8inside FLAT nohalo.7 hangingironchandelier small chainup.8 toppledcandelabrumlyingfloorUNLIT. Lilacwax alluprightcandles tinyFLAT paleROSE#E6A8B2 flames nohalo noillumination. Keepthin elegant notbulky.",
+    "actual": "1254x1254",
+    "mode": "RGBA",
+    "transparent_pixels": 1163525,
+    "partial_alpha_pixels": 407541
+  },
+  {
+    "id": "W36_Candle_Flame_Loop",
+    "path": "/workspace/scratch/2d82d04aeb04/generated_images/exec-626f99df-3b5c-41c5-b315-8fb3c822eefc.png",
+    "requested": "2048x1024",
+    "prompt": "Use case: stylized-concept. Finished hand-painted 2D Godot Metroidvania game art. Match attached buried-mansion canon: confident slightly varied 3\u20134px dark ink #07081A, slender organic Gothic details, painted forms with 2\u20133 soft value steps and restrained highlights. Soft washes, NOT sculpted bevels, realistic materials, gritty texture, flat cel art, pixel art, vector or 3D. Indigo/violet palette #0B0E20 #151834 #25254B #373869 #454076 #524D88 #6B609E #8A80BE; plum velvet #5E4182, roots #07081A. Strict orthographic SIDE ELEVATION no perspective, no vanishing point, no visible floor plane. Cool even ambient lighting; no cast shadows, glow or light rays. No red, purewhite, cyan unless explicitly requested below. 128px per tile. Transparent PNG background, actual alpha, NO scene, backdrop, fog rectangle, checkerboard, paper, grid, frame, border, text, numbers, logos, signatures. Each object complete and separate; no characters. Reference images are STYLE ONLY, do not reproduce rooms. Thin skeletal ink and quiet smooth painted shadows, readable silhouette.\nExact2048x1024 transparent 4columns2rows512squarecells24padding.ONLYflames noobjects/nooutlines.8frames seamlessloop samebaseatlocal256,400 roughly220pxtall. Paintedteardrop WHITEcore paleROSE#E6A8B2body softedges NOglow NOhalos.1 uprightcalm6ticks;2tallerthintip6;3leanleft5;4lefttipsplittwo5;5shorterroundupright6;6leanright6;7tallcurlright5;8settling6returns1. Eachflame consistentvolumeanchor crispenergy wispyfadingedges. Noextralabels.",
+    "actual": "1774x887",
+    "mode": "RGBA",
+    "transparent_pixels": 928599,
+    "partial_alpha_pixels": 644939
+  },
+  {
+    "id": "W37_Hanging_Moss_Clumps",
+    "path": "/workspace/scratch/2d82d04aeb04/generated_images/exec-15e43745-553b-4e99-963c-a71902cf158e.png",
+    "requested": "2048x1024",
+    "prompt": "Use case: stylized-concept. Finished hand-painted 2D Godot Metroidvania game art. Match attached buried-mansion canon: confident slightly varied 3\u20134px dark ink #07081A, slender organic Gothic details, painted forms with 2\u20133 soft value steps and restrained highlights. Soft washes, NOT sculpted bevels, realistic materials, gritty texture, flat cel art, pixel art, vector or 3D. Indigo/violet palette #0B0E20 #151834 #25254B #373869 #454076 #524D88 #6B609E #8A80BE; plum velvet #5E4182, roots #07081A. Strict orthographic SIDE ELEVATION no perspective, no vanishing point, no visible floor plane. Cool even ambient lighting; no cast shadows, glow or light rays. No red, purewhite, cyan unless explicitly requested below. 128px per tile. Transparent PNG background, actual alpha, NO scene, backdrop, fog rectangle, checkerboard, paper, grid, frame, border, text, numbers, logos, signatures. Each object complete and separate; no characters. Reference images are STYLE ONLY, do not reproduce rooms. Thin skeletal ink and quiet smooth painted shadows, readable silhouette.\nExact2048x1024 transparent4columns2rows512squarecells.8clumps readingorder hangingFROMTOP ofeachcell, topedge exceptiontocellpadding; horizontallycentered. Nearestforeground blackviolet#04040A\u2013#15142C withonlyFAINTvioletedge darkvioletgraystrands fewblackroottendrils tapersoftpoints noleaves. Maxlength218px.1width60shortstrands.2width80onelongstrand.3width160mixedlengths.4width200mostlyshort.5width300raggedfringe.6width400twolongstrands.7singlelong40wideroottendrilslightmoss.8width480veryshortthinfringe. DoNOTfillwholecell, mostlytransparent.",
+    "actual": "1774x887",
+    "mode": "RGBA",
+    "transparent_pixels": 1407469,
+    "partial_alpha_pixels": 165180
+  },
+  {
+    "id": "W38_Moss_Sway_Loop",
+    "path": "/workspace/scratch/2d82d04aeb04/generated_images/exec-3b73b498-45b6-4689-9b17-3e315a9cd098.png",
+    "requested": "2048x1024",
+    "prompt": "Use case: stylized-concept. Finished hand-painted 2D Godot Metroidvania game art. Match attached buried-mansion canon: confident slightly varied 3\u20134px dark ink #07081A, slender organic Gothic details, painted forms with 2\u20133 soft value steps and restrained highlights. Soft washes, NOT sculpted bevels, realistic materials, gritty texture, flat cel art, pixel art, vector or 3D. Indigo/violet palette #0B0E20 #151834 #25254B #373869 #454076 #524D88 #6B609E #8A80BE; plum velvet #5E4182, roots #07081A. Strict orthographic SIDE ELEVATION no perspective, no vanishing point, no visible floor plane. Cool even ambient lighting; no cast shadows, glow or light rays. No red, purewhite, cyan unless explicitly requested below. 128px per tile. Transparent PNG background, actual alpha, NO scene, backdrop, fog rectangle, checkerboard, paper, grid, frame, border, text, numbers, logos, signatures. Each object complete and separate; no characters. Reference images are STYLE ONLY, do not reproduce rooms. Thin skeletal ink and quiet smooth painted shadows, readable silhouette.\nExact2048x1024 transparent EIGHTCOLUMNS ONEROW of256wide1024highcells.8frames SAME600pxtall narrowclumphangingmossandblackroots. Topattachmentfixedlocalx128y0; onlylowerhalfmoves. Blackviolet#04040A\u2013#15142C faintvioletedge noleaves. Eachframe16sidepadding no crossingcells. Softslow8ticksperframe.1straight;2lowerdriftright;3furthestrighttipcurl;4returnmiddle tipstrail;5straighttipsstillmoving;6driftleft;7furthestleftcurl;8returnforseamless1. No ceilingstrip no background.",
+    "actual": "1774x887",
+    "mode": "RGBA",
+    "transparent_pixels": 1200217,
+    "partial_alpha_pixels": 373015
+  },
+  {
+    "id": "W39_Decals",
+    "path": "/workspace/scratch/2d82d04aeb04/generated_images/exec-f65a8da0-a685-4b4c-a24e-0e3e58c24901.png",
+    "requested": "2048x2048",
+    "prompt": "Use case: stylized-concept. Finished hand-painted 2D Godot Metroidvania game art. Match attached buried-mansion canon: confident slightly varied 3\u20134px dark ink #07081A, slender organic Gothic details, painted forms with 2\u20133 soft value steps and restrained highlights. Soft washes, NOT sculpted bevels, realistic materials, gritty texture, flat cel art, pixel art, vector or 3D. Indigo/violet palette #0B0E20 #151834 #25254B #373869 #454076 #524D88 #6B609E #8A80BE; plum velvet #5E4182, roots #07081A. Strict orthographic SIDE ELEVATION no perspective, no vanishing point, no visible floor plane. Cool even ambient lighting; no cast shadows, glow or light rays. No red, purewhite, cyan unless explicitly requested below. 128px per tile. Transparent PNG background, actual alpha, NO scene, backdrop, fog rectangle, checkerboard, paper, grid, frame, border, text, numbers, logos, signatures. Each object complete and separate; no characters. Reference images are STYLE ONLY, do not reproduce rooms. Thin skeletal ink and quiet smooth painted shadows, readable silhouette.\nExact2048x2048 transparent8separatepieces64gaps margins readingorder. Softalphaedges NObackingwall/floorpanel.1verticalwallcrack256long;2dampstainceilingstreak384long;3topLEFTcornercobweb;4topRIGHTcornercobweb;5ceilingrootscreepdownwall384long bluegreenleaves#1F4E52\u2013#3E7C78;6lowrubbleplasterscatter384wideMAX20high;7fallenbooks256wideMAX20high;8brokenglass256wideMAX20high. Floorpiecesorthographicprofile noplane. Glassrestrainedvioletgray NOTwhite/cyan.",
+    "actual": "1774x887",
+    "mode": "RGBA",
+    "transparent_pixels": 1310333,
+    "partial_alpha_pixels": 262990
+  },
+  {
+    "id": "P_Bedroom",
+    "path": "/workspace/scratch/2d82d04aeb04/generated_images/exec-67644052-1074-4411-a5e5-7b63a08161db.png",
+    "requested": "1532x920",
+    "prompt": "Usecase: style-transfer. Repaint IMAGE1 TARGET at 1532x920 transparentPNG. Image2worldcanon STYLE ONLY. Preserve EXACT normalizedcomposition, ALL objectspositions proportions silhouettes cropping floorline, characterpose ifpresent. No invention, remodeling or extraobjects. Improve crisp delicate variable darkink#07081A and TWOOR THREE SOFTPAINTED value steps; subtle controlledsurfacetexture, NOheavycarvedbevels realisticmaterials grain, noflatcel or3Drender. Indigo/violet #151834 #25254B #373869 #454076 #524D88 highlights#6B609E\u2013#8A80BE plum#5E4182. Keepmidvioletbackgroundsoft; foregroundinkcrisp. FLATSMALLrose#E6A8B2flames no glowhalo. Preserveexistingbackgroundhazewithinplate, outsidefadeSMOOTHLY via translucentfeatheredalpha, NOT raggedpaintbrushpaperborder. Bottomedgefloorline. No text/writing/logos. Preserveonlyexistingcharacters, horizontalcyaneyes allowedonthem. Keep sourceoriginal atmosphere and sideview. Canopybed left, clocktablecenter, tallcandelabrumright. Nocharacters.",
+    "actual": "1617x972",
+    "mode": "RGBA",
+    "transparent_pixels": 157847,
+    "partial_alpha_pixels": 1413850
+  },
+  {
+    "id": "P_Bedroom2",
+    "path": "/workspace/scratch/2d82d04aeb04/generated_images/exec-75f28167-ce85-4149-b315-5265be903ead.png",
+    "requested": "1500x766",
+    "prompt": "Usecase: style-transfer. Repaint IMAGE1 TARGET at 1500x766 transparentPNG. Image2worldcanon STYLE ONLY. Preserve EXACT normalizedcomposition, ALL objectspositions proportions silhouettes cropping floorline, characterpose ifpresent. No invention, remodeling or extraobjects. Improve crisp delicate variable darkink#07081A and TWOOR THREE SOFTPAINTED value steps; subtle controlledsurfacetexture, NOheavycarvedbevels realisticmaterials grain, noflatcel or3Drender. Indigo/violet #151834 #25254B #373869 #454076 #524D88 highlights#6B609E\u2013#8A80BE plum#5E4182. Keepmidvioletbackgroundsoft; foregroundinkcrisp. FLATSMALLrose#E6A8B2flames no glowhalo. Preserveexistingbackgroundhazewithinplate, outsidefadeSMOOTHLY via translucentfeatheredalpha, NOT raggedpaintbrushpaperborder. Bottomedgefloorline. No text/writing/logos. Preserveonlyexistingcharacters, horizontalcyaneyes allowedonthem. Keep sourceoriginal atmosphere and sideview. Doublebedcenter flankingnightstands candles tallvaseleft. Nocharacters.",
+    "actual": "1755x896",
+    "mode": "RGBA",
+    "transparent_pixels": 238033,
+    "partial_alpha_pixels": 1334447
+  },
+  {
+    "id": "P_Kitchen",
+    "path": "/workspace/scratch/2d82d04aeb04/generated_images/exec-1a449171-a7be-4b21-b741-16832d193945.png",
+    "requested": "1940x820",
+    "prompt": "Usecase: style-transfer. Repaint IMAGE1 TARGET at 1940x820 transparentPNG. Image2worldcanon STYLE ONLY. Preserve EXACT normalizedcomposition, ALL objectspositions proportions silhouettes cropping floorline, characterpose ifpresent. No invention, remodeling or extraobjects. Improve crisp delicate variable darkink#07081A and TWOOR THREE SOFTPAINTED value steps; subtle controlledsurfacetexture, NOheavycarvedbevels realisticmaterials grain, noflatcel or3Drender. Indigo/violet #151834 #25254B #373869 #454076 #524D88 highlights#6B609E\u2013#8A80BE plum#5E4182. Keepmidvioletbackgroundsoft; foregroundinkcrisp. FLATSMALLrose#E6A8B2flames no glowhalo. Preserveexistingbackgroundhazewithinplate, outsidefadeSMOOTHLY via translucentfeatheredalpha, NOT raggedpaintbrushpaperborder. Bottomedgefloorline. No text/writing/logos. Preserveonlyexistingcharacters, horizontalcyaneyes allowedonthem. Keep sourceoriginal atmosphere and sideview. Mother charcoalshadowfolk headscarf apron stirringbowl exactpose. Preservepansovenworkbenchforegroundcolumns.",
+    "actual": "1928x815",
+    "mode": "RGBA",
+    "transparent_pixels": 81387,
+    "partial_alpha_pixels": 1489933
+  },
+  {
+    "id": "P_Dining",
+    "path": "/workspace/scratch/2d82d04aeb04/generated_images/exec-d181b7a4-4095-4ec1-aa43-4a3eb0cb8a21.png",
+    "requested": "1776x1004",
+    "prompt": "Usecase: style-transfer. Repaint IMAGE1 TARGET at 1776x1004 transparentPNG. Image2worldcanon STYLE ONLY. Preserve EXACT normalizedcomposition, ALL objectspositions proportions silhouettes cropping floorline, characterpose ifpresent. No invention, remodeling or extraobjects. Improve crisp delicate variable darkink#07081A and TWOOR THREE SOFTPAINTED value steps; subtle controlledsurfacetexture, NOheavycarvedbevels realisticmaterials grain, noflatcel or3Drender. Indigo/violet #151834 #25254B #373869 #454076 #524D88 highlights#6B609E\u2013#8A80BE plum#5E4182. Keepmidvioletbackgroundsoft; foregroundinkcrisp. FLATSMALLrose#E6A8B2flames no glowhalo. Preserveexistingbackgroundhazewithinplate, outsidefadeSMOOTHLY via translucentfeatheredalpha, NOT raggedpaintbrushpaperborder. Bottomedgefloorline. No text/writing/logos. Preserveonlyexistingcharacters, horizontalcyaneyes allowedonthem. Keep sourceoriginal atmosphere and sideview. Sibling charcoalshadowfolk at diningtable holdingcandelabrum exactpose and ball. Preservechairsrailingsfloor.",
+    "actual": "1668x943",
+    "mode": "RGBA",
+    "transparent_pixels": 84657,
+    "partial_alpha_pixels": 1488267
+  },
+  {
+    "id": "P_Living",
+    "path": "/workspace/scratch/2d82d04aeb04/generated_images/exec-081220e6-bbbd-43b9-9b12-b41f6e20d660.png",
+    "requested": "2032x1062",
+    "prompt": "Usecase: style-transfer. Repaint IMAGE1 TARGET at 2032x1062 transparentPNG. Image2worldcanon STYLE ONLY. Preserve EXACT normalizedcomposition, ALL objectspositions proportions silhouettes cropping floorline, characterpose ifpresent. No invention, remodeling or extraobjects. Improve crisp delicate variable darkink#07081A and TWOOR THREE SOFTPAINTED value steps; subtle controlledsurfacetexture, NOheavycarvedbevels realisticmaterials grain, noflatcel or3Drender. Indigo/violet #151834 #25254B #373869 #454076 #524D88 highlights#6B609E\u2013#8A80BE plum#5E4182. Keepmidvioletbackgroundsoft; foregroundinkcrisp. FLATSMALLrose#E6A8B2flames no glowhalo. Preserveexistingbackgroundhazewithinplate, outsidefadeSMOOTHLY via translucentfeatheredalpha, NOT raggedpaintbrushpaperborder. Bottomedgefloorline. No text/writing/logos. Preserveonlyexistingcharacters, horizontalcyaneyes allowedonthem. Keep sourceoriginal atmosphere and sideview. Preservecurtainleftwindows vasesofa familyportraits tables candleholders. Nocharacters.",
+    "actual": "1735x906",
+    "mode": "RGBA",
+    "transparent_pixels": 107852,
+    "partial_alpha_pixels": 1463995
+  },
+  {
+    "id": "P_Study",
+    "path": "/workspace/scratch/2d82d04aeb04/generated_images/exec-929c27f5-6e0c-46c0-8145-159fb4b20c3e.png",
+    "requested": "2048x816",
+    "prompt": "Usecase: style-transfer. Repaint IMAGE1 TARGET at 2048x816 transparentPNG. Image2worldcanon STYLE ONLY. Preserve EXACT normalizedcomposition, ALL objectspositions proportions silhouettes cropping floorline, characterpose ifpresent. No invention, remodeling or extraobjects. Improve crisp delicate variable darkink#07081A and TWOOR THREE SOFTPAINTED value steps; subtle controlledsurfacetexture, NOheavycarvedbevels realisticmaterials grain, noflatcel or3Drender. Indigo/violet #151834 #25254B #373869 #454076 #524D88 highlights#6B609E\u2013#8A80BE plum#5E4182. Keepmidvioletbackgroundsoft; foregroundinkcrisp. FLATSMALLrose#E6A8B2flames no glowhalo. Preserveexistingbackgroundhazewithinplate, outsidefadeSMOOTHLY via translucentfeatheredalpha, NOT raggedpaintbrushpaperborder. Bottomedgefloorline. No text/writing/logos. Preserveonlyexistingcharacters, horizontalcyaneyes allowedonthem. Keep sourceoriginal atmosphere and sideview. Father shadowfolk roundglasseswritingdesk exactlysamepose. Preservearmillaryleft bookshelfbackground framedobjectandladderright.",
+    "actual": "1985x792",
+    "mode": "RGBA",
+    "transparent_pixels": 51427,
+    "partial_alpha_pixels": 1520693
+  },
+  {
+    "id": "P_Storage",
+    "path": "/workspace/scratch/2d82d04aeb04/generated_images/exec-ab424c6e-3d5a-4596-b61f-b3ad6cea04e3.png",
+    "requested": "1600x960",
+    "prompt": "Usecase: style-transfer. Repaint IMAGE1 TARGET at 1600x960 transparentPNG. Image2worldcanon STYLE ONLY. Preserve EXACT normalizedcomposition, ALL objectspositions proportions silhouettes cropping floorline, characterpose ifpresent. No invention, remodeling or extraobjects. Improve crisp delicate variable darkink#07081A and TWOOR THREE SOFTPAINTED value steps; subtle controlledsurfacetexture, NOheavycarvedbevels realisticmaterials grain, noflatcel or3Drender. Indigo/violet #151834 #25254B #373869 #454076 #524D88 highlights#6B609E\u2013#8A80BE plum#5E4182. Keepmidvioletbackgroundsoft; foregroundinkcrisp. FLATSMALLrose#E6A8B2flames no glowhalo. Preserveexistingbackgroundhazewithinplate, outsidefadeSMOOTHLY via translucentfeatheredalpha, NOT raggedpaintbrushpaperborder. Bottomedgefloorline. No text/writing/logos. Preserveonlyexistingcharacters, horizontalcyaneyes allowedonthem. Keep sourceoriginal atmosphere and sideview. Preservesixbarrels centralcolumn crate foregroundblackrootandfloor. Nocharacters.",
+    "actual": "1619x972",
+    "mode": "RGBA",
+    "transparent_pixels": 23820,
+    "partial_alpha_pixels": 1549848
+  },
+  {
+    "id": "P_Flooded",
+    "path": "/workspace/scratch/2d82d04aeb04/generated_images/exec-8d2e2494-1ab4-4ad2-b0ca-2fc6c417c5d7.png",
+    "requested": "2048x1060",
+    "prompt": "Usecase: style-transfer. Repaint IMAGE1 TARGET at 2048x1060 transparentPNG. Image2worldcanon STYLE ONLY. Preserve EXACT normalizedcomposition, ALL objectspositions proportions silhouettes cropping floorline, characterpose ifpresent. No invention, remodeling or extraobjects. Improve crisp delicate variable darkink#07081A and TWOOR THREE SOFTPAINTED value steps; subtle controlledsurfacetexture, NOheavycarvedbevels realisticmaterials grain, noflatcel or3Drender. Indigo/violet #151834 #25254B #373869 #454076 #524D88 highlights#6B609E\u2013#8A80BE plum#5E4182. Keepmidvioletbackgroundsoft; foregroundinkcrisp. FLATSMALLrose#E6A8B2flames no glowhalo. Preserveexistingbackgroundhazewithinplate, outsidefadeSMOOTHLY via translucentfeatheredalpha, NOT raggedpaintbrushpaperborder. Bottomedgefloorline. No text/writing/logos. Preserveonlyexistingcharacters, horizontalcyaneyes allowedonthem. Keep sourceoriginal atmosphere and sideview. Preserveforegroundcolumnleft recedingGothicarchhaze water#566FA5 softreflections distantarch leftdebris rightrockroot. Nocharacters. Retain sourcecompositionspatialdepth withoutaddingvisibleperspectivefloor.",
+    "actual": "1742x903",
+    "mode": "RGBA",
+    "transparent_pixels": 113309,
+    "partial_alpha_pixels": 1459713
+  }
+]

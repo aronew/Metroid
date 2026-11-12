@@ -4,7 +4,6 @@ extends StaticBody2D
 
 var w := 64.0
 var h := 256.0
-var _strands: Array = []
 var _sway := 0.0
 var _shake := 0.0
 var _cut := false
@@ -37,15 +36,6 @@ func _ready() -> void:
 	_hurt.add_child(hcs)
 	_hurt.position = Vector2.ZERO
 	add_child(_hurt)
-	var rng := RandomNumberGenerator.new()
-	rng.seed = int(global_position.x * 7.0 + global_position.y)
-	for i in 9:
-		_strands.append({
-			"x": rng.randf_range(-0.25, 1.25) * w, "amp": rng.randf_range(8.0, 26.0),
-			"freq": rng.randf_range(1.2, 2.6), "ph": rng.randf_range(0.0, TAU),
-			"thick": rng.randf_range(7.0, 20.0), "leaves": rng.randi_range(2, 5),
-			"seed": rng.randi(),
-		})
 
 
 func take_hit(info: Dictionary) -> bool:
@@ -63,40 +53,30 @@ func take_hit(info: Dictionary) -> bool:
 
 func _process(delta: float) -> void:
 	_sway += delta
-	_shake = maxf(_shake - delta * 4.0, 0.0)
 	if _cut:
 		_fall += delta
-		if _fall > 0.7:
-			queue_free()
 	queue_redraw()
 
 
+## The kit's root barrier (W30): a woven barrier, then on the cut the sliced
+## frame, the halves falling, and the stubs that stay. The cell is scaled so
+## its doorway is this opening: four tiles high, its floor on ours.
 func _draw() -> void:
-	var drop := _fall * _fall * 1500.0
-	var alpha := clampf(1.0 - _fall / 0.7, 0.0, 1.0)
-	for s: Dictionary in _strands:
-		var pts := PackedVector2Array()
-		var n := 14
-		var rng := RandomNumberGenerator.new()
-		rng.seed = s["seed"]
-		for i in n + 1:
-			var f := float(i) / n
-			var x: float = s["x"] + sin(f * TAU * s["freq"] + s["ph"] + _sway * 0.7) * s["amp"] * (0.3 + f)
-			var y := -h + f * (h + 8.0)
-			if _cut:
-				# Severed about a third of the way down: the top stays, the rest falls.
-				if f > 0.3:
-					y += drop * (0.6 + rng.randf() * 0.6)
-					x += float(s["amp"]) * _fall * 3.0 * (rng.randf() - 0.5)
-			pts.append(Vector2(x, y))
-		var col := Pal.INK_SOFT
-		col.a = alpha if _cut else 1.0
-		draw_polyline(pts, col, s["thick"], true)
-		var hi := Pal.LEAF
-		hi.a = 0.8 * col.a
-		draw_polyline(pts, hi, 2.0, true)
-		for j in int(s["leaves"]):
-			var p: Vector2 = pts[rng.randi_range(2, n - 1)]
-			var a := rng.randf_range(-1.2, 1.2)
-			var leaf := PackedVector2Array([p, p + Vector2(18, -6).rotated(a), p + Vector2(34, 2).rotated(a), p + Vector2(16, 9).rotated(a)])
-			draw_colored_polygon(leaf, Color(Pal.LEAF.r, Pal.LEAF.g, Pal.LEAF.b, col.a))
+	var key := _variant()
+	if _cut:
+		key = "roots/cut_0" if _fall < 0.1 else ("roots/cut_1" if _fall < 0.42 else "roots/cut_2")
+	var t := Kit.tex(key)
+	if t == null:
+		return
+	var floor_px: float = Kit.meta("roots/barrier_a")["floor"]
+	var s := h / (floor_px * 0.53)
+	var size := t.get_size() * s
+	var sway := 0.0 if _cut else sin(_sway * 0.8 + global_position.x) * 0.012
+	draw_set_transform(Vector2(w * 0.5, 0), sway, Vector2.ONE)
+	draw_texture_rect(t, Rect2(-size.x * 0.5, -floor_px * s, size.x, size.y), false)
+	draw_set_transform(Vector2.ZERO, 0.0, Vector2.ONE)
+
+
+func _variant() -> String:
+	var k := int(absf(global_position.x / 64.0)) % 3
+	return ["roots/barrier_a", "roots/barrier_b", "roots/barrier_c"][k]

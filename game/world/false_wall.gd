@@ -29,18 +29,12 @@ func _process(delta: float) -> void:
 	modulate.a = _a
 
 
+## Kit art (W33): the bank of pipes behind the boiler, in front of the play.
 func _draw() -> void:
-	var rng := RandomNumberGenerator.new()
-	rng.seed = 77
-	var x := 6.0
-	while x < w - 6.0:
-		var pw := rng.randf_range(16.0, 38.0)
-		draw_rect(Rect2(x, -h, pw, h), Pal.INK)
-		draw_line(Vector2(x + 3, -h), Vector2(x + 3, 0), Color(Pal.EDGE.r, Pal.EDGE.g, Pal.EDGE.b, 0.7), 2.0)
-		for k in 3:
-			var y := -rng.randf_range(0.1, 0.95) * h
-			draw_rect(Rect2(x - 4, y, pw + 8, 12), Pal.INK)
-		x += pw + rng.randf_range(4.0, 14.0)
+	var t := Kit.tex("doors/pipe_wall")
+	if t == null:
+		return
+	draw_texture_rect(t, Rect2(0, -h, w, h), false, Color(0.75, 0.75, 0.85))
 	# A breath of cold light through the gaps: the tell.
 	for i in 5:
 		var y := -h * (0.15 + 0.17 * i)
