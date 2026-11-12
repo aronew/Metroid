@@ -3,13 +3,14 @@ SLICE MECHANICS TEST
   ok    stays asleep until a key is pressed
   ok    wakes and stands under the player's control
   ok    roots across the bedroom's west door stop him (x 19.8)
-  ok    no swing without the knife
+  ok    bare-handed strikes do not cut the roots
+  ok    and the roots still hold the door
   ok    the knife in the pantry offers itself
   ok    taking it gives Cowl the knife
   ok    the dumbwaiter is held by roots
-  ok    one swing cuts the roots on the pantry door
-  ok    and he walks through the doorway toward storage (x 61.9)
-  ok    the knife wounds a crawler
+  ok    with the knife, one strike cuts the roots on the pantry door
+  ok    and he walks through the doorway toward storage (x 65.7)
+  ok    a strike wounds a crawler
   ok    and a second blow kills it
   ok    touching a crawler hurts (health 3)
   ok    cutting the lever's roots frees the mechanism
@@ -18,7 +19,7 @@ SLICE MECHANICS TEST
   ok    and rides it up to the kitchen (y 41.00)
   ok    staying on the deck the whole way (worst gap 5.8 px)
   ok    the stalagmites cost one health (health 4)
-  ok    and put him back on the edge he left (x 115.1)
+  ok    and put him back on the edge he left (x 114.4)
   ok    the lift waits at the laboratory level
   ok    it carries him up to the study (y 41.00)
   ok    and the bookcase opens from behind

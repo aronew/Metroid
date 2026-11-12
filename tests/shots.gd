@@ -46,13 +46,16 @@ func _physics_process(_delta: float) -> void:
 			_inp.any_pressed = _frame == int(_cur.get("wake_at", -1))
 			if _frame == int(_cur.get("stop_at", -1)):
 				_inp.move = 0.0
+			if _frame == int(_cur.get("move2_at", -1)):
+				_inp.move = float(_cur.get("move2", 0.0))
 		if _left == 0:
 			_busy = true
 			var shot_name: String = _cur["name"]
 			await RenderingServer.frame_post_draw
 			var img := get_viewport().get_texture().get_image()
 			img.save_png("%s/%s.png" % [out_dir, shot_name])
-			print("shot ", shot_name)
+			var rg: Node = cowl.get_node("Rig")
+			print("shot ", shot_name, " clip=", rg.get("clip"), " f=", rg.get("frame"), " idle=%.2f" % rg.get("_idle_time"), " state=", cowl.state)
 			_busy = false
 		return
 	_i += 1
@@ -78,5 +81,9 @@ func _physics_process(_delta: float) -> void:
 	_inp.look = float(_cur.get("look", 0.0))
 	_inp.jump_held = bool(_cur.get("jump_held", true))
 	cowl.sim_input = _inp
+	if _cur.has("rig_set"):
+		var rig: Node = cowl.get_node("Rig")
+		for k: String in _cur["rig_set"]:
+			rig.set(k, _cur["rig_set"][k])
 	if _cur.has("zoom"):
 		main.get("camera").set("base_zoom", float(_cur["zoom"]))

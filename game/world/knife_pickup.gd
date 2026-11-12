@@ -22,7 +22,7 @@ func interact(_cowl: Cowl) -> void:
 	Game.hitstop(0.12)
 	Game.shake(0.3)
 	Sfx.play(&"pickup")
-	Game.say("The butcher knife. Heavier than it looks, and it has kept its edge.", 4.0)
+	Game.say("The butcher knife. Heavier than it looks, and it has kept its edge. Roots will not stop you now.", 4.5)
 	queue_redraw()
 
 

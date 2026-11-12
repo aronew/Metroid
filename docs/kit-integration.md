@@ -100,19 +100,8 @@ They are cut and ready (`docs/kit-pieces.png`).
 
 In order of how much each would lift the slice:
 
-1. **Cowl, drawn to move.** He is still a cut-out rig made from one
-   front-facing mockup, so his run, swings and turns are limited by that
-   pose. Most useful would be a side-view (or three-quarter) **part sheet**:
-   - head with beanie;
-   - torso;
-   - upper and lower arms, and fists;
-   - thighs, shins and feet;
-   - shorts, front and back.
-
-   Draw it at the kit's scale, with joints overlapping, so the rig can bend
-   him properly. The fuller option is frame animation. Idle, run, jump
-   (rise, apex, fall), land, turn, dodge, two ground slashes, an overhead
-   swing, an air swing, hurt, death and the wake-up from bed.
+1. **Cowl, drawn to move.** Supplied on 12 November; see
+   `docs/character-integration.md`.
 2. **Creatures.** Two exist in play with placeholder ink art: a low
    crawler that patrols, rears and charges, and a floating drifter. Each
    needs these frames:

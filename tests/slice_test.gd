@@ -81,9 +81,16 @@ func _run() -> void:
 	inp.move = -1.0
 	await frames(60)
 	check(cowl.global_position.x > 19.5 * T, "roots across the bedroom's west door stop him (x %.1f)" % (cowl.global_position.x / T))
-	inp.attack_pressed = true
-	await frames(10)
-	check(cowl.attack_time < 0.0, "no swing without the knife")
+	await put(20.6, 28.0, -1)
+	var v1 := named("vine", "V1")
+	await swing()
+	Engine.time_scale = 1.0
+	check(is_instance_valid(v1) and not v1.get(&"_cut"), "bare-handed strikes do not cut the roots")
+	await put(22.0, 28.0, -1)
+	inp.move = -1.0
+	await frames(40)
+	inp.move = 0.0
+	check(cowl.global_position.x > 19.5 * T, "and the roots still hold the door")
 
 	# --- the knife ---------------------------------------------------------
 	await put(41.0, 54.0)
@@ -96,12 +103,12 @@ func _run() -> void:
 	check((named("lift", "dumbwaiter") as Lift).locked, "the dumbwaiter is held by roots")
 
 	# --- cutting through ---------------------------------------------------
-	await put(58.5, 54.0, 1)
+	await put(59.6, 54.0, 1)
 	var vine := named("vine", "V5")
 	await swing()
 	Engine.time_scale = 1.0
 	await frames(50)
-	check(not is_instance_valid(vine) or vine.get(&"_cut"), "one swing cuts the roots on the pantry door")
+	check(not is_instance_valid(vine) or vine.get(&"_cut"), "with the knife, one strike cuts the roots on the pantry door")
 	inp.move = 1.0
 	await frames(50)
 	inp.move = 0.0
@@ -113,7 +120,7 @@ func _run() -> void:
 	var hp_before := cowl.health
 	await swing()
 	Engine.time_scale = 1.0
-	check(crawler.get(&"health") < 2, "the knife wounds a crawler")
+	check(crawler.get(&"health") < 2, "a strike wounds a crawler")
 	for i in 4:
 		if is_instance_valid(crawler) and not crawler.get(&"_dead"):
 			await put(crawler.global_position.x / T - 1.4, crawler.global_position.y / T, 1)
